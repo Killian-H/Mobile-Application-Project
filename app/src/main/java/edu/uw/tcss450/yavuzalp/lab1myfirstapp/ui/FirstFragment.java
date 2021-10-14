@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,5 +45,9 @@ public class FirstFragment extends Fragment {
 
     private void processMessage() {
         final String message = mBinding.editMessage.getText().toString();
-        Log.d("MESSAGE", message); }
+        Log.d("MESSAGE", message);
+        FirstFragmentDirections.ActionFirstFragmentToSecondFragment directions = FirstFragmentDirections.actionFirstFragmentToSecondFragment(message);
+        Navigation.findNavController(getView()).navigate(directions);
+
+    }
 }

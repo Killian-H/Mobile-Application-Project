@@ -9,5 +9,18 @@
         android:id="@+id/firstFragment"
         android:name="edu.uw.tcss450.yavuzalp.lab1myfirstapp.ui.FirstFragment"
         android:label="fragment_first"
-        tools:layout="@layout/fragment_first" />
+        tools:layout="@layout/fragment_first" >
+        <action
+            android:id="@+id/action_firstFragment_to_secondFragment"
+            app:destination="@id/secondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/secondFragment"
+        android:name="edu.uw.tcss450.yavuzalp.lab1myfirstapp.ui.SecondFragment"
+        android:label="fragment_second"
+        tools:layout="@layout/fragment_second" >
+        <argument
+            android:name="message"
+            app:argType="string" />
+    </fragment>
 </navigation>

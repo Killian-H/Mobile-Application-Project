@@ -16,30 +16,30 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("Lifecycle:","onStart");
+        Log.d("Lifecycle: Killian","onStart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i("Lifecycle:","onResume");
+        Log.i("Lifecycle: Killian","onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.w("Lifecycle:","onPause");
+        Log.w("Lifecycle: Killian","onPause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.v("Lifecycle:","onStop");
+        Log.v("Lifecycle: Killian","onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e("Lifecycle:","onDestroy");
+        Log.e("Lifecycle: Killian","onDestroy");
     }
 }

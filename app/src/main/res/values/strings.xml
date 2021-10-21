@@ -2,6 +2,7 @@
     <string name="app_name">Lab 1 My First App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_tues_test">Hello Tues Test</string>
     <string name="edit_first_message_hint">Enter a message</string>
     <string name="test_fragment">Pull this :)</string>
     <string name="button_first_send">Send</string>

@@ -1,4 +1,4 @@
-package edu.uw.tcss450.yavuzalp.lab1myfirstapp;
+package edu.uw.tcss450.group7.chatapp;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("edu.uw.tcss450.yavuzalp.lab1myfirstapp", appContext.getPackageName());
+        assertEquals("edu.uw.tcss450.group7.chatapp", appContext.getPackageName());
     }
 }

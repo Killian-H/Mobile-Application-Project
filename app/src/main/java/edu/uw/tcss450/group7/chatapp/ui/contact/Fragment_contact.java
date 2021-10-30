@@ -1,4 +1,4 @@
-package edu.uw.tcss450.group7.chatapp.ui.first;
+package edu.uw.tcss450.group7.chatapp.ui.contact;
 
 import android.os.Bundle;
 
@@ -12,10 +12,8 @@ import edu.uw.tcss450.group7.chatapp.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_first#newInstance} factory method to
- * create an instance of this fragment.
  */
-public class Fragment_first extends Fragment {
+public class Fragment_contact extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -1,4 +1,4 @@
-package edu.uw.tcss450.group7.chatapp.ui.third;
+package edu.uw.tcss450.group7.chatapp.ui.weather;
 
 import android.os.Bundle;
 
@@ -12,10 +12,10 @@ import edu.uw.tcss450.group7.chatapp.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_third#newInstance} factory method to
+ * Use the {@link Fragment_weather#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_third extends Fragment {
+public class Fragment_weather extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class Fragment_third extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Fragment_third() {
+    public Fragment_weather() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class Fragment_third extends Fragment {
      * @return A new instance of fragment Fragmeent_third.
      */
     // TODO: Rename and change types and number of parameters
-    public static Fragment_third newInstance(String param1, String param2) {
-        Fragment_third fragment = new Fragment_third();
+    public static Fragment_weather newInstance(String param1, String param2) {
+        Fragment_weather fragment = new Fragment_weather();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

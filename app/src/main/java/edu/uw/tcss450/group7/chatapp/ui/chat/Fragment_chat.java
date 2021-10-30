@@ -1,4 +1,4 @@
-package edu.uw.tcss450.group7.chatapp.ui.second;
+package edu.uw.tcss450.group7.chatapp.ui.chat;
 
 import android.os.Bundle;
 
@@ -14,7 +14,7 @@ import edu.uw.tcss450.group7.chatapp.R;
  * A simple {@link Fragment} subclass.
 
  */
-public class Fragment_second extends Fragment {
+public class Fragment_chat extends Fragment {
 
 
 

@@ -1,4 +1,4 @@
-package edu.uw.tcss450.yavuzalp.lab1myfirstapp;
+package edu.uw.tcss450.group7.chatapp;
 
 import org.junit.Test;
 

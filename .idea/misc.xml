@@ -3,12 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/activity_main.xml" value="0.276268115942029" />
-        <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_first.xml" value="0.28306159420289856" />
-        <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_second.xml" value="0.28306159420289856" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.25" />
+        <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/activity_auth.xml" value="0.1" />
       </map>
     </option>
   </component>

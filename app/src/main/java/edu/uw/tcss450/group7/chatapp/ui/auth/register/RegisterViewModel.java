@@ -1,3 +1,7 @@
+/*
+ * TCSS 450
+ * View model for the register.
+ */
 package edu.uw.tcss450.group7.chatapp.ui.auth.register;
 
 import android.app.Application;
@@ -21,6 +25,14 @@ import org.json.JSONObject;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
+/**
+ * Class creating a view model for the registration.
+ *
+ * @author Charles Bryan
+ * @author Troy Zon
+ * @author Zheng Zhong
+ * Commented by: Killian Hickey
+ */
 public class RegisterViewModel extends AndroidViewModel {
 
     private MutableLiveData<JSONObject> mResponse;

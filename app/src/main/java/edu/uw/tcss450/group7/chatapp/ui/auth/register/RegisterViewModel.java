@@ -35,19 +35,38 @@ import java.util.Objects;
  */
 public class RegisterViewModel extends AndroidViewModel {
 
+    // The response from the web service.
     private MutableLiveData<JSONObject> mResponse;
 
+    /**
+     * Overloaded constructor calling it's parent. Initializes mResponse
+     * and assigns it a new JSON value.
+     *
+     * @param application The application the view model is connected to.
+     */
     public RegisterViewModel(@NonNull Application application) {
         super(application);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
 
+    /**
+     * Listener for responses from the server when the user starts the registration process.
+     *
+     * @param owner Handles life cycles changes without the need for code inside this
+     *              view model.
+     * @param observer Listens for responses from the server.
+     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mResponse.observe(owner, observer);
     }
 
+    /**
+     * Handles server errors received from the web service.
+     *
+     * @param error The error thrown by parsing the JSON object.
+     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -72,6 +91,14 @@ public class RegisterViewModel extends AndroidViewModel {
         }
     }
 
+    /**
+     * Connects to the auth endpoint of the web server in an attempt
+     * to register the user.
+     * @param first First name provided by the user.
+     * @param last Last name provided by the user.
+     * @param email Email provided by the user.
+     * @param password Password provided by the user.
+     */
     public void connect(final String first,
                         final String last,
                         final String email,

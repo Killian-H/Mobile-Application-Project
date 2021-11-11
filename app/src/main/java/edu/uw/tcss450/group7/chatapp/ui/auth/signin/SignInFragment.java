@@ -73,8 +73,10 @@ public class SignInFragment extends Fragment {
                 this::observeResponse);
 
         edu.uw.tcss450.group7.chatapp.ui.auth.signin.SignInFragmentArgs args = edu.uw.tcss450.group7.chatapp.ui.auth.signin.SignInFragmentArgs.fromBundle(getArguments());
-        binding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());
-        binding.editPassword.setText(args.getPassword().equals("default") ? "" : args.getPassword());
+        //binding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());
+        binding.editEmail.setText("zhong4475@gmail.com");
+        binding.editPassword.setText("test123@");
+        //binding.editPassword.setText(args.getPassword().equals("default") ? "" : args.getPassword());
     }
 
     private void attemptSignIn(final View button) {

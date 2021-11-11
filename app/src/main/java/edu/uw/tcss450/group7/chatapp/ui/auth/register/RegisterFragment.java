@@ -222,6 +222,8 @@ public class RegisterFragment extends Fragment {
         directions.setEmail(binding.editEmail.getText().toString());
         directions.setPassword(binding.editPassword1.getText().toString());
 
+
+
         Navigation.findNavController(getView()).navigate(directions);
 
     }

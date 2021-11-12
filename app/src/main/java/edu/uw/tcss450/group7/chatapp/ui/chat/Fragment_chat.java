@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentChatBinding;
-import edu.uw.tcss450.group7.chatapp.ui.contact.Fragment_contactDirections;
+//import edu.uw.tcss450.group7.chatapp.ui.contact.Fragment_contactDirections;
 
 /**
  * A simple {@link Fragment} subclass.

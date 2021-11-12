@@ -20,6 +20,16 @@
         <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_sign_in.xml" value="1.0" />
         <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_weather.xml" value="0.36666666666666664" />
+        <entry key="app/src/main/res/drawable/ic_more_grey_24dp.xml" value="0.16041666666666668" />
+        <entry key="app/src/main/res/layout/fragment_blog_card.xml" value="0.14361702127659576" />
+        <entry key="app/src/main/res/layout/fragment_blog_list.xml" value="0.23233695652173914" />
+        <entry key="app/src/main/res/layout/fragment_blog_post.xml" value="0.23233695652173914" />
+        <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_contact.xml" value="0.23233695652173914" />
+        <entry key="app/src/main/res/layout/fragment_contact_card.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_contact_list.xml" value="0.15833333333333333" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.22871376811594202" />
+        <entry key="app/src/main/res/layout/fragment_new_contact.xml" value="0.22871376811594202" />
         <entry key="..\:/java/Mobile-Application-Project/app/src/main/res/layout/activity_settings.xml" value="0.2046875" />
         <entry key="..\:/java/Mobile-Application-Project/app/src/main/res/layout/fragment_settings.xml" value="0.2826086956521739" />
         <entry key="..\:/java/Mobile-Application-Project/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2046875" />

@@ -12,7 +12,7 @@
         android:id="@+id/layout_inner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.ContactFragment">
+        tools:context=".ui.NewContactFragment">
 
         <TextView
             android:id="@+id/text_title"

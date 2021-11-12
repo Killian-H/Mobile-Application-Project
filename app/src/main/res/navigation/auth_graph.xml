@@ -47,4 +47,5 @@
             android:name="jwt"
             app:argType="string" />
     </activity>
+
 </navigation>

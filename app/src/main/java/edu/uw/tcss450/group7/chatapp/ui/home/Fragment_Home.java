@@ -60,7 +60,7 @@ public class Fragment_Home extends Fragment {
 
         if (id == R.id.action_settings) {
             Navigation.findNavController(getView()).navigate(
-                    Fragment_HomeDirections.actionNavigationHomeToNavigationSettings());
+                    Fragment_HomeDirections.actionNavigationHomeToSettingsActivity());
 
         }
 

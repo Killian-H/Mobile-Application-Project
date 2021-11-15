@@ -19,6 +19,7 @@
         android:hint="@string/hint_email"
         android:inputType="textEmailAddress"
         android:text="uwnetid5@fake.email.com"
+        android:textColor="#9E9E9E"
         app:layout_constraintBottom_toTopOf="@+id/guideline_fifty"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -42,6 +43,7 @@
         android:importantForAutofill="no"
         android:inputType="textPassword"
         android:text="test5"
+        android:textColor="#9E9E9E"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline_fifty" />

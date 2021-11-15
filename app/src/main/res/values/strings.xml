@@ -9,6 +9,9 @@
     <string name="action_register_short">Register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="style_change">Change Style</string>
+    <string name="black_yellow">Black and Yellow</string>
+    <string name="uw_colors">Go Huskies xD</string>
+    <string name="apply_settings">Apply</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_home">Home</string>

@@ -13,12 +13,6 @@ import java.io.Serializable;
  */
 public class Contact implements Serializable {
 
-    private final String mPubDate;
-    private final String mTitle;
-    private final String mUrl;
-    private final String mTeaser;
-    private final String mAuthor;
-
     private final int mMemberId;
     private final String mFirstName;
     private final String mLastName;
@@ -30,11 +24,6 @@ public class Contact implements Serializable {
      * @author Charles Bryan
      */
     public static class Builder {
-        private final String mPubDate;
-        private final String mTitle;
-        private  String mUrl = "";
-        private  String mTeaser = "";
-        private  String mAuthor = "";
         private int mMemberId = -1;
         private String mFirstName = "TestFname";
         private String mLastName = "TestLname";
@@ -44,43 +33,34 @@ public class Contact implements Serializable {
         /**
          * Constructs a new Builder.
          *
-         * @param pubDate the published date of the blog post
-         * @param title the title of the blog post
+         * @param firstName the first name of the Contact.
+         * @param lastName the last name of the Contact.
          */
-        public Builder(String pubDate, String title) {
-            this.mPubDate = pubDate;
-            this.mTitle = title;
+        public Builder(String firstName, String lastName) {
+            this.mFirstName = firstName;
+            this.mLastName = lastName;
         }
 
         /**
-         * Add an optional url for the full blog post.
-         * @param val an optional url for the full blog post
-         * @return the Builder of this BlogPost
+         * Add an optional email for the Contact.
+         * @param email an email for the Contact
+         * @return the Builder of this Contact
          */
-        public Builder addUrl(final String val) {
-            mUrl = val;
+        public Builder addEmail(final String email) {
+            mEmail = email;
             return this;
         }
 
         /**
-         * Add an optional teaser for the full blog post.
-         * @param val an optional url teaser for the full blog post.
-         * @return the Builder of this BlogPost
+         * Add an member id to contact
+         * @param id an member id for the contact
+         * @return the Builder of this Contact
          */
-        public Builder addTeaser(final String val) {
-            mTeaser = val;
+        public Builder addMemberId(final int id) {
+            mMemberId = id;
             return this;
         }
 
-        /**
-         * Add an optional author of the blog post.
-         * @param val an optional author of the blog post.
-         * @return the Builder of this BlogPost
-         */
-        public Builder addAuthor(final String val) {
-            mAuthor = val;
-            return this;
-        }
 
         public Contact build() {
             return new Contact(this);
@@ -89,35 +69,10 @@ public class Contact implements Serializable {
     }
 
     private Contact(final Builder builder) {
-        this.mPubDate = builder.mPubDate;
-        this.mTitle = builder.mTitle;
-        this.mUrl = builder.mUrl;
-        this.mTeaser = builder.mTeaser;
-        this.mAuthor = builder.mAuthor;
         this.mMemberId = builder.mMemberId;
         this.mFirstName = builder.mFirstName;
         this.mLastName = builder.mLastName;
         this.mEmail = builder.mEmail;
-    }
-
-    public String getPubDate() {
-        return mPubDate;
-    }
-
-    public String getTitle() {
-        return mTitle;
-    }
-
-    public String getUrl() {
-        return mUrl;
-    }
-
-    public String getTeaser() {
-        return mTeaser;
-    }
-
-    public String getAuthor() {
-        return mAuthor;
     }
 
     public Integer getMemberId() {
@@ -130,6 +85,11 @@ public class Contact implements Serializable {
 
     public String getLastName() {
         return mLastName;
+    }
+
+
+    public String getFullName() {
+        return mLastName + ", " + mFirstName;
     }
 
     public String getEmail() {

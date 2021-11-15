@@ -69,10 +69,7 @@ public class ContactsViewModel extends AndroidViewModel {
                                 jsonContact.getString(
                                         getString.apply(
                                                 R.string.keys_json_contacts_title)))
-                                .addTeaser(jsonContact.getString(
-                                        getString.apply(
-                                                R.string.keys_json_contacts_teaser)))
-                                .addUrl(jsonContact.getString(
+                                .addEmail(jsonContact.getString(
                                         getString.apply(
                                                 R.string.keys_json_contacts_url)))
                                 .build();

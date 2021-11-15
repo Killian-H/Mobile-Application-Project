@@ -54,7 +54,7 @@ public class ContactListFragment extends Fragment {
         if (view instanceof RecyclerView) {
             //Try out a grid layout to achieve rows AND columns. Adjust the widths of the
             //cards on display
-            ((RecyclerView) view).setLayoutManager(new GridLayoutManager(getContext(), 2));
+//            ((RecyclerView) view).setLayoutManager(new GridLayoutManager(getContext(), 2));
 
             //Try out horizontal scrolling. Adjust the widths of the card so that it is
             //obvious that there are more cards in either direction. i.e. don't have the cards

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="keys_json_contacts_response">response</string>
+    <string name="keys_json_contacts_data">data</string>
+    <string name="keys_json_contacts_pubdate">pubdate</string>
+    <string name="keys_json_contacts_title">title</string>
+    <string name="keys_json_contacts_teaser">teaser</string>
+    <string name="keys_json_contacts_url">url</string>
+</resources>

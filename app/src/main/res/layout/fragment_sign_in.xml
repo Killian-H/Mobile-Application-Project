@@ -2,10 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layoiut_root"
+    android:id="@+id/layout_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.auth.signin.SignInFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_fifty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
 
     <EditText
         android:id="@+id/edit_email"
@@ -23,13 +30,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_fifty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
-
     <EditText
         android:id="@+id/edit_password"
         android:layout_width="0dp"
@@ -46,6 +46,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline_fifty" />
+
+    <ImageView
+        android:id="@+id/tea_time_imageview"
+        android:layout_width="102dp"
+        android:layout_height="79dp"
+        android:maxWidth="42dp"
+        android:maxHeight="42dp"
+        android:src="@drawable/tea_time_logo_v1"
+        app:layout_constraintBottom_toTopOf="@+id/edit_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_sign_in"
@@ -68,5 +80,7 @@
         android:textColor="@color/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_password" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

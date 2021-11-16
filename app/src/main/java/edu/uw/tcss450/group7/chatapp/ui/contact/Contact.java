@@ -14,9 +14,11 @@ import java.io.Serializable;
 public class Contact implements Serializable {
 
     private final int mMemberId;
+    private final String mUserName;
     private final String mFirstName;
     private final String mLastName;
     private final String mEmail;
+    private final int mVerified;
 
     /**
      * Helper class for building Credentials.
@@ -25,9 +27,11 @@ public class Contact implements Serializable {
      */
     public static class Builder {
         private int mMemberId = -1;
+        private String mUserName = "TestUserName";
         private String mFirstName = "TestFname";
         private String mLastName = "TestLname";
         private String mEmail = "TestEmail";
+        private int mVerified = -1;
 
 
         /**
@@ -51,6 +55,10 @@ public class Contact implements Serializable {
             return this;
         }
 
+        public Builder addUserName(final String userName) {
+            mUserName = userName;
+            return this;
+        }
         /**
          * Add an member id to contact
          * @param id an member id for the contact
@@ -61,6 +69,10 @@ public class Contact implements Serializable {
             return this;
         }
 
+        public Builder addVerified(final int verified) {
+            mVerified = verified;
+            return this;
+        }
 
         public Contact build() {
             return new Contact(this);
@@ -70,9 +82,11 @@ public class Contact implements Serializable {
 
     private Contact(final Builder builder) {
         this.mMemberId = builder.mMemberId;
+        this.mUserName = builder.mUserName;
         this.mFirstName = builder.mFirstName;
         this.mLastName = builder.mLastName;
         this.mEmail = builder.mEmail;
+        this.mVerified = builder.mVerified;
     }
 
     public Integer getMemberId() {

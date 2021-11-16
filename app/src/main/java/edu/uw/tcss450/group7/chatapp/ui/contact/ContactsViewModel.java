@@ -52,37 +52,39 @@ public class ContactsViewModel extends AndroidViewModel {
                 getApplication().getResources()::getString;
         try {
             JSONObject root = result;
-            if (root.has(getString.apply(R.string.keys_json_contacts_response))) {
-                JSONObject response =
-                        root.getJSONObject(getString.apply(
-                                R.string.keys_json_contacts_response));
-                if (response.has(getString.apply(R.string.keys_json_contacts_data))) {
-                    JSONArray data = response.getJSONArray(
+                if (root.has(getString.apply(R.string.keys_json_contacts_data))) {
+                    JSONArray data = root.getJSONArray(
                             getString.apply(R.string.keys_json_contacts_data));
 
                     for(int i = 0; i < data.length(); i++) {
                         JSONObject jsonContact = data.getJSONObject(i);
-                        edu.uw.tcss450.group7.chatapp.ui.contact.Contact post = new edu.uw.tcss450.group7.chatapp.ui.contact.Contact.Builder(
+                        edu.uw.tcss450.group7.chatapp.ui.contact.Contact contact = new edu.uw.tcss450.group7.chatapp.ui.contact.Contact.Builder(
                                 jsonContact.getString(
                                         getString.apply(
-                                                R.string.keys_json_contacts_pubdate)),
+                                                R.string.keys_json_contacts_firstname)),
                                 jsonContact.getString(
                                         getString.apply(
-                                                R.string.keys_json_contacts_title)))
+                                                R.string.keys_json_contacts_lastname)))
                                 .addEmail(jsonContact.getString(
                                         getString.apply(
-                                                R.string.keys_json_contacts_url)))
+                                                R.string.keys_json_contacts_email)))
+                                .addUserName(jsonContact.getString(
+                                        getString.apply(
+                                                R.string.keys_json_contacts_username)))
+                                .addMemberId(jsonContact.getInt(
+                                        getString.apply(
+                                                R.string.keys_json_contacts_memberid)))
+                                .addVerified(jsonContact.getInt(
+                                        getString.apply(
+                                                R.string.keys_json_contacts_verified)))
                                 .build();
-                        if (!mContactList.getValue().contains(post)) {
-                            mContactList.getValue().add(post);
+                        if (!mContactList.getValue().contains(contact)) {
+                            mContactList.getValue().add(contact);
                         }
                     }
                 } else {
                     Log.e("ERROR!", "No data array");
                 }
-            } else {
-                Log.e("ERROR!", "No response");
-            }
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -90,9 +92,9 @@ public class ContactsViewModel extends AndroidViewModel {
         }
         mContactList.setValue(mContactList.getValue());
     }
-    public void connectGet() {
-        String url =
-                "https://cfb3-tcss450-labs-2021sp.herokuapp.com/phish/blog/get";
+    public void connectGet(final String jwt) {
+        String url = getApplication().getResources().getString(R.string.base_url) +
+                "contact";
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -103,7 +105,7 @@ public class ContactsViewModel extends AndroidViewModel {
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 // add headers <key,value>
-                headers.put("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InV3bmV0aWQyQGZha2UuZW1haWwuY29tIiwibWVtYmVyaWQiOjEyMTcsImlhdCI6MTYzNTIwMzI0MSwiZXhwIjoxNjQzODQzMjQxfQ.BA02IgpIT8xLWQ_-b1Su909vfie3si2PpU5B-8sxVZk");
+                headers.put("Authorization", jwt);
                 return headers;
             }
         };

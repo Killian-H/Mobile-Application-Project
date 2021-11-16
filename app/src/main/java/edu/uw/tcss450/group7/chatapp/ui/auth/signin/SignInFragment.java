@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentSignInBinding;
+import edu.uw.tcss450.group7.chatapp.model.UserInfoViewModel;
 import edu.uw.tcss450.group7.chatapp.utils.PasswordValidator;
 
 /**
@@ -30,6 +31,7 @@ public class SignInFragment extends Fragment {
 
     private FragmentSignInBinding binding;
     private SignInViewModel mSignInModel;
+    private UserInfoViewModel mUserViewModel;
 
     private PasswordValidator mEmailValidator = checkPwdLength(2)
             .and(checkExcludeWhiteSpace())
@@ -135,6 +137,13 @@ public class SignInFragment extends Fragment {
                 }
             } else {
                 try {
+                    mUserViewModel = new ViewModelProvider(getActivity(),
+                            new UserInfoViewModel.UserInfoViewModelFactory(
+                                    binding.editEmail.getText().toString(),
+                                    response.getString("token")
+                            )).get(UserInfoViewModel.class);
+                    Log.d("sign", mUserViewModel.toString());
+                    Log.d("sign", mUserViewModel.getmJwt());
                     navigateToSuccess(
                             binding.editEmail.getText().toString(),
                             response.getString("token")

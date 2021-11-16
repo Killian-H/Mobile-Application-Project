@@ -20,4 +20,7 @@
     <string name = "test_chat">chat</string>
     <string name = "test_weather">weather</string>
 
+
+    <string name="base_url" >https://mobile-application-project-450.herokuapp.com/</string>
+
 </resources>

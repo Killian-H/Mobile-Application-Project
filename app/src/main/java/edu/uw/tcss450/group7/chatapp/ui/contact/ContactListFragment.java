@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentContactListBinding;
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentContactListBinding;
+import edu.uw.tcss450.group7.chatapp.model.UserInfoViewModel;
 import edu.uw.tcss450.group7.chatapp.ui.home.Fragment_HomeDirections;
 
 /**
@@ -34,6 +35,7 @@ import edu.uw.tcss450.group7.chatapp.ui.home.Fragment_HomeDirections;
  */
 public class ContactListFragment extends Fragment {
     private ContactsViewModel mModel;
+    private UserInfoViewModel mUserModel;
 
     public ContactListFragment() {
         // Required empty public constructor
@@ -42,8 +44,10 @@ public class ContactListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mModel = new ViewModelProvider(getActivity()).get(ContactsViewModel.class);
-        mModel.connectGet();
+        ViewModelProvider provider = new ViewModelProvider(getActivity());
+        mUserModel = provider.get(UserInfoViewModel.class);
+        mModel = provider.get(ContactsViewModel.class);
+        mModel.connectGet(mUserModel.getmJwt());
         setHasOptionsMenu(true);
     }
 

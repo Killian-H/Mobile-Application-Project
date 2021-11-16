@@ -48,6 +48,7 @@ public class ContactsViewModel extends AndroidViewModel {
         throw new IllegalStateException(error.getMessage());
     }
     private void handleResult(final JSONObject result) {
+        ArrayList<Contact> temp= new ArrayList<>();
         IntFunction<String> getString =
                 getApplication().getResources()::getString;
         try {
@@ -78,8 +79,8 @@ public class ContactsViewModel extends AndroidViewModel {
                                         getString.apply(
                                                 R.string.keys_json_contacts_verified)))
                                 .build();
-                        if (!mContactList.getValue().contains(contact)) {
-                            mContactList.getValue().add(contact);
+                        if (!temp.contains(contact)) {
+                            temp.add(contact);
                         }
                     }
                 } else {
@@ -90,11 +91,11 @@ public class ContactsViewModel extends AndroidViewModel {
             e.printStackTrace();
             Log.e("ERROR!", e.getMessage());
         }
-        mContactList.setValue(mContactList.getValue());
+        mContactList.setValue(temp);
     }
     public void connectGet(final String jwt) {
         String url = getApplication().getResources().getString(R.string.base_url) +
-                "contact";
+                "contacts";
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,

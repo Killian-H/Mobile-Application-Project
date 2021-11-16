@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_contact.xml" value="0.20260416666666667" />
+        <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_contact_card.xml" value="0.33" />
+        <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_contact_list.xml" value="0.2635416666666667" />
+        <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_new_contact.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/activity_main.xml" value="0.132" />
         <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/activity_settings.xml" value="0.21829710144927536" />
         <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_chat.xml" value="0.13020833333333334" />

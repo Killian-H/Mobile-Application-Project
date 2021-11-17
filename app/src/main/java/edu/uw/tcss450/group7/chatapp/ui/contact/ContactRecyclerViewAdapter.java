@@ -71,7 +71,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
             });
 
             binding.textName.setText(contact.getFirstName() + " " + contact.getLastName());
-            binding.textEmail.setText("Email: " + contact.getEmail());
+            binding.textEmail.setText(contact.getEmail());
         }
     }
 

@@ -50,7 +50,6 @@ public class ContactFragment extends Fragment {
 
         binding.textPreview.setText(args.getContact().getEmail());
 
-
         //Note we are using an Intent here to start the default system web browser
 //        binding.buttonUrl.setOnClickListener(button ->
 //                startActivity(new Intent(Intent.ACTION_VIEW,

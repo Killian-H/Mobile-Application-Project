@@ -57,20 +57,21 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
             super(view);
             mView = view;
             binding = FragmentContactCardBinding.bind(view);
+
         }
 
 
 
         void setContact(final Contact contact) {
             mContact = contact;
-            binding.buttonContactDetails.setOnClickListener(view -> {
+            mView.setOnClickListener(view -> {
                 Navigation.findNavController(mView).navigate(
                         ContactListFragmentDirections
                                 .actionNavigationContactToContactFragment(contact));
             });
 
-            binding.textTitle.setText(contact.getFirstName() + " " + contact.getLastName());
-            binding.textPreview.setText("Email: " + contact.getEmail());
+            binding.textName.setText(contact.getFirstName() + " " + contact.getLastName());
+            binding.textEmail.setText("Email: " + contact.getEmail());
         }
     }
 

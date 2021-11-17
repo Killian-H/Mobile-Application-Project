@@ -3,20 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_root"
+    android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    app:cardCornerRadius="5dp">
+    app:cardBackgroundColor="@color/primaryColor"
+    android:layout_margin="5px"
+    app:cardCornerRadius="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_inner"
+        android:color="@color/primaryColor"
         android:layout_width="match_parent"
         android:layout_height="105dp"
         app:layout_constraintBottom_toTopOf="@+id/text_title"
         app:layout_constraintTop_toTopOf="@+id/text_title">
 
         <TextView
-            android:id="@+id/text_title"
+            android:id="@+id/text_name"
             android:layout_width="323dp"
             android:layout_height="0dp"
             android:layout_marginTop="7dp"
@@ -27,7 +30,6 @@
             android:textAppearance="?attr/textAppearanceListItem"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/button_contact_details"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +37,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/text_preview"
+            android:id="@+id/text_email"
             android:layout_width="310dp"
             android:layout_height="44dp"
             android:layout_marginTop="16dp"
@@ -49,23 +51,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_title"
+            app:layout_constraintTop_toBottomOf="@+id/text_name"
             app:layout_constraintVertical_bias="0.0" />
-
-        <Button
-            android:id="@+id/button_contact_details"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="8dp"
-            android:text="test"
-            android:textColor="@color/colorAccent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/text_preview"
-            app:layout_constraintTop_toBottomOf="@+id/text_title"
-            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

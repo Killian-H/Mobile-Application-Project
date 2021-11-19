@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/weather_temp"
         app:layout_constraintTop_toBottomOf="@+id/weather_condition_icon"
-        app:layout_constraintVertical_bias="0.666" />
+        app:layout_constraintVertical_bias="0.539" />
 
     <TextView
         android:id="@+id/weather_temp"
@@ -46,18 +46,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/weather_location_searchbar"
-        android:layout_width="181dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="4dp"
-        android:ems="10"
-        android:inputType="textPostalAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weather_display_mainHeader"
-        tools:ignore="SpeakableTextPresentCheck" />
-
     <TextView
         android:id="@+id/weather_condition_text"
         android:layout_width="237dp"
@@ -66,17 +54,16 @@
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weather_location_searchbar" />
+        app:layout_constraintTop_toBottomOf="@+id/weather_locationSearch" />
 
     <ImageView
         android:id="@+id/weather_condition_icon"
         android:layout_width="246dp"
         android:layout_height="217dp"
-        android:layout_marginTop="40dp"
         android:src="@drawable/ic_weather_white_24dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/weather_condition_text" />
 
@@ -84,9 +71,9 @@
         android:id="@+id/weather_search_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         android:src="@android:drawable/ic_menu_search"
-        app:layout_constraintStart_toEndOf="@+id/weather_location_searchbar"
+        app:layout_constraintStart_toEndOf="@+id/weather_locationSearch"
         app:layout_constraintTop_toBottomOf="@+id/weather_display_mainHeader" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -134,5 +121,16 @@
         app:layout_constraintEnd_toStartOf="@+id/weather_pressure"
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <AutoCompleteTextView
+        android:id="@+id/weather_locationSearch"
+        android:layout_width="218dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="4dp"
+        android:text="AutoCompleteTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weather_display_mainHeader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

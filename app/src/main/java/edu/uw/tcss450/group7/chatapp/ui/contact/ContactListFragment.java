@@ -25,7 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentContactListBinding;
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentContactListBinding;
-import edu.uw.tcss450.group7.chatapp.ui.home.Fragment_HomeDirections;
+import edu.uw.tcss450.group7.chatapp.model.UserInfoViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +34,7 @@ import edu.uw.tcss450.group7.chatapp.ui.home.Fragment_HomeDirections;
  */
 public class ContactListFragment extends Fragment {
     private ContactsViewModel mModel;
+    private UserInfoViewModel mUserModel;
 
     public ContactListFragment() {
         // Required empty public constructor
@@ -42,8 +43,10 @@ public class ContactListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mModel = new ViewModelProvider(getActivity()).get(ContactsViewModel.class);
-        mModel.connectGet();
+        ViewModelProvider provider = new ViewModelProvider(getActivity());
+        mUserModel = provider.get(UserInfoViewModel.class);
+        mModel = provider.get(ContactsViewModel.class);
+        mModel.connectGet(mUserModel.getmJwt());
         setHasOptionsMenu(true);
     }
 
@@ -54,7 +57,7 @@ public class ContactListFragment extends Fragment {
         if (view instanceof RecyclerView) {
             //Try out a grid layout to achieve rows AND columns. Adjust the widths of the
             //cards on display
-            ((RecyclerView) view).setLayoutManager(new GridLayoutManager(getContext(), 2));
+//            ((RecyclerView) view).setLayoutManager(new GridLayoutManager(getContext(), 2));
 
             //Try out horizontal scrolling. Adjust the widths of the card so that it is
             //obvious that there are more cards in either direction. i.e. don't have the cards

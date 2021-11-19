@@ -1,9 +1,7 @@
 package edu.uw.tcss450.group7.chatapp.ui.contact;
 
-import android.content.Intent;
-import android.net.Uri;
+
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +9,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentContactBinding;
+import edu.uw.tcss450.group7.chatapp.model.UserInfoViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,20 +45,16 @@ public class ContactFragment extends Fragment {
 
         FragmentContactBinding binding = FragmentContactBinding.bind(getView());
 
-        binding.textPubdate.setText(args.getContact().getPubDate());
-        binding.textTitle.setText(args.getContact().getTitle());
+        binding.textPubdate.setText(args.getContact().getFullName());
+        binding.textTitle.setText(args.getContact().getFullName());
 
-        final String preview =  Html.fromHtml(
-                args.getContact().getTeaser(),
-                Html.FROM_HTML_MODE_COMPACT)
-                .toString();
-        binding.textPreview.setText(preview);
-
+        binding.textPreview.setText(args.getContact().getEmail());
 
         //Note we are using an Intent here to start the default system web browser
-        binding.buttonUrl.setOnClickListener(button ->
-                startActivity(new Intent(Intent.ACTION_VIEW,
-                        Uri.parse(args.getContact().getUrl()))));
+//        binding.buttonUrl.setOnClickListener(button ->
+//                startActivity(new Intent(Intent.ACTION_VIEW,
+//                        Uri.parse(args.getContact().getUrl())))
+//        );
 
     }
 

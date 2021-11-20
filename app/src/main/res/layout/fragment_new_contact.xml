@@ -1,63 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_root"
+    android:id="@+id/layout_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp"
-    app:cardCornerRadius="5dp">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_inner"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.NewContactFragment">
+        android:id="@+id/layout_search"
+        android:layout_width="389dp"
+        android:layout_height="440dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/text_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:padding="8dp"
-            android:text="TextView"
-            android:textColor="@color/colorPrimaryAlpha"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField"
+            android:layout_width="285dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/title_email_search"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/text_pubdate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textColor="@color/colorPrimaryDark"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_title" />
-
-        <TextView
-            android:id="@+id/text_preview"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:padding="5dp"
-            android:text="TextView"
-            android:textColor="@color/colorPrimary"
-            app:layout_constraintBottom_toTopOf="@+id/button_url"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_pubdate" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/button_url"
+            android:id="@+id/button_search"
             style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="28dp"
-            android:layout_marginBottom="16dp"
             android:drawableTint="@color/colorAccent"
-            android:text="test"
+            android:text="@string/button_email_search"
+            app:layout_constraintBottom_toBottomOf="@+id/textField"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.368"
+            app:layout_constraintStart_toEndOf="@+id/textField"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_root"
+            android:name="edu.uw.tcss450.group7.chatapp.ui.contact.ContactFragment"
+            android:layout_width="364dp"
+            android:layout_height="380dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            app:layoutManager="LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textField"
+            tools:context="edu.uw.tcss450.group7.chatapp.ui.contact.ContactListFragment"
+            tools:listitem="@layout/fragment_new_contact_card" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_wait"
+            android:layout_width="383dp"
+            android:layout_height="402dp"
+            android:background="@color/colorPrimaryAlpha"
+            app:layout_constraintBottom_toBottomOf="@+id/list_root"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textField">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="389dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/colorPrimary"
+        android:padding="8dp"
+        android:text="@string/title_incoming_contact"
+        android:textAlignment="center"
+        android:textColor="@color/primaryTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_search" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_incoming"
+        android:name="edu.uw.tcss450.group7.chatapp.ui.contact.ContactFragment"
+        android:layout_width="363dp"
+        android:layout_height="118dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_title"
+        app:layout_constraintVertical_bias="0.073"
+        tools:context="edu.uw.tcss450.group7.chatapp.ui.contact.ContactListFragment"
+        tools:listitem="@layout/fragment_new_contact_card" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

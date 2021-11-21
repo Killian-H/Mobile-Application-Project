@@ -28,6 +28,7 @@
     <string name="title_incoming_contact">Incoming Contact Requests</string>
     <string name="title_email_search">Enter Email to Search Contact</string>
     <string name="button_email_search">Search</string>
+    <string name="title_no_contact">Please Enter Valid Email!</string>
 
     <string name = "weather_temp">56°F</string>
     <string name = "weather_feelsLike">45°F</string>

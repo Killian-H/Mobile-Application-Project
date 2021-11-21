@@ -63,30 +63,24 @@ public class Weather_Parent {
     public double getMyPressure(){
         return myPressure;
     }
-
     public double getMyID() {
         return myID;
     }
-
     public String getMyIconID() {
         return myIconID;
     }
-
     public String getMyShortDescription() {
         return myShortDescription;
     }
-
     public String getMyLongDescription() {
         return myLongDescription;
     }
-
     public double getMyHumidity(){
         return  myHumidity;
     }
     public double getMyWindSpeed(){
         return myWindSpeed;
     }
-
     public double getMyWindGust() {
         return myWindGust;
     }

@@ -1,6 +1,5 @@
 package edu.uw.tcss450.group7.chatapp.ui.contact;
 
-import android.graphics.drawable.Icon;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
 
     //Store all of the blogs to present
     private final List<Contact> mContacts;
-
 
     public ContactRecyclerViewAdapter(List<Contact> items) {
 
@@ -57,7 +55,6 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
             super(view);
             mView = view;
             binding = FragmentContactCardBinding.bind(view);
-
         }
 
 

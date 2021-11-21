@@ -53,7 +53,7 @@
     </fragment>
     <activity
         android:id="@+id/settingsActivity"
-        android:name="edu.uw.tcss450.group7.chatapp.SettingsActivity"
+        android:name="edu.uw.tcss450.group7.chatapp.ui.settings.SettingsActivity"
         android:label="activity_settings"
         tools:layout="@layout/activity_settings" />
 </navigation>

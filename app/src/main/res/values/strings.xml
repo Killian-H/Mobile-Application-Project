@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Tea Time</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hint_email">Email</string>
     <string name="hint_last">Last Name</string>
     <string name="hint_first">First Name</string>
@@ -13,7 +12,8 @@
     <string name="uw_colors">Go Huskies xD</string>
     <string name="apply_settings">Apply</string>
     <string name="title_settings">Settings</string>
-    <string name="theme_change">Change Theme</string>
+    <string name="button_text">Change Theme</string>
+    <string name="theme_change">Theme Options</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_home">Home</string>

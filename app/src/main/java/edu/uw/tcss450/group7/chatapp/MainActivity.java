@@ -1,39 +1,36 @@
 package edu.uw.tcss450.group7.chatapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-import edu.uw.tcss450.group7.chatapp.ui.settings.UserSettings;
 import edu.uw.tcss450.group7.chatapp.model.UserInfoViewModel;
+import edu.uw.tcss450.group7.chatapp.utils.ColorActivity;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ColorActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-
-    private View mMainView;
     private int number;
+    private Resources.Theme mTheme;
+    private int mCurrTheme;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme();
+        mCurrTheme = getTheTheme();
         setContentView(R.layout.activity_main);
-
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
 
         new ViewModelProvider(this,
@@ -61,18 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        super.onStart();
-        mMainView = findViewById(R.id.mainContainer);
-        SharedPreferences sharedPref = getSharedPreferences(UserSettings.M_PREFERENCES, Context.MODE_PRIVATE);
-        String bg = sharedPref.getString(UserSettings.M_CUSTOM_THEME, UserSettings.M_DARK_THEME); // the second parameter will be fallback if the preference is not
-        if (bg.equals("darkTheme")) {
-            final int byDark = R.color.primaryColor;
-        mMainView.setBackgroundColor(getResources().getColor(byDark));
-        } else {
-            final int white = R.color.white;
-            mMainView.setBackgroundColor(getResources().getColor(white));
+        if (mCurrTheme != getTheTheme()) {
+            recreate();
         }
-
+        super.onStart();
         Log.d("lifecycle","onStart invoked");
     }
 
@@ -108,9 +97,5 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         Log.d("lifecycle","onDestroy invoked");
     }
-
-
-
-
 
 }

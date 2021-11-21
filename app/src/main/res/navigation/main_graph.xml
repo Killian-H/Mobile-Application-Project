@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/navigation_chat">
+    app:startDestination="@id/navigation_weather">
 
     <fragment
         android:id="@+id/navigation_contact"
@@ -22,9 +22,9 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_chat"
-        android:name="edu.uw.tcss450.group7.chatapp.ui.chat.Fragment_chat"
+        android:name="edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.ChatListFragment"
         android:label="@string/title_chat"
-        tools:layout="@layout/fragment_chat" >
+        tools:layout="@layout/fragment_chat_list" >
     <action
         android:id="@+id/action_navigation_chat_to_settingsActivity"
         app:destination="@id/settingsActivity" />

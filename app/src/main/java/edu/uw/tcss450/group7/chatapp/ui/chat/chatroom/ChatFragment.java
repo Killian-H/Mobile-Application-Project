@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentChatBinding;
 import edu.uw.tcss450.group7.chatapp.model.UserInfoViewModel;
+import edu.uw.tcss450.group7.chatapp.ui.contact.ContactFragmentArgs;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,7 +28,7 @@ public class ChatFragment extends Fragment {
 
     private ChatViewModel mChatModel;
     private UserInfoViewModel mUserModel;
-
+    private ChatFragmentArgs args;
     public ChatFragment() {
         // Required empty public constructor
     }
@@ -35,10 +36,11 @@ public class ChatFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        args = ChatFragmentArgs.fromBundle(getArguments());
         ViewModelProvider provider = new ViewModelProvider(getActivity());
         mUserModel = provider.get(UserInfoViewModel.class);
         mChatModel = provider.get(ChatViewModel.class);
-        mChatModel.getFirstMessages(HARD_CODED_CHAT_ID, mUserModel.getmJwt());
+        mChatModel.getFirstMessages(args.getChat().getChatId(), mUserModel.getmJwt());
         mSendModel = provider.get(ChatSendViewModel.class);
     }
 
@@ -54,7 +56,6 @@ public class ChatFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         FragmentChatBinding binding = FragmentChatBinding.bind(getView());
-
         //SetRefreshing shows the internal Swiper view progress bar. Show this until messages load
         binding.swipeContainer.setRefreshing(true);
 
@@ -69,10 +70,10 @@ public class ChatFragment extends Fragment {
         //When the user scrolls to the top of the RV, the swiper list will "refresh"
         //The user is out of messages, go out to the service and get more
         binding.swipeContainer.setOnRefreshListener(() -> {
-            mChatModel.getNextMessages(HARD_CODED_CHAT_ID, mUserModel.getmJwt());
+            mChatModel.getNextMessages(args.getChat().getChatId(), mUserModel.getmJwt());
         });
 
-        mChatModel.addMessageObserver(HARD_CODED_CHAT_ID, getViewLifecycleOwner(),
+        mChatModel.addMessageObserver(args.getChat().getChatId(), getViewLifecycleOwner(),
                 list -> {
                     /*
                      * This solution needs work on the scroll position. As a group,
@@ -87,7 +88,7 @@ public class ChatFragment extends Fragment {
                 });
         //Send button was clicked. Send the message via the SendViewModel
         binding.buttonSend.setOnClickListener(button -> {
-            mSendModel.sendMessage(HARD_CODED_CHAT_ID,
+            mSendModel.sendMessage(args.getChat().getChatId(),
                     mUserModel.getmJwt(),
                     binding.editMessage.getText().toString());
         });

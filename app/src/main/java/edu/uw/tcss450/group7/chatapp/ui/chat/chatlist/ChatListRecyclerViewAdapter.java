@@ -1,16 +1,19 @@
 package edu.uw.tcss450.group7.chatapp.ui.chat.chatlist;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentChatCardBinding;
+import edu.uw.tcss450.group7.chatapp.ui.contact.ContactListFragmentDirections;
 import edu.uw.tcss450.group7.chatapp.ui.contact.ContactRecyclerViewAdapter;
 
 public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRecyclerViewAdapter.ChatViewHolder> {
@@ -61,25 +64,31 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
 
 
 
-        void setChat(final Chat Chat) {
-            mChat = Chat;
-//                mView.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-//
-//                    @Override
-//                    public void onFocusChange(View v, boolean hasFocus) {
-//                        mView.setBackgroundColor(0xFF00FF00);
-//                    }
-//                });
-//                mView.setOnHoverListener(new View.OnHoverListener() {
-//                    @Override
-//                    public boolean onHover(View v, MotionEvent event) {
-//                        mView.setBackgroundColor(0xFF00FF01);
-//                        return false;
-//                    }
-//                });
-            binding.textNames.setText("Test Name1, Test Name 2...");
+        void setChat(final Chat chat) {
+            mChat = chat;
+                mView.setOnFocusChangeListener(new View.OnFocusChangeListener(){
 
-            binding.tectRecentMessage.setText(Chat.getRecentMessage());
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        mView.setBackgroundColor(0xFF00FF00);
+                    }
+                });
+                mView.setOnHoverListener(new View.OnHoverListener() {
+                    @Override
+                    public boolean onHover(View v, MotionEvent event) {
+                        mView.setBackgroundColor(0xFF00FF01);
+                        return false;
+                    }
+                });
+                mView.setOnClickListener(view -> {
+                    Navigation.findNavController(mView).navigate(
+                            ChatListFragmentDirections
+                                    .actionNavigationChatToChatFragment(chat));
+                });
+
+            binding.textNames.setText(mChat.getChatName());
+
+            binding.tectRecentMessage.setText(chat.getRecentMessage());
         }
     }
 }

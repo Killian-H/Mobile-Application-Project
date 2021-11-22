@@ -7,18 +7,29 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Weather_Hourly {
-    private JSONArray myHourlyJsonArray;
-    Weather_Hourly(JSONArray theHourlyJsonArray){
-        myHourlyJsonArray = theHourlyJsonArray;
+    private Object[] myHourlyWeatherArray;
+    private int myHourRange;
+
+    Weather_Hourly(JSONArray theJsonArray){
+    myHourRange = 24;
     }
-    public Weather_Parent getSpecificHourWeather(int theIndex) throws JSONException {
-        Weather_Parent weatherObject = null;
-        try {
-            weatherObject=new Weather_Parent((JSONObject) myHourlyJsonArray.get(theIndex));
+    /**
+    fills the Array constrained by hour range set in the constructor
+     */
+    private void fillArray(JSONArray theJSONArray) throws JSONException {
+        myHourlyWeatherArray = new Object[myHourRange];
+        for(int i = 0; i < myHourRange;i++){
+            try {
+                Weather_Current temp = new Weather_Current((JSONObject) theJSONArray.get(i));
+                myHourlyWeatherArray[i] = temp;
+            }
+            catch (JSONException e){
+                Log.e("JSON PARSE", "JSON Parse Error in weatherHourly fillArray");
+            }
         }
-        catch (JSONException e){
-            Log.e("JSON PARSE", "JSON Parse Error in weatherHourly 19");
-        }
-        return weatherObject;
+    }
+
+    public Weather_Current getWeatherAtSpecificHour(int theHour){
+        return (Weather_Current) myHourlyWeatherArray[theHour];
     }
 }

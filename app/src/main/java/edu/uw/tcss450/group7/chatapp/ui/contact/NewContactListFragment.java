@@ -1,12 +1,6 @@
 package edu.uw.tcss450.group7.chatapp.ui.contact;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,24 +8,28 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import edu.uw.tcss450.group7.chatapp.databinding.FragmentContactListBinding;
 import edu.uw.tcss450.group7.chatapp.R;
+import edu.uw.tcss450.group7.chatapp.databinding.FragmentNewContactBinding;
 import edu.uw.tcss450.group7.chatapp.model.ContactsViewModel;
 import edu.uw.tcss450.group7.chatapp.model.UserInfoViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ContactListFragment} factory method to
+ * Use the {@link NewContactListFragment} factory method to
  * create an instance of this fragment.
  */
-public class ContactListFragment extends Fragment {
+public class NewContactListFragment extends Fragment {
     private ContactsViewModel mModel;
     private UserInfoViewModel mUserModel;
 
-    public ContactListFragment() {
+    public NewContactListFragment() {
         // Required empty public constructor
     }
 
@@ -43,12 +41,13 @@ public class ContactListFragment extends Fragment {
         mModel = provider.get(ContactsViewModel.class);
         mModel.connectGet(mUserModel.getmJwt());
         setHasOptionsMenu(true);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_contact_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_new_contact, container, false);
         if (view instanceof RecyclerView) {
             //Try out a grid layout to achieve rows AND columns. Adjust the widths of the
             //cards on display
@@ -62,9 +61,9 @@ public class ContactListFragment extends Fragment {
 //                    .setOrientation(LinearLayoutManager.HORIZONTAL);
 
             ((RecyclerView) view).setAdapter(
-                    new edu.uw.tcss450.group7.chatapp.ui.contact.ContactRecyclerViewAdapter(edu.uw.tcss450.group7.chatapp.ui.contact.ContactGenerator.getContactList()));
+                    new ContactRecyclerViewAdapter(ContactGenerator.getContactList()));
         }
-        return inflater.inflate(R.layout.fragment_contact_list, container, false);
+        return inflater.inflate(R.layout.fragment_new_contact, container, false);
     }
 
     @Override
@@ -82,29 +81,31 @@ public class ContactListFragment extends Fragment {
 
         if (id == R.id.action_settings) {
             Navigation.findNavController(getView()).navigate(
-                    ContactListFragmentDirections.actionNavigationContactToSettingsActivity());
+                    NewContactListFragmentDirections.actionNewContactFragmentToSettingsActivity());
 
         }
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        FragmentNewContactBinding binding = FragmentNewContactBinding.bind(getView());
 
-
-        FragmentContactListBinding binding = FragmentContactListBinding.bind(getView());
-
-        //On click listener to floatingButton
-        binding.buttonCompose.setOnClickListener(button ->
-                Navigation.findNavController(getView()).navigate(
-                        ContactListFragmentDirections
-                                .actionNavigationContactToNewContactFragment()));
-
-        mModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
+        mModel.addContactListObserver(getViewLifecycleOwner(), (contactList) -> {
             if (!contactList.isEmpty()) {
                 binding.listRoot.setAdapter(
-                        new edu.uw.tcss450.group7.chatapp.ui.contact.ContactRecyclerViewAdapter(contactList)
+                        new NewContactRecyclerViewAdapter(contactList, false)
+                );
+                binding.layoutWait.setVisibility(View.GONE);
+            }
+        });
+
+        mModel.addIncomingListObserver(getViewLifecycleOwner(), (contactList) -> {
+            if (!contactList.isEmpty()) {
+                binding.listIncoming.setAdapter(
+                        new NewContactRecyclerViewAdapter(contactList, true)
                 );
                 binding.layoutWait.setVisibility(View.GONE);
             }

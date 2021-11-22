@@ -1,6 +1,7 @@
 package edu.uw.tcss450.group7.chatapp.ui.contact;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -61,13 +62,31 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
 
         void setContact(final Contact contact) {
             mContact = contact;
-            mView.setOnClickListener(view -> {
-                Navigation.findNavController(mView).navigate(
-                        ContactListFragmentDirections
-                                .actionNavigationContactToContactFragment(contact));
-            });
+            if(mContact.getVerified()){
+                mView.setOnClickListener(view -> {
+                    Navigation.findNavController(mView).navigate(
+                            ContactListFragmentDirections
+                                    .actionNavigationContactToContactFragment(contact));
+                });
+//                mView.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+//
+//                    @Override
+//                    public void onFocusChange(View v, boolean hasFocus) {
+//                        mView.setBackgroundColor(0xFF00FF00);
+//                    }
+//                });
+//                mView.setOnHoverListener(new View.OnHoverListener() {
+//                    @Override
+//                    public boolean onHover(View v, MotionEvent event) {
+//                        mView.setBackgroundColor(0xFF00FF01);
+//                        return false;
+//                    }
+//                });
+                binding.textName.setText(contact.getFirstName() + " " + contact.getLastName());
+            }else{
+                binding.textName.setText("Pending Contact!");
+            }
 
-            binding.textName.setText(contact.getFirstName() + " " + contact.getLastName());
             binding.textEmail.setText(contact.getEmail());
         }
     }

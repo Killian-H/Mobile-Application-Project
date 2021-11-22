@@ -1,4 +1,4 @@
-package edu.uw.tcss450.group7.chatapp.ui.contact;
+package edu.uw.tcss450.group7.chatapp.model;
 
 import android.app.Application;
 import android.util.Log;
@@ -26,21 +26,40 @@ import java.util.Map;
 import java.util.function.IntFunction;
 
 import edu.uw.tcss450.group7.chatapp.R;
+import edu.uw.tcss450.group7.chatapp.ui.contact.Contact;
 
 public class ContactsViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> mContactList;
+    private MutableLiveData<List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> mOutgoingList;
+    private MutableLiveData<List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> mIncomingList;
 
     public ContactsViewModel(@NonNull Application application) {
         super(application);
         mContactList = new MutableLiveData<>();
         mContactList.setValue(new ArrayList<>());
+        mOutgoingList = new MutableLiveData<>();
+        mOutgoingList.setValue(new ArrayList<>());
+        mIncomingList = new MutableLiveData<>();
+        mIncomingList.setValue(new ArrayList<>());
     }
 
     public void addContactListObserver(@NonNull LifecycleOwner owner,
-                                    @NonNull Observer<? super List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> observer) {
+                                       @NonNull Observer<? super List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> observer) {
         mContactList.observe(owner, observer);
     }
+
+
+    public void addOutgoingListObserver(@NonNull LifecycleOwner owner,
+                                        @NonNull Observer<? super List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> observer) {
+        mOutgoingList.observe(owner, observer);
+    }
+
+    public void addIncomingListObserver(@NonNull LifecycleOwner owner,
+                                        @NonNull Observer<? super List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> observer) {
+        mIncomingList.observe(owner, observer);
+    }
+
     private void handleError(final VolleyError error) {
         //you should add much better error handling in a production release.
         //i.e. YOUR PROJECT
@@ -92,6 +111,7 @@ public class ContactsViewModel extends AndroidViewModel {
             Log.e("ERROR!", e.getMessage());
         }
         mContactList.setValue(temp);
+        mIncomingList.setValue(temp);
     }
     public void connectGet(final String jwt) {
         String url = getApplication().getResources().getString(R.string.base_url) +

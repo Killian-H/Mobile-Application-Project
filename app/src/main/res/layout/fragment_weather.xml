@@ -2,20 +2,136 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout4"
+    android:id="@+id/layout_weather"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.weather.Fragment_weather">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/test_weather"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/weather_feelsLike"
+        android:layout_width="96dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="72dp"
+        android:text="@string/weather_feelsLike"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weather_condition_icon" />
+
+    <TextView
+        android:id="@+id/weather_temp"
+        android:layout_width="96dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/weather_temp"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weather_condition_icon" />
+
+    <TextView
+        android:id="@+id/weather_display_mainHeader"
+        android:layout_width="237dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/weather_display_mainHeader"
+        android:textAlignment="center"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/weather_condition_text"
+        android:layout_width="243dp"
+        android:layout_height="43dp"
+        android:text="@string/weather_condition_text"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weather_locationSearch" />
+
+    <ImageView
+        android:id="@+id/weather_condition_icon"
+        android:layout_width="260dp"
+        android:layout_height="190dp"
+        android:contentDescription="@string/weather_contentDescription"
+        android:src="@drawable/ic_weather_white_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weather_condition_text" />
+
+    <ImageView
+        android:id="@+id/weather_search_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/weather_search_iconDescription"
+        android:src="@android:drawable/ic_menu_search"
+        app:layout_constraintStart_toEndOf="@+id/weather_locationSearch"
+        app:layout_constraintTop_toBottomOf="@+id/weather_display_mainHeader" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/weather_7dayRV"
+        android:layout_width="348dp"
+        android:layout_height="137dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:scrollbars="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weather_display_7dayHeader"
+        app:layout_constraintVertical_bias="0.044"
+        tools:itemCount="@android:integer/config_longAnimTime" />
+
+    <TextView
+        android:id="@+id/weather_display_7dayHeader"
+        android:layout_width="175dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/weather_7day_header"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weather_pressure" />
+
+    <TextView
+        android:id="@+id/weather_pressure"
+        android:layout_width="96dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="72dp"
+        android:text="@string/weather_pressure"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weather_feelsLike" />
+
+    <TextView
+        android:id="@+id/weather_humidity"
+        android:layout_width="96dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/weather_humidity"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weather_temp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/weather_locationSearch"
+        android:layout_width="207dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/weather_location_search"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weather_display_mainHeader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -110,5 +110,9 @@ public class Contact implements Serializable {
         return mEmail;
     }
 
+    public Boolean getVerified() {
+        return mVerified==1;
+    }
+
 
 }

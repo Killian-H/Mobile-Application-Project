@@ -48,8 +48,11 @@
     </fragment>
     <fragment
         android:id="@+id/newContactFragment"
-        android:name="edu.uw.tcss450.group7.chatapp.ui.contact.NewContactFragment"
+        android:name="edu.uw.tcss450.group7.chatapp.ui.contact.NewContactListFragment"
         android:label="@string/title_newContact">
+        <action
+            android:id="@+id/action_newContactFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
     </fragment>
     <activity
         android:id="@+id/settingsActivity"

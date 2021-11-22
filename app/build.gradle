@@ -10,7 +10,7 @@ android {
 
 
     defaultConfig {
-        applicationId "edu.uw.tcss450.lab3_samplehttpconnections"
+        applicationId "edu.uw.tcss450.group7.chatapp"
         minSdkVersion 24
         targetSdkVersion 31
         versionCode 1
@@ -48,5 +48,6 @@ dependencies {
     implementation 'com.auth0.android:jwtdecode:2.0.0'
     implementation 'com.auth0:java-jwt:3.14.0'
     implementation 'com.android.volley:volley:1.2.1'
-    implementation 'com.android.support:design:28.0.0'
+    implementation 'me.pushy:sdk:1.0.54'
+
 }

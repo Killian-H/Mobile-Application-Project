@@ -6,11 +6,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.util.Date;
+
 public class Weather_Current {
-    private double myTime;
+    private Long myTime;
+    private int myTimezoneOffset;
     private double myTemp;
-    private double mySunrise;
-    private double mySunset;
+    private Long mySunrise;
+    private Long mySunset;
     private double myFeels;
     private double myPressure;
     private double myHumidity;
@@ -24,11 +29,11 @@ public class Weather_Current {
 
     Weather_Current(JSONObject theJson) throws JSONException {
         try{
-            myTime= theJson.getInt("dt");
+            myTime= theJson.getLong("dt");
             if (theJson.get("temp") instanceof  JSONObject)myTemp = ((JSONObject) theJson.get("temp")).getDouble("day");
             else myTemp = theJson.getDouble("temp");
-            mySunrise=theJson.getInt("sunrise");
-            mySunset= theJson.getInt("sunset");
+            mySunrise=theJson.getLong("sunrise");
+            mySunset= theJson.getLong("sunset");
             if (theJson.get("feels_like") instanceof  JSONObject)myTemp = ((JSONObject) theJson.get("feels_like")).getDouble("day");
             else myFeels = theJson.getDouble("feels_like");
             myPressure = theJson.getDouble("pressure");
@@ -46,17 +51,18 @@ public class Weather_Current {
         }
 
     }
-    public double getMyTime(){
-        return myTime;
+    public String getMyTime(){
+        return timeHelper(myTime);
     }
+    public int getMyTimezoneOffset(){return myTimezoneOffset;}
     public double getMyTemp(){
         return myTemp;
     }
-    public double getMySunrise(){
-        return  mySunrise;
+    public String getMySunrise(){
+        return  timeHelper(mySunrise);
     }
-    public  double getMySunset(){
-        return mySunset;
+    public  String getMySunset(){
+        return timeHelper(mySunset);
     }
     public double getMyFeels(){
         return myFeels;
@@ -84,5 +90,17 @@ public class Weather_Current {
     }
     public double getMyWindGust() {
         return myWindGust;
+    }
+
+    private String timeHelper(Long theUTC){
+        String timeFormatted = "unformatted";
+        try {
+            Date itemDate = new Date(theUTC * 1000L);
+            timeFormatted = new SimpleDateFormat("EEE, d MMM yyyy HH:mm").format(itemDate);
+        }
+        catch (Exception e){
+            Log.e("timeFormat","error in timeHelperMethod in weather_current");
+        }
+        return timeFormatted;
     }
 }

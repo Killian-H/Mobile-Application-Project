@@ -1,6 +1,7 @@
 package edu.uw.tcss450.group7.chatapp.ui.contact;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,7 +40,6 @@ public class NewContactListFragment extends Fragment {
         ViewModelProvider provider = new ViewModelProvider(getActivity());
         mUserModel = provider.get(UserInfoViewModel.class);
         mModel = provider.get(ContactsViewModel.class);
-        mModel.connectGet(mUserModel.getmJwt());
         setHasOptionsMenu(true);
 
     }
@@ -92,14 +92,40 @@ public class NewContactListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         FragmentNewContactBinding binding = FragmentNewContactBinding.bind(getView());
+        binding.linearProgress.hide();
+        binding.textNotFound.setVisibility(View.GONE);
 
-        mModel.addContactListObserver(getViewLifecycleOwner(), (contactList) -> {
+//        Listeners for contact Searching
+
+        binding.TextInputEmail.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    binding.linearProgress.show();
+                    mModel.connectGetSearch(mUserModel.getmJwt(),binding.TextInputEmail.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
+        binding.buttonSearch.setOnClickListener(
+                (searchList) -> {
+                        binding.linearProgress.show();
+                        mModel.connectGetSearch(mUserModel.getmJwt(),binding.TextInputEmail.getText().toString());
+                }
+        );
+
+        mModel.addSearchListObserver(getViewLifecycleOwner(), (contactList) -> {
             if (!contactList.isEmpty()) {
                 binding.listRoot.setAdapter(
                         new NewContactRecyclerViewAdapter(contactList, false)
                 );
-                binding.layoutWait.setVisibility(View.GONE);
+                binding.textNotFound.setVisibility(View.GONE);
+            }else{
+                binding.textNotFound.setVisibility(View.VISIBLE);
             }
+            binding.linearProgress.hide();
         });
 
         mModel.addIncomingListObserver(getViewLifecycleOwner(), (contactList) -> {
@@ -107,7 +133,6 @@ public class NewContactListFragment extends Fragment {
                 binding.listIncoming.setAdapter(
                         new NewContactRecyclerViewAdapter(contactList, true)
                 );
-                binding.layoutWait.setVisibility(View.GONE);
             }
         });
     }

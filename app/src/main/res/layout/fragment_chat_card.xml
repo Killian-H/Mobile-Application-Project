@@ -7,13 +7,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@android:color/transparent"
-    android:layout_margin="5px"
-    app:cardCornerRadius="0dp">
+    android:layout_margin="0px"
+    app:cardElevation="1dp"
+    app:cardMaxElevation="1dp"
+    app:cardCornerRadius="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_inner"
         android:layout_width="match_parent"
-        android:layout_height="105dp"
+        android:layout_height="80dp"
         app:layout_constraintBottom_toTopOf="@+id/text_title"
         app:layout_constraintTop_toTopOf="@+id/text_title">
 
@@ -21,14 +23,13 @@
             android:id="@+id/text_names"
             android:layout_width="280dp"
             android:layout_height="34dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="6dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingBottom="8dp"
+            android:textSize="20dp"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:textColor="@color/secondaryTextColor"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.954"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,16 +38,13 @@
             android:id="@+id/tect_recent_message"
             android:layout_width="279dp"
             android:layout_height="38dp"
-            android:layout_marginBottom="16dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingBottom="8dp"
+            android:textSize="16dp"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:textColor="@color/secondaryTextColor"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.954"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_names"
             app:layout_constraintVertical_bias="1.0" />

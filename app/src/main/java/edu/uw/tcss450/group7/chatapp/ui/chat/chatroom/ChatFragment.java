@@ -23,9 +23,6 @@ public class ChatFragment extends Fragment {
 
     private ChatSendViewModel mSendModel;
 
-    //The chat ID for "global" chat
-    private static final int HARD_CODED_CHAT_ID = 1;
-
     private ChatViewModel mChatModel;
     private UserInfoViewModel mUserModel;
     private ChatFragmentArgs args;
@@ -63,7 +60,7 @@ public class ChatFragment extends Fragment {
         //Set the Adapter to hold a reference to the list FOR THIS chat ID that the ViewModel
         //holds.
         rv.setAdapter(new ChatRecyclerViewAdapter(
-                        mChatModel.getMessageListByChatId(HARD_CODED_CHAT_ID),
+                        mChatModel.getMessageListByChatId(args.getChat().getChatId()),
                         mUserModel.getEmail()));
 
 

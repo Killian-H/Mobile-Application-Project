@@ -52,7 +52,7 @@ public class ChatListFragment extends Fragment {
 //                    .setOrientation(LinearLayoutManager.HORIZONTAL);
 
             ((RecyclerView) view).setAdapter(
-                    new edu.uw.tcss450.group7.chatapp.ui.contact.ContactRecyclerViewAdapter(edu.uw.tcss450.group7.chatapp.ui.contact.ContactGenerator.getContactList()));
+                    new edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.ChatListRecyclerViewAdapter(edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.ChatRoomGenerator.getChatList()));
         }
         return inflater.inflate(R.layout.fragment_chat_list, container, false);
     }
@@ -64,7 +64,7 @@ public class ChatListFragment extends Fragment {
         ViewModelProvider provider = new ViewModelProvider(getActivity());
         mUserModel = provider.get(UserInfoViewModel.class);
         mModel = provider.get(ChatListViewModel.class);
-        mModel.connectGet();
+        mModel.connectGet(mUserModel.getmJwt());
         setHasOptionsMenu(true);
     }
 
@@ -98,10 +98,10 @@ public class ChatListFragment extends Fragment {
         FragmentContactListBinding binding = FragmentContactListBinding.bind(getView());
 
         //On click listener to floatingButton
-        binding.buttonCompose.setOnClickListener(button ->
-                Navigation.findNavController(getView()).navigate(
-                        ContactListFragmentDirections
-                                .actionNavigationContactToNewContactFragment()));
+//        binding.buttonCompose.setOnClickListener(button ->
+//                Navigation.findNavController(getView()).navigate(
+//                        ContactListFragmentDirections
+//                                .actionNavigationContactToNewContactFragment()));
 
         mModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
             if (!chatList.isEmpty()) {

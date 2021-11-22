@@ -9,4 +9,8 @@
     <string name="keys_json_contacts_username">username</string>
     <string name="keys_json_contacts_email">email</string>
     <string name="keys_json_contacts_verified">verified</string>
+
+    <string name="keys_json_chat_list_data">chatList</string>
+    <string name="keys_json_chat_id">chatid</string>
+    <string name="keys_json_chat_name">name</string>
 </resources>

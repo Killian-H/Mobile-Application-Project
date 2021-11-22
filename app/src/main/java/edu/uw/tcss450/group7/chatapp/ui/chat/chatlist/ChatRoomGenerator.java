@@ -1,4 +1,4 @@
-package edu.uw.tcss450.group7.chatapp.ui.Chat;
+package edu.uw.tcss450.group7.chatapp.ui.chat.chatlist;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,7 +18,7 @@ public final class ChatRoomGenerator {
     static {
         CHATS = new Chat[COUNT];
         for (int i = 0; i < CHATS.length; i++) {
-            CHATS[i] = new Chat.Builder().build();
+            CHATS[i] = new Chat.Builder(-1,"test chat").build();
         }
     }
 
@@ -26,7 +26,7 @@ public final class ChatRoomGenerator {
         return Arrays.asList(CHATS);
     }
 
-    public static Chat[] getChatS() {
+    public static Chat[] getChats() {
         return Arrays.copyOf(CHATS, CHATS.length);
     }
 

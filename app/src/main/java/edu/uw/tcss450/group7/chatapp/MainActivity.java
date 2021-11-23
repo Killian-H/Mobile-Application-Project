@@ -25,7 +25,7 @@ import edu.uw.tcss450.group7.chatapp.services.PushReceiver;
 import edu.uw.tcss450.group7.chatapp.ui.chat.chatroom.ChatMessage;
 import edu.uw.tcss450.group7.chatapp.ui.chat.chatroom.ChatViewModel;
 import edu.uw.tcss450.group7.chatapp.model.UserInfoViewModel;
-import edu.uw.tcss450.group7.chatapp.utils.ColorActivity;
+import edu.uw.tcss450.group7.chatapp.ColorActivity;
 
 
 public class MainActivity extends ColorActivity {
@@ -75,16 +75,13 @@ public class MainActivity extends ColorActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme();
-        mCurrTheme = getTheTheme();
-        setContentView(R.layout.activity_main);
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
-
-
-
 
         new ViewModelProvider(this,
                 new UserInfoViewModel.UserInfoViewModelFactory(args.getEmail(), args.getJwt())
         ).get(UserInfoViewModel.class);
+        mCurrTheme = getTheTheme();
+
 
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());

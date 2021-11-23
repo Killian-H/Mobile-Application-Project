@@ -43,6 +43,9 @@
     <string name = "weather_7Day">weather_locationSearch</string>
     <string name = "weather_location_search">Enter City, State</string>
     <string name = "weather_contentDescription">Weather Icon to display</string>
+    <string name = "weather_card_time">12:00 am</string>
+    <string name = "weather_card_temp">45°F</string>
+    <string name = "weather_card_wind">15 m/h</string>
 
 
 

@@ -35,9 +35,6 @@ public class Fragment_weatherViewModel extends AndroidViewModel {
 
         super(application);
         mResponse = new MutableLiveData<>();
-        mResponse.setValue(new JSONObject());
-
-
 
     }
     /**
@@ -104,7 +101,7 @@ public class Fragment_weatherViewModel extends AndroidViewModel {
         }
 
         Request  request = new JsonObjectRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 urlConnect,
                 body,
                 this::handleResult,

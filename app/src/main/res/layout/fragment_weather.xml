@@ -33,7 +33,7 @@
         android:id="@+id/weather_display_mainHeader"
         android:layout_width="237dp"
         android:layout_height="35dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:text="@string/weather_display_mainHeader"
         android:textAlignment="center"
         android:textSize="20sp"
@@ -67,10 +67,53 @@
         android:id="@+id/weather_search_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
         android:contentDescription="@string/weather_search_iconDescription"
         android:src="@android:drawable/ic_menu_search"
         app:layout_constraintStart_toEndOf="@+id/weather_locationSearch"
+        app:layout_constraintTop_toBottomOf="@+id/weather_display_mainHeader" />
+
+    <TextView
+        android:id="@+id/weather_display_7dayHeader"
+        android:layout_width="175dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/weather_7day_header"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weather_pressure" />
+
+    <TextView
+        android:id="@+id/weather_pressure"
+        android:layout_width="96dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="72dp"
+        android:text="@string/weather_pressure"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weather_feelsLike" />
+
+    <TextView
+        android:id="@+id/weather_humidity"
+        android:layout_width="96dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="72dp"
+        android:text="@string/weather_humidity"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weather_temp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/weather_locationSearch"
+        android:layout_width="237dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/weather_location_search"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/weather_display_mainHeader" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -88,50 +131,5 @@
         app:layout_constraintTop_toBottomOf="@+id/weather_display_7dayHeader"
         app:layout_constraintVertical_bias="0.044"
         tools:itemCount="@android:integer/config_longAnimTime" />
-
-    <TextView
-        android:id="@+id/weather_display_7dayHeader"
-        android:layout_width="175dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/weather_7day_header"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weather_pressure" />
-
-    <TextView
-        android:id="@+id/weather_pressure"
-        android:layout_width="96dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="72dp"
-        android:text="@string/weather_pressure"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weather_feelsLike" />
-
-    <TextView
-        android:id="@+id/weather_humidity"
-        android:layout_width="96dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/weather_humidity"
-        android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weather_temp" />
-
-    <AutoCompleteTextView
-        android:id="@+id/weather_locationSearch"
-        android:layout_width="207dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="4dp"
-        android:text="@string/weather_location_search"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weather_display_mainHeader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

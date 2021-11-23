@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,19 +37,16 @@ public class Fragment_weather extends Fragment {
     private FragmentWeatherBinding binding;
     //view model for weather
     private Fragment_weatherViewModel mWeatherModel;
+    private RecyclerView myRecylerView;
+    private Object[] myWeatherArray;
 
-
-
-
-    private int PERMISSION_CODE = 1;
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mWeatherModel = new ViewModelProvider(getActivity()).get(Fragment_weatherViewModel.class);
-
+        //myRecylerView = findViewById(R.id.weather_7dayRV);
         //myLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
 
 
     }
@@ -69,16 +68,27 @@ public class Fragment_weather extends Fragment {
 
         //Currently breaks here. Cannot figure out how to retrive proper response
         mWeatherModel.addResponseObserver(getViewLifecycleOwner(), response -> {
-            //  binding.weatherHumidity.setText(weatherObject.getMyCurrentWeather().getMyHumidity());   Weather_Main weatherObject = new Weather_Main(response);
-            //  binding.weatherHumidity.setText(weatherObject.getMyCurrentWeather().getMyHumidity());  binding.weatherConditionText.setText(weatherObject.getMyCurrentWeather().getMyShortDescription());
-            //  binding.weatherHumidity.setText(weatherObject.getMyCurrentWeather().getMyHumidity());     binding.weatherTemp.setText(weatherObject.getMyCurrentWeather().getMyTemp());
-            //  binding.weatherHumidity.setText(weatherObject.getMyCurrentWeather().getMyHumidity());   binding.weatherFeelsLike.setText(weatherObject.getMyCurrentWeather().getMyFeels());
-          //  binding.weatherHumidity.setText(weatherObject.getMyCurrentWeather().getMyHumidity());
-          //  binding.weatherPressure.setText(weatherObject.getMyCurrentWeather().getMyPressure());
 
-        });
+            Weather_Main weatherObject = new Weather_Main(response);
+              binding.weatherHumidity.setText(""+weatherObject.getMyCurrentWeather().getMyHumidity()+"%");
+              binding.weatherConditionText.setText(""+weatherObject.getMyCurrentWeather().getMyShortDescription());
+              binding.weatherTemp.setText(""+weatherObject.getMyCurrentWeather().getMyTemp()+"°F");
+              binding.weatherFeelsLike.setText(""+weatherObject.getMyCurrentWeather().getMyFeels()+"°F");
+              binding.weatherPressure.setText(""+weatherObject.getMyCurrentWeather().getMyPressure()+" hPa");
+              binding.weatherLocationSearch.setText(""+weatherObject.getMyTimezone());
+
+
+            if (weatherObject.getMy7DayForecast().getMy7DayWeatherArray()!= null) {
+                //RecycleViewHourly
+                Weather_RecycleViewAdapter rvAdapter=new Weather_RecycleViewAdapter(weatherObject.getMy7DayForecast().getMy7DayWeatherArray());
+                binding.weather7dayRV.setAdapter(rvAdapter);}
+            });
 
     }
+
+
+
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

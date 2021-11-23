@@ -1,5 +1,7 @@
 package edu.uw.tcss450.group7.chatapp.ui.chat.chatlist;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
 
@@ -78,6 +80,9 @@ public class Chat implements Serializable {
 
     public String getRecentMessage() {return mRecentMessage;}
 
-
-
+    @NonNull
+    @Override
+    public String toString() {
+        return getChatName();
+    }
 }

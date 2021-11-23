@@ -70,7 +70,7 @@ public class ChatListViewModel extends AndroidViewModel {
                             jsonContact.getString(
                                     getString.apply(
                                             R.string.keys_json_chat_name)))
-                            .addRecentMessage("mock last message")
+   //                         .addRecentMessage("mock last message")
                             .build();
                     if (!temp.contains(chat)) {
                         temp.add(chat);

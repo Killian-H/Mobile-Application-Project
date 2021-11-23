@@ -118,11 +118,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/weather_7dayRV"
-        android:layout_width="348dp"
+        android:layout_width="match_parent"
         android:layout_height="137dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="2dp"
         android:orientation="horizontal"
         android:scrollbars="horizontal"
+        android:outlineProvider="bounds"
+        android:elevation="3dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -82,8 +82,8 @@ public class SignInFragment extends Fragment {
 
         edu.uw.tcss450.group7.chatapp.ui.auth.signin.SignInFragmentArgs args = edu.uw.tcss450.group7.chatapp.ui.auth.signin.SignInFragmentArgs.fromBundle(getArguments());
         //binding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());
-        binding.editEmail.setText("zhong4475@gmail.com");
-        binding.editPassword.setText("test123@");
+//        binding.editEmail.setText("zhong4475@gmail.com");
+//        binding.editPassword.setText("test123@");
         //binding.editPassword.setText(args.getPassword().equals("default") ? "" : args.getPassword());
 
         mPushyTokenViewModel.addTokenObserver(getViewLifecycleOwner(), token ->

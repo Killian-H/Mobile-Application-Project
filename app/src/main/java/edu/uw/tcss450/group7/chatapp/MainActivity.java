@@ -64,13 +64,12 @@ public class MainActivity extends ColorActivity {
                 }
                 //Inform the view model holding chatroom messages of the new
                 //message.
-                mModel.addMessage(intent.getIntExtra("chatid", -1), cm);
+            //    mModel.addMessage(intent.getIntExtra("chatid", -1), cm);
             }
         }
     }
     private Resources.Theme mTheme;
     private int mCurrTheme;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,10 +122,6 @@ public class MainActivity extends ColorActivity {
                 mNewMessageModel.reset();
             }
         });
-
-
-
-
     }
 
     @Override

@@ -14,7 +14,7 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="9dp"
         android:text="@string/weather_switch_onOffText"
-        app:layout_constraintStart_toEndOf="@+id/weather_display_7dayHeader"
+        app:layout_constraintStart_toEndOf="@+id/weather_display_rvHeader"
         app:layout_constraintTop_toBottomOf="@+id/weather_pressure" />
 
     <TextView
@@ -84,7 +84,7 @@
         app:layout_constraintTop_toBottomOf="@+id/weather_display_mainHeader" />
 
     <TextView
-        android:id="@+id/weather_display_7dayHeader"
+        android:id="@+id/weather_display_rvHeader"
         android:layout_width="154dp"
         android:layout_height="29dp"
         android:layout_marginStart="12dp"
@@ -140,7 +140,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weather_display_7dayHeader"
+        app:layout_constraintTop_toBottomOf="@+id/weather_display_rvHeader"
         app:layout_constraintVertical_bias="0.044"
         tools:itemCount="@android:integer/config_longAnimTime" />
 

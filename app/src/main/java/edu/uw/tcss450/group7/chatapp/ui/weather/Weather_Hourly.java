@@ -35,7 +35,7 @@ public class Weather_Hourly {
         return (Weather_Current) myHourlyWeatherArray[theHour];
     }
 
-    public Object[] getMyHourlyWeatherArray() {
+    public Weather_Current[] getMyHourlyWeatherArray() {
         return myHourlyWeatherArray;
     }
 }

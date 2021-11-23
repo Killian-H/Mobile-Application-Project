@@ -19,6 +19,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -37,16 +39,14 @@ public class Fragment_weather extends Fragment {
     private FragmentWeatherBinding binding;
     //view model for weather
     private Fragment_weatherViewModel mWeatherModel;
-    private RecyclerView myRecylerView;
-    private Object[] myWeatherArray;
+    private Weather_Main myWeatherMain;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mWeatherModel = new ViewModelProvider(getActivity()).get(Fragment_weatherViewModel.class);
-        //myRecylerView = findViewById(R.id.weather_7dayRV);
-        //myLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
 
 
     }
@@ -57,6 +57,7 @@ public class Fragment_weather extends Fragment {
         binding = FragmentWeatherBinding.inflate(inflater);
 
         return binding.getRoot();
+
     }
 
 
@@ -65,23 +66,43 @@ public class Fragment_weather extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         connectInBakcground();
+        binding.weatherRVSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    Weather_RecycleViewAdapter rvAdapter7DAY=new Weather_RecycleViewAdapter(myWeatherMain.getMy7DayForecast().getMy7DayWeatherArray());
+                    binding.weather7dayRV.setAdapter(rvAdapter7DAY);
+                    binding.weatherDisplayRvHeader.setText("7 day forecast");
+                    binding.weatherRVSwitch.setText("Switch to 24 hour");
+                }
+                else {
+
+                    Weather_RecycleViewAdapter rvAdapterHOURLY=new Weather_RecycleViewAdapter(myWeatherMain.getMyHourlyForecast().getMyHourlyWeatherArray());
+                    binding.weather7dayRV.setAdapter(rvAdapterHOURLY);
+                    binding.weatherDisplayRvHeader.setText("24 hour forecast");
+                    binding.weatherRVSwitch.setText("Switch to 7 day");
+                }
+            }
+        });
+
+
 
         //
         mWeatherModel.addResponseObserver(getViewLifecycleOwner(), response -> {
 
-            Weather_Main weatherObject = new Weather_Main(response);
-              binding.weatherHumidity.setText(""+weatherObject.getMyCurrentWeather().getMyHumidity()+"%");
-              binding.weatherConditionText.setText(""+weatherObject.getMyCurrentWeather().getMyShortDescription());
-              binding.weatherTemp.setText(""+weatherObject.getMyCurrentWeather().getMyTemp()+"°F");
-              binding.weatherFeelsLike.setText(""+weatherObject.getMyCurrentWeather().getMyFeels()+"°F");
-              binding.weatherPressure.setText(""+weatherObject.getMyCurrentWeather().getMyPressure()+" hPa");
-              binding.weatherLocationSearch.setText(""+weatherObject.getMyTimezone());
+            myWeatherMain = new Weather_Main(response);
+              binding.weatherHumidity.setText(""+myWeatherMain.getMyCurrentWeather().getMyHumidity()+"%");
+              binding.weatherConditionText.setText(""+myWeatherMain.getMyCurrentWeather().getMyShortDescription());
+              binding.weatherTemp.setText(""+myWeatherMain.getMyCurrentWeather().getMyTemp()+"°F");
+              binding.weatherFeelsLike.setText(""+myWeatherMain.getMyCurrentWeather().getMyFeels()+"°F");
+              binding.weatherPressure.setText(""+myWeatherMain.getMyCurrentWeather().getMyPressure()+" hPa");
+              binding.weatherLocationSearch.setText(""+myWeatherMain.getMyTimezone());
 
 
 
                 //RecycleViewDaily
-               // Weather_RecycleViewAdapter rvAdapter7DAY=new Weather_RecycleViewAdapter(weatherObject.getMy7DayForecast().getMy7DayWeatherArray());
-                Weather_RecycleViewAdapter rvAdapterHOURLY=new Weather_RecycleViewAdapter(weatherObject.getMyHourlyForecast().getMyHourlyWeatherArray());
+                Weather_RecycleViewAdapter rvAdapter7DAY=new Weather_RecycleViewAdapter(myWeatherMain.getMy7DayForecast().getMy7DayWeatherArray());
+                Weather_RecycleViewAdapter rvAdapterHOURLY=new Weather_RecycleViewAdapter(myWeatherMain.getMyHourlyForecast().getMyHourlyWeatherArray());
                 // .getMyHourlyForecast().getMyHourlyWeatherArray()
                 binding.weather7dayRV.setAdapter(rvAdapterHOURLY);
             });

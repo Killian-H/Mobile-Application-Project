@@ -42,9 +42,9 @@ public class Weather_Current {
             myIconID = weatherJson.getString("icon");
             myShortDescription =  weatherJson.getString("main");
             myLongDescription = weatherJson.getString("description");
-            //Sunrise returning null for some reason
-           // mySunrise=theJson.getDouble("sunrise");
-            // mySunset= theJson.getDouble("sunset");
+            //Sunrise last to be constructed because hourly doesn't contain sunrise/sunset
+           mySunrise=theJson.getDouble("sunrise");
+           mySunset= theJson.getDouble("sunset");
         }
         catch (JSONException e){
             Log.e("JSON PARSE", "JSON Parse Error in weatherCurrent");

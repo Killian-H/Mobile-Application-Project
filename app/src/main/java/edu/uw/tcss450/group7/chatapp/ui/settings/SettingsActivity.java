@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import edu.uw.tcss450.group7.chatapp.MainActivity;
 import edu.uw.tcss450.group7.chatapp.R;
-import edu.uw.tcss450.group7.chatapp.utils.ColorActivity;
+import edu.uw.tcss450.group7.chatapp.ColorActivity;
 
 public class SettingsActivity extends ColorActivity {
 

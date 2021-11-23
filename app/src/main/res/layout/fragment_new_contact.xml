@@ -47,7 +47,6 @@
             style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableTint="@color/colorAccent"
             android:text="@string/button_email_search"
             app:layout_constraintBottom_toBottomOf="@+id/textField"
             app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +78,6 @@
             android:padding="8dp"
             android:text="@string/title_no_contact"
             android:textAlignment="center"
-            android:textColor="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearProgress" />
@@ -91,11 +89,9 @@
         android:layout_width="389dp"
         android:layout_height="35dp"
         android:layout_marginTop="4dp"
-        android:background="@color/colorPrimary"
         android:padding="8dp"
         android:text="@string/title_incoming_contact"
         android:textAlignment="center"
-        android:textColor="@color/primaryTextColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_search" />

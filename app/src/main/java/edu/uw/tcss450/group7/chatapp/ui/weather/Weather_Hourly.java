@@ -7,7 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Weather_Hourly {
-    private Object[] myHourlyWeatherArray;
+    private Weather_Current[] myHourlyWeatherArray;
     private int myHourRange;
 
     Weather_Hourly(JSONArray theJsonArray) throws JSONException {
@@ -19,7 +19,7 @@ public class Weather_Hourly {
     fills the Array constrained by hour range set in the constructor
      */
     private void fillArray(JSONArray theJSONArray) throws JSONException {
-        myHourlyWeatherArray = new Object[myHourRange];
+        myHourlyWeatherArray = new Weather_Current[myHourRange];
         for(int i = 0; i < myHourRange;i++){
             try {
                 Weather_Current temp = new Weather_Current((JSONObject) theJSONArray.get(i));

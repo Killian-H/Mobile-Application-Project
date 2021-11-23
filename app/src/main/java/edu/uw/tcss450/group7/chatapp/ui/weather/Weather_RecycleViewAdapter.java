@@ -62,7 +62,7 @@ public class Weather_RecycleViewAdapter extends RecyclerView.Adapter<Weather_Rec
 
         }
 
-        void setWeather(final Weather_Current theWeather) {
+        void setWeather(@NonNull final Weather_Current theWeather) {
             mWeather = theWeather;
 
 

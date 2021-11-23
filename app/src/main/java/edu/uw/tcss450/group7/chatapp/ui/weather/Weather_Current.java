@@ -2,20 +2,18 @@ package edu.uw.tcss450.group7.chatapp.ui.weather;
 
 import android.util.Log;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
 import java.util.Date;
 
 public class Weather_Current {
-    private Long myTime;
+    private Double myTime;
     private int myTimezoneOffset;
     private double myTemp;
-    private Long mySunrise;
-    private Long mySunset;
+    private Double mySunrise;
+    private Double mySunset;
     private double myFeels;
     private double myPressure;
     private double myHumidity;
@@ -29,11 +27,10 @@ public class Weather_Current {
 
     Weather_Current(JSONObject theJson) throws JSONException {
         try{
-            myTime= theJson.getLong("dt");
+            myTime= theJson.getDouble("dt");
             if (theJson.get("temp") instanceof  JSONObject)myTemp = ((JSONObject) theJson.get("temp")).getDouble("day");
             else myTemp = theJson.getDouble("temp");
-            mySunrise=theJson.getLong("sunrise");
-            mySunset= theJson.getLong("sunset");
+
             if (theJson.get("feels_like") instanceof  JSONObject)myTemp = ((JSONObject) theJson.get("feels_like")).getDouble("day");
             else myFeels = theJson.getDouble("feels_like");
             myPressure = theJson.getDouble("pressure");
@@ -45,6 +42,9 @@ public class Weather_Current {
             myIconID = weatherJson.getString("icon");
             myShortDescription =  weatherJson.getString("main");
             myLongDescription = weatherJson.getString("description");
+            //Sunrise returning null for some reason
+           // mySunrise=theJson.getDouble("sunrise");
+            // mySunset= theJson.getDouble("sunset");
         }
         catch (JSONException e){
             Log.e("JSON PARSE", "JSON Parse Error in weatherCurrent");
@@ -92,10 +92,10 @@ public class Weather_Current {
         return myWindGust;
     }
 
-    private String timeHelper(Long theUTC){
+    private String timeHelper(Double theUTC){
         String timeFormatted = "unformatted";
         try {
-            Date itemDate = new Date(theUTC * 1000L);
+            Date itemDate = new Date((long) (theUTC * 1000L));
             timeFormatted = new SimpleDateFormat("EEE, d MMM yyyy HH:mm").format(itemDate);
         }
         catch (Exception e){

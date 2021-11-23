@@ -116,6 +116,7 @@ public class Fragment_weather extends Fragment {
      * Asynchronous call. verifying the registration with the auth endpoint of the server.
      */
     private void connectInBakcground() {
+        //Tacoma Gps hardcoded currently showing timezone instead of actual location
         mWeatherModel.connect(-122.465,47.258);
         //This is an Asynchronous call. No statements after should rely on the
         //result of connect().

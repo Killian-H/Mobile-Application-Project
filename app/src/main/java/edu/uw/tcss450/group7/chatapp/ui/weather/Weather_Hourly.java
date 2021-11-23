@@ -10,8 +10,9 @@ public class Weather_Hourly {
     private Object[] myHourlyWeatherArray;
     private int myHourRange;
 
-    Weather_Hourly(JSONArray theJsonArray){
-    myHourRange = 24;
+    Weather_Hourly(JSONArray theJsonArray) throws JSONException {
+        fillArray(theJsonArray);
+        myHourRange = 24;
     }
     /**
     fills the Array constrained by hour range set in the constructor

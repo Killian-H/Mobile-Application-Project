@@ -66,7 +66,7 @@ public class Fragment_weather extends Fragment {
 
         connectInBakcground();
 
-        //Currently breaks here. Cannot figure out how to retrive proper response
+        //
         mWeatherModel.addResponseObserver(getViewLifecycleOwner(), response -> {
 
             Weather_Main weatherObject = new Weather_Main(response);
@@ -116,7 +116,7 @@ public class Fragment_weather extends Fragment {
      * Asynchronous call. verifying the registration with the auth endpoint of the server.
      */
     private void connectInBakcground() {
-        mWeatherModel.connect(-94,33);
+        mWeatherModel.connect(-122.465,47.258);
         //This is an Asynchronous call. No statements after should rely on the
         //result of connect().
     }

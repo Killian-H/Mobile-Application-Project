@@ -2,6 +2,8 @@ package edu.uw.tcss450.group7.chatapp.ui.weather;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +19,7 @@ public class Weather_7Day  {
     /**
      fills the Array constrained by hour range set in the constructor
      */
-    private void fillArray(JSONArray theJSONArray) throws JSONException {
+    private void fillArray(@NonNull JSONArray theJSONArray) throws JSONException {
         my7DayWeatherArray = new Object[theJSONArray.length()];
         for(int i = 0; i < theJSONArray.length();i++){
             try {

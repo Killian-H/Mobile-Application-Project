@@ -78,10 +78,12 @@ public class Fragment_weather extends Fragment {
               binding.weatherLocationSearch.setText(""+weatherObject.getMyTimezone());
 
 
-            if (weatherObject.getMy7DayForecast().getMy7DayWeatherArray()!= null) {
-                //RecycleViewHourly
-                Weather_RecycleViewAdapter rvAdapter=new Weather_RecycleViewAdapter(weatherObject.getMy7DayForecast().getMy7DayWeatherArray());
-                binding.weather7dayRV.setAdapter(rvAdapter);}
+
+                //RecycleViewDaily
+               // Weather_RecycleViewAdapter rvAdapter7DAY=new Weather_RecycleViewAdapter(weatherObject.getMy7DayForecast().getMy7DayWeatherArray());
+                Weather_RecycleViewAdapter rvAdapterHOURLY=new Weather_RecycleViewAdapter(weatherObject.getMyHourlyForecast().getMyHourlyWeatherArray());
+                // .getMyHourlyForecast().getMyHourlyWeatherArray()
+                binding.weather7dayRV.setAdapter(rvAdapterHOURLY);
             });
 
     }

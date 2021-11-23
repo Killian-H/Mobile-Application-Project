@@ -11,15 +11,16 @@ public class Weather_Hourly {
     private int myHourRange;
 
     Weather_Hourly(JSONArray theJsonArray) throws JSONException {
-        fillArray(theJsonArray);
         myHourRange = 24;
+        fillArray(theJsonArray);
+
     }
     /**
     fills the Array constrained by hour range set in the constructor
      */
     private void fillArray(JSONArray theJSONArray) throws JSONException {
         myHourlyWeatherArray = new Object[myHourRange];
-        for(int i = 0; i < myHourRange;i++){
+        for(int i = 0; i <= myHourRange;i++){
             try {
                 Weather_Current temp = new Weather_Current((JSONObject) theJSONArray.get(i));
                 myHourlyWeatherArray[i] = temp;

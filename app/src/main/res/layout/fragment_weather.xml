@@ -7,6 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.weather.Fragment_weather">
 
+    <Switch
+        android:id="@+id/weather_RV_switch"
+        android:layout_width="164dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="9dp"
+        android:text="@string/weather_switch_onOffText"
+        app:layout_constraintStart_toEndOf="@+id/weather_display_7dayHeader"
+        app:layout_constraintTop_toBottomOf="@+id/weather_pressure" />
+
     <TextView
         android:id="@+id/weather_feelsLike"
         android:layout_width="96dp"
@@ -75,11 +85,11 @@
 
     <TextView
         android:id="@+id/weather_display_7dayHeader"
-        android:layout_width="175dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/weather_7day_header"
+        android:layout_width="154dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/weather_RV_header"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/weather_pressure" />

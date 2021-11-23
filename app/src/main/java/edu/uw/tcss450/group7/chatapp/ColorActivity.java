@@ -10,7 +10,7 @@ import edu.uw.tcss450.group7.chatapp.R;
 
 public abstract class ColorActivity extends AppCompatActivity {
     private static final String M_KEY_THEME = "Theme";
-    private static final int M_BLACK_YELLOW = R.style.AppTheme_BY;
+    private static final int M_BLACK_YELLOW = R.style.AppTheme_BP;
     private static final int M_UW_THEME = R.style.AppTheme_UW;
     private static int mCurrentTheme = M_UW_THEME;
 

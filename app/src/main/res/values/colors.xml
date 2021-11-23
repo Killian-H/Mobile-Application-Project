@@ -26,9 +26,9 @@
     <color name="primaryColor">#322e2f</color>
     <color name="primaryLightColor">#5b5758</color>
     <color name="primaryDarkColor">#0a0305</color>
-    <color name="secondaryColor">#e2d810</color>
-    <color name="secondaryLightColor">#ffff56</color>
-    <color name="secondaryDarkColor">#aca700</color>
+    <color name="secondaryColor">#772CE8</color>
+    <color name="secondaryLightColor">#9146ff</color>
+    <color name="secondaryDarkColor">#290351</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#000000</color>
 </resources>

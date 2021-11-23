@@ -32,4 +32,8 @@ public class Weather_7Day  {
     public Weather_Current getWeatherAtSpecificDay(int theIndex){
         return (Weather_Current) my7DayWeatherArray[theIndex];
     }
+
+    public Object[] getMy7DayWeatherArray() {
+        return my7DayWeatherArray;
+    }
 }

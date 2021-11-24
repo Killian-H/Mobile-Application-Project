@@ -20,8 +20,8 @@ public class Weather_7Day  {
      fills the Array constrained by hour range set in the constructor
      */
     private void fillArray(@NonNull JSONArray theJSONArray) throws JSONException {
-        my7DayWeatherArray = new Weather_Current[theJSONArray.length()];
-        for(int i = 0; i < theJSONArray.length();i++){
+        my7DayWeatherArray = new Weather_Current[theJSONArray.length() - 1];
+        for(int i = 0; i < theJSONArray.length() - 1; i++){
             try {
                 Weather_Current temp = new Weather_Current((JSONObject) theJSONArray.get(i));
                 my7DayWeatherArray[i] = temp;

@@ -32,6 +32,7 @@ public class SettingsActivity extends ColorActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-       return super.onSupportNavigateUp();
+        finish();
+        return true;
     }
 }

@@ -1,4 +1,4 @@
-package edu.uw.tcss450.group7.chatapp.ui.settings;
+package edu.uw.tcss450.group7.chatapp;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +29,7 @@ public class SettingsActivity extends ColorActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {

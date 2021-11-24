@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/navigation_contact">
+    app:startDestination="@id/navigation_chat">
 
     <fragment
         android:id="@+id/navigation_contact"
@@ -59,7 +59,7 @@
     </fragment>
     <activity
         android:id="@+id/settingsActivity"
-        android:name="edu.uw.tcss450.group7.chatapp.ui.settings.SettingsActivity"
+        android:name="edu.uw.tcss450.group7.chatapp.SettingsActivity"
         android:label="activity_settings"
         tools:layout="@layout/activity_settings" />
     <fragment

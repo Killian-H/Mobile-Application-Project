@@ -7,4 +7,12 @@
         android:title="Settings"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_sign_out"
+        android:orderInCategory="200"
+        android:title="@string/action_sign_out"
+        app:showAsAction="never"
+        />
+
+
 </menu>

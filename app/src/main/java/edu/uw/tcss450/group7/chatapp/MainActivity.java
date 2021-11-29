@@ -11,9 +11,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,8 +37,6 @@ public class MainActivity extends ColorActivity {
     private ActivityMainBinding binding;
     private MainPushMessageReceiver mPushMessageReceiver;
     private NewMessageCountViewModel mNewMessageModel;
-
-    private int number;
 
     /**
      * A BroadcastReceiver that listens for messages sent from PushReceiver
@@ -68,7 +69,6 @@ public class MainActivity extends ColorActivity {
             }
         }
     }
-    private Resources.Theme mTheme;
     private int mCurrTheme;
 
     @Override
@@ -139,7 +139,24 @@ public class MainActivity extends ColorActivity {
         Log.d("lifecycle","onStart invoked");
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_sign_out) {
+            signOut();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
+    private void signOut() {
+        SharedPreferences prefs =
+                getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+        prefs.edit().remove(getString(R.string.keys_prefs_jwt)).apply();
+        //End the app completely
+        finishAndRemoveTask();
+    }
 
     @Override
     protected void onResume() {
@@ -167,7 +184,7 @@ public class MainActivity extends ColorActivity {
         if (mPushMessageReceiver != null){
             unregisterReceiver(mPushMessageReceiver);
         }
-        Log.d("lifecycle","onPause invoked,and number is "+number);
+        Log.d("lifecycle","onPause invoked,and number is ");
     }
 
     @Override

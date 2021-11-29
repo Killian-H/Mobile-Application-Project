@@ -5,6 +5,8 @@ import static edu.uw.tcss450.group7.chatapp.utils.PasswordValidator.checkExclude
 import static edu.uw.tcss450.group7.chatapp.utils.PasswordValidator.checkPwdLength;
 import static edu.uw.tcss450.group7.chatapp.utils.PasswordValidator.checkPwdSpecialChar;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,9 +19,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.auth0.android.jwt.JWT;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentSignInBinding;
 import edu.uw.tcss450.group7.chatapp.model.PushyTokenViewModel;
 import edu.uw.tcss450.group7.chatapp.model.UserInfoViewModel;
@@ -94,6 +99,27 @@ public class SignInFragment extends Fragment {
                 this::observePushyPutResponse);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        SharedPreferences prefs =
+                getActivity().getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+        if (prefs.contains(getString(R.string.keys_prefs_jwt))) {
+            String token = prefs.getString(getString(R.string.keys_prefs_jwt), "");
+            JWT jwt = new JWT(token);
+            // Check to see if the web token is still valid or not. To make a JWT expire after a
+            // longer or shorter time period, change the expiration time when the JWT is
+            // created on the web service.
+            if(!jwt.isExpired(0)) {
+                String email = jwt.getClaim("email").asString();
+                navigateToSuccess(email, token);
+                return;
+            }
+        }
+    }
+
     private void attemptSignIn(final View button) {
         validateEmail();
     }
@@ -127,9 +153,19 @@ public class SignInFragment extends Fragment {
      * @param jwt the JSON Web Token supplied by the server
      */
     private void navigateToSuccess(final String email, final String jwt) {
+        if (binding.switchSignin.isChecked()) {
+            SharedPreferences prefs =
+                    getActivity().getSharedPreferences(
+                            getString(R.string.keys_shared_prefs),
+                            Context.MODE_PRIVATE);
+            //Store the credentials in SharedPrefs
+            prefs.edit().putString(getString(R.string.keys_prefs_jwt), jwt).apply();
+        }
         Navigation.findNavController(getView())
                 .navigate(edu.uw.tcss450.group7.chatapp.ui.auth.signin.SignInFragmentDirections
                         .actionLoginFragmentToMainActivity(email, jwt));
+        //Remove THIS activity from the Task list. Pops off the backstack
+        getActivity().finish();
     }
     private void sendPushyToken() {
         mPushyTokenViewModel.sendTokenToWebservice(mUserViewModel.getmJwt());

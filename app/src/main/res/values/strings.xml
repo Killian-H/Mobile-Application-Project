@@ -30,28 +30,27 @@
     <string name="button_email_search">Search</string>
     <string name="title_no_contact">Please Enter Valid Email!</string>
 
-    <string name = "weather_temp">56°F</string>
-    <string name = "weather_feelsLike">45°F</string>
-    <string name = "weather_display_mainHeader">Location</string>
-    <string name = "weather_condition_text">Windy as heck</string>
-    <string name = "weather_condition_icon">8010</string>
-    <string name = "weather_search_iconDescription">weather_search_icon</string>
-    <string name = "weather_7dayRV">weather_7dayRV</string>
-    <string name = "weather_pressure">Pressure 1050</string>
-    <string name = "weather_humidity">Humidity 32</string>
-    <string name = "weather_RV_header">24 Hour Forecast</string>
-    <string name = "weather_7Day">weather_locationSearch</string>
-    <string name = "weather_location_search">Enter City, State</string>
-    <string name = "weather_contentDescription">Weather Icon to display</string>
-    <string name = "weather_card_time">12:00 am</string>
-    <string name = "weather_card_temp">45°F</string>
-    <string name = "weather_card_wind">15 m/h</string>
-    <string name = "weather_switch_onOffText">Switch to weekly</string>
+    <string name="weather_temp">56°F</string>
+    <string name="weather_feelsLike">45°F</string>
+    <string name="weather_display_mainHeader">Location</string>
+    <string name="weather_condition_text">Windy as heck</string>
+    <string name="weather_condition_icon">8010</string>
+    <string name="weather_search_iconDescription">weather_search_icon</string>
+    <string name="weather_7dayRV">weather_7dayRV</string>
+    <string name="weather_pressure">Pressure 1050</string>
+    <string name="weather_humidity">Humidity 32</string>
+    <string name="weather_RV_header">24 Hour Forecast</string>
+    <string name="weather_7Day">weather_locationSearch</string>
+    <string name="weather_location_search">Enter City, State</string>
+    <string name="weather_contentDescription">Weather Icon to display</string>
+    <string name="weather_card_time">12:00 am</string>
+    <string name="weather_card_temp">45°F</string>
+    <string name="weather_card_wind">15 m/h</string>
+    <string name="weather_switch_onOffText">Switch to weekly</string>
     <string name="switch_sign_in">Stay Signed in</string>
     <string name="keys_shared_prefs">My Auth App Shared Prefs</string>
     <string name="keys_prefs_jwt">Sharded Prefs JWT</string>
     <string name="action_sign_out">Sign Out</string>
-
 
 
     <string name="base_url">https://mobile-application-project-450.herokuapp.com/</string>

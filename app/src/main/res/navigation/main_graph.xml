@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_navigation_chat_to_chatFragment"
             app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_navigation_chat_to_newChatListFragment"
+            app:destination="@id/newChatListFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_weather"
@@ -74,4 +77,9 @@
             android:name="chat"
             app:argType="edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.Chat" />
     </fragment>
+    <fragment
+        android:id="@+id/newChatListFragment"
+        android:name="edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.NewChatListFragment"
+        android:label="fragment_new_chat"
+        tools:layout="@layout/fragment_new_chat" />
 </navigation>

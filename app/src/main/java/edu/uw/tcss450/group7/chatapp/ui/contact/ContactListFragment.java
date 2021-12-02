@@ -62,7 +62,7 @@ public class ContactListFragment extends Fragment {
 //                    .setOrientation(LinearLayoutManager.HORIZONTAL);
 
             ((RecyclerView) view).setAdapter(
-                    new edu.uw.tcss450.group7.chatapp.ui.contact.ContactRecyclerViewAdapter(edu.uw.tcss450.group7.chatapp.ui.contact.ContactGenerator.getContactList()));
+                    new ContactRecyclerViewAdapter(edu.uw.tcss450.group7.chatapp.ui.contact.ContactGenerator.getContactList()));
         }
         return inflater.inflate(R.layout.fragment_contact_list, container, false);
     }

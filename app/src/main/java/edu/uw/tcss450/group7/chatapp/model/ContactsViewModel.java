@@ -29,19 +29,21 @@ import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.ui.contact.Contact;
 
 public class ContactsViewModel extends AndroidViewModel {
-
-    private MutableLiveData<List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> mContactList;
-    private MutableLiveData<List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> mIncomingList;
-    private MutableLiveData<List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> mSearchList;
+    private MutableLiveData<List<Contact>> mContactList;
+    private MutableLiveData<List<Contact>> mIncomingList;
+    private MutableLiveData<List<Contact>> mSearchList;
+    private MutableLiveData<List<Contact>> mVerifiedContactList;
 
     public ContactsViewModel(@NonNull Application application) {
         super(application);
         mContactList = new MutableLiveData<>();
         mIncomingList = new MutableLiveData<>();
         mSearchList = new MutableLiveData<>();
+        mVerifiedContactList = new MutableLiveData<>();
         mContactList.setValue(new ArrayList<>());
         mIncomingList.setValue(new ArrayList<>());
         mSearchList.setValue(new ArrayList<>());
+        mVerifiedContactList.setValue(new ArrayList<>());
     }
 
     public void addContactListObserver(@NonNull LifecycleOwner owner,
@@ -58,6 +60,11 @@ public class ContactsViewModel extends AndroidViewModel {
     public void addSearchListObserver(@NonNull LifecycleOwner owner,
                                         @NonNull Observer<? super List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> observer) {
         mSearchList.observe(owner, observer);
+    }
+
+    public void addVerifiedContactListObserver(@NonNull LifecycleOwner owner,
+                                      @NonNull Observer<? super List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> observer) {
+        mVerifiedContactList.observe(owner, observer);
     }
 
     private void handleError(final VolleyError error) {
@@ -110,6 +117,7 @@ public class ContactsViewModel extends AndroidViewModel {
         }
         mContactList.setValue(temp);
         mIncomingList.setValue(temp);
+        mVerifiedContactList.setValue(filterVerified(temp));
     }
 
     private void handleResultSearch(final JSONObject result) {
@@ -216,5 +224,20 @@ public class ContactsViewModel extends AndroidViewModel {
         //Instantiate the RequestQueue and add the request to the queue
         Volley.newRequestQueue(getApplication().getApplicationContext())
                 .add(request);
+    }
+
+    /**
+     * Returns A list of contacts where each contact is verified (mutual contacts).
+     * @param theContactList The contact list, potentially contains unverified contacts.
+     * @return A list of contacts, all verified.
+     */
+    private List<Contact> filterVerified(List<Contact> theContactList) {
+        List<Contact> verifiedList = new ArrayList<Contact>();
+        for (Contact contact : theContactList) {
+            if (contact.getVerified()) {
+                verifiedList.add(contact);
+            }
+        }
+        return verifiedList;
     }
 }

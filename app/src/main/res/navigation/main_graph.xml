@@ -80,6 +80,6 @@
     <fragment
         android:id="@+id/newChatListFragment"
         android:name="edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.NewChatListFragment"
-        android:label="fragment_new_chat"
+        android:label="@string/title_newChat"
         tools:layout="@layout/fragment_new_chat" />
 </navigation>

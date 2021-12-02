@@ -5,23 +5,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentNewContactCardBinding;
+import edu.uw.tcss450.group7.chatapp.databinding.NewChatAddContactCardBinding;
 import edu.uw.tcss450.group7.chatapp.ui.contact.Contact;
 import edu.uw.tcss450.group7.chatapp.ui.contact.NewContactRecyclerViewAdapter;
 
 public class NewChatRecyclerViewAdapter extends RecyclerView.Adapter<NewChatRecyclerViewAdapter.NewChatViewHolder> {
     private final List<Contact> mContacts;
-    private final Boolean mIsIncoming;
 
 
-    public NewChatRecyclerViewAdapter(List<Contact> items, Boolean isIncoming) {
+    public NewChatRecyclerViewAdapter(List<Contact> items) {
         this.mContacts = items;
-        this.mIsIncoming = isIncoming;
     }
 
     @NonNull
@@ -29,12 +29,12 @@ public class NewChatRecyclerViewAdapter extends RecyclerView.Adapter<NewChatRecy
     public NewChatRecyclerViewAdapter.NewChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new NewChatRecyclerViewAdapter.NewChatViewHolder(LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.fragment_new_contact_card, parent, false));
+                .inflate(R.layout.new_chat_add_contact_card, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull NewChatRecyclerViewAdapter.NewChatViewHolder holder, int position) {
-        holder.setContact(mContacts.get(position), mIsIncoming);
+        holder.setContact(mContacts.get(position));
     }
 
     @Override
@@ -49,30 +49,31 @@ public class NewChatRecyclerViewAdapter extends RecyclerView.Adapter<NewChatRecy
      */
     public class NewChatViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public FragmentNewContactCardBinding binding;
+        public @NonNull NewChatAddContactCardBinding binding;
         private Contact mContact;
-        private Boolean mIsIncoming;
 
         public NewChatViewHolder(View view) {
             super(view);
             mView = view;
-            binding = FragmentNewContactCardBinding.bind(view);
+            binding = NewChatAddContactCardBinding.bind(view);
 
         }
 
 
 
-        void setContact(final Contact contact, boolean isIncoming) {
+        void setContact(final Contact contact) {
             mContact = contact;
-            mIsIncoming = isIncoming;
-            if (!isIncoming) {
 
 //            binding.buttonSearch.setOnClickListener();
 //            if(){
 //
 //            }
-                binding.textUserDetails.setText(contact.getFirstName() + " " + contact.getLastName());
-            }
+            binding.textEmail.setText(contact.getEmail());
+            binding.textName.setText(contact.getFirstName() + " " + contact.getLastName());
+
+            mView.setOnClickListener(view -> {
+
+            });
         }
     }
 }

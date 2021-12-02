@@ -22,6 +22,7 @@ import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentNewChatBinding;
 import edu.uw.tcss450.group7.chatapp.model.ContactsViewModel;
 import edu.uw.tcss450.group7.chatapp.model.UserInfoViewModel;
+import edu.uw.tcss450.group7.chatapp.ui.contact.ContactGenerator;
 import edu.uw.tcss450.group7.chatapp.ui.contact.ContactListFragmentDirections;
 
 /**
@@ -54,7 +55,7 @@ public class NewChatListFragment extends Fragment {
         if (view instanceof RecyclerView) {
 
             ((RecyclerView) view).setAdapter(
-                    new edu.uw.tcss450.group7.chatapp.ui.contact.ContactRecyclerViewAdapter(edu.uw.tcss450.group7.chatapp.ui.contact.ContactGenerator.getContactList()));
+                    new NewChatRecyclerViewAdapter(ContactGenerator.getContactList()));
         }
         return inflater.inflate(R.layout.fragment_new_chat, container, false);
     }
@@ -68,12 +69,12 @@ public class NewChatListFragment extends Fragment {
         FragmentNewChatBinding binding = FragmentNewChatBinding.bind(getView());
 
 
-        mModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
+        mModel.addVerifiedContactListObserver(getViewLifecycleOwner(), contactList -> {
             if (!contactList.isEmpty()) {
                 binding.listRoot.setAdapter(
-                        new edu.uw.tcss450.group7.chatapp.ui.contact.ContactRecyclerViewAdapter(contactList)
+                        new NewChatRecyclerViewAdapter(contactList)
                 );
-                binding.layoutWait.setVisibility(View.GONE);
+                //binding.layoutWait.setVisibility(View.GONE);
             }
         });
     }

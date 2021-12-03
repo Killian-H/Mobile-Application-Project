@@ -103,7 +103,7 @@ public class Contact implements Serializable {
 
 
     public String getFullName() {
-        return mLastName + ", " + mFirstName;
+        return mFirstName + " " + mLastName;
     }
 
     public String getEmail() {

@@ -2,7 +2,6 @@
 <resources>
     <string name="keys_json_contacts_response">response</string>
     <string name="keys_json_contacts_data">rows</string>
-    <string name="keys_json_contacts_memberid_b">memberid_b</string>
     <string name="keys_json_contacts_memberid">memberid</string>
     <string name="keys_json_contacts_firstname">firstname</string>
     <string name="keys_json_contacts_lastname">lastname</string>

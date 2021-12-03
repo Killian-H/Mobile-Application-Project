@@ -62,7 +62,7 @@ public class ContactListFragment extends Fragment {
 //                    .setOrientation(LinearLayoutManager.HORIZONTAL);
 
             ((RecyclerView) view).setAdapter(
-                    new ContactRecyclerViewAdapter(edu.uw.tcss450.group7.chatapp.ui.contact.ContactGenerator.getContactList()));
+                    new edu.uw.tcss450.group7.chatapp.ui.contact.ContactRecyclerViewAdapter(edu.uw.tcss450.group7.chatapp.ui.contact.ContactGenerator.getContactList(),mUserModel.getmJwt(),mModel));
         }
         return inflater.inflate(R.layout.fragment_contact_list, container, false);
     }
@@ -104,7 +104,7 @@ public class ContactListFragment extends Fragment {
         mModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
             if (!contactList.isEmpty()) {
                 binding.listRoot.setAdapter(
-                        new edu.uw.tcss450.group7.chatapp.ui.contact.ContactRecyclerViewAdapter(contactList)
+                        new edu.uw.tcss450.group7.chatapp.ui.contact.ContactRecyclerViewAdapter(contactList,mUserModel.getmJwt(),mModel)
                 );
                 binding.layoutWait.setVisibility(View.GONE);
             }

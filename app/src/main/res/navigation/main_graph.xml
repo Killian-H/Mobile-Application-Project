@@ -31,18 +31,18 @@
         <action
             android:id="@+id/action_navigation_chat_to_chatFragment"
             app:destination="@id/chatFragment" />
-        <action
-            android:id="@+id/action_navigation_chat_to_newChatListFragment"
-            app:destination="@id/newChatListFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_weather"
         android:name="edu.uw.tcss450.group7.chatapp.ui.weather.Fragment_weather"
         android:label="@string/title_weather"
         tools:layout="@layout/fragment_weather" >
-    <action
-        android:id="@+id/action_navigation_weather_to_settingsActivity"
-        app:destination="@id/settingsActivity" />
+        <action
+            android:id="@+id/action_navigation_weather_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+        <action
+            android:id="@+id/action_navigation_weather_to_map"
+            app:destination="@id/fragmentWeatherMap" />
     </fragment>
     <fragment
         android:id="@+id/contactFragment"
@@ -78,8 +78,8 @@
             app:argType="edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.Chat" />
     </fragment>
     <fragment
-        android:id="@+id/newChatListFragment"
-        android:name="edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.NewChatListFragment"
-        android:label="@string/title_newChat"
-        tools:layout="@layout/fragment_new_chat" />
+        android:id="@+id/fragmentWeatherMap"
+        android:name="edu.uw.tcss450.group7.chatapp.ui.weather.FragmentWeatherMap"
+        android:label="@string/weather_map"
+        tools:layout="@layout/fragment_weather_map" />
 </navigation>

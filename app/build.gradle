@@ -10,6 +10,7 @@ android {
 
 
     defaultConfig {
+        applicationId "info.androidhive.databinding"
         applicationId "edu.uw.tcss450.group7.chatapp"
         minSdkVersion 24
         targetSdkVersion 31
@@ -49,5 +50,5 @@ dependencies {
     implementation 'com.auth0:java-jwt:3.14.0'
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'me.pushy:sdk:1.0.54'
-
+    implementation 'com.google.android.gms:play-services-maps:18.0.0'
 }

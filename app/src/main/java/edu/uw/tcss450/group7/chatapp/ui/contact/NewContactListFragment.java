@@ -60,8 +60,8 @@ public class NewContactListFragment extends Fragment {
 //            ((LinearLayoutManager)((RecyclerView) view).getLayoutManager())
 //                    .setOrientation(LinearLayoutManager.HORIZONTAL);
 
-            ((RecyclerView) view).setAdapter(
-                    new ContactRecyclerViewAdapter(ContactGenerator.getContactList()));
+//            ((RecyclerView) view).setAdapter(
+//                    new ContactRecyclerViewAdapter(ContactGenerator.getContactList()));
         }
         return inflater.inflate(R.layout.fragment_new_contact, container, false);
     }

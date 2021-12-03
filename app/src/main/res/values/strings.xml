@@ -52,6 +52,7 @@
     <string name="keys_shared_prefs">My Auth App Shared Prefs</string>
     <string name="keys_prefs_jwt">Sharded Prefs JWT</string>
     <string name="action_sign_out">Sign Out</string>
+    <string name="send_message">Message</string>
 
 
     <string name="base_url">https://mobile-application-project-450.herokuapp.com/</string>

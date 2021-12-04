@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -64,17 +65,18 @@ public class NewChatListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Log.d("NewChatFragment","onViewCreated");
 
         FragmentNewChatBinding binding = FragmentNewChatBinding.bind(getView());
 
+        binding.linearProgress.hide();
 
-        mModel.addVerifiedContactListObserver(getViewLifecycleOwner(), contactList -> {
+        mModel.addVerifiedListObserver(getViewLifecycleOwner(), contactList -> {
             if (!contactList.isEmpty()) {
-                binding.listRoot.setAdapter(
+                Log.d("NewChatFragment","onViewCreated - contactList is not empty");
+                binding.listAddContacts.setAdapter(
                         new NewChatRecyclerViewAdapter(contactList)
                 );
-                //binding.layoutWait.setVisibility(View.GONE);
             }
         });
     }

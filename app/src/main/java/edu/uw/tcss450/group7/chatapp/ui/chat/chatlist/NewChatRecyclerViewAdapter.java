@@ -71,9 +71,9 @@ public class NewChatRecyclerViewAdapter extends RecyclerView.Adapter<NewChatRecy
             binding.textEmail.setText(contact.getEmail());
             binding.textName.setText(contact.getFirstName() + " " + contact.getLastName());
 
-            mView.setOnClickListener(view -> {
-
-            });
+//            mView.setOnClickListener(view -> {
+//
+//            });
         }
     }
 }

@@ -34,15 +34,18 @@ public class ContactsViewModel extends AndroidViewModel {
     private MutableLiveData<List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> mContactList;
     private MutableLiveData<List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> mIncomingList;
     private MutableLiveData<List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> mSearchList;
+    private MutableLiveData<List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> mVerifiedList;
 
     public ContactsViewModel(@NonNull Application application) {
         super(application);
         mContactList = new MutableLiveData<>();
         mIncomingList = new MutableLiveData<>();
         mSearchList = new MutableLiveData<>();
+        mVerifiedList = new MutableLiveData<>();
         mContactList.setValue(new ArrayList<>());
         mIncomingList.setValue(new ArrayList<>());
         mSearchList.setValue(new ArrayList<>());
+        mVerifiedList.setValue(new ArrayList<>());
     }
 
     public void addContactListObserver(@NonNull LifecycleOwner owner,
@@ -59,6 +62,11 @@ public class ContactsViewModel extends AndroidViewModel {
     public void addSearchListObserver(@NonNull LifecycleOwner owner,
                                       @NonNull Observer<? super List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> observer) {
         mSearchList.observe(owner, observer);
+    }
+
+    public void addVerifiedListObserver(@NonNull LifecycleOwner owner,
+                                      @NonNull Observer<? super List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> observer) {
+        mVerifiedList.observe(owner, observer);
     }
 
     private void handleError(final VolleyError error) {
@@ -112,6 +120,17 @@ public class ContactsViewModel extends AndroidViewModel {
         }
         mContactList.setValue(temp);
         mIncomingList.setValue(temp);
+        mVerifiedList.setValue(filterVerified(temp));
+    }
+
+    private List<Contact> filterVerified(List<Contact> contactList) {
+        List<Contact> result = new ArrayList<Contact>();
+        for(Contact contact : contactList) {
+            if(contact.getVerified()) {
+                result.add(contact);
+            }
+        }
+        return result;
     }
 
     private void handleResultSearch(final JSONObject result) {

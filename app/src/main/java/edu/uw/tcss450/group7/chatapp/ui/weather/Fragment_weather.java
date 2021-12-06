@@ -159,7 +159,7 @@ public class Fragment_weather extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //connectInBakcground();
+
         binding.weatherRVSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -196,7 +196,6 @@ public class Fragment_weather extends Fragment {
             String weatherIconUrl = "https://openweathermap.org/img/wn/"+myWeatherMain.getMyCurrentWeather().getMyIconID()+"@2x.png";
             Picasso.with(getContext())
                     .load("https://openweathermap.org/img/wn/"+myWeatherMain.getMyCurrentWeather().getMyIconID()+"@2x.png")
-                    .resize(binding.weatherConditionIcon.getWidth(),binding.weatherConditionIcon.getHeight())
                     .into(binding.weatherConditionIcon);
 
                 //RecycleViewDaily

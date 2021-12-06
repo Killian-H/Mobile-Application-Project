@@ -34,8 +34,11 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
+
+import java.net.URL;
 
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentWeatherBinding;
@@ -85,6 +88,7 @@ public class Fragment_weather extends Fragment {
         mWeatherModel = new ViewModelProvider(getActivity()).get(Fragment_weatherViewModel.class);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
 
+
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -119,7 +123,7 @@ public class Fragment_weather extends Fragment {
         };
 
         createLocationRequest();
-
+        connectInBakcground();
     }
 
     @Override
@@ -155,7 +159,7 @@ public class Fragment_weather extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        connectInBakcground();
+        //connectInBakcground();
         binding.weatherRVSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -164,6 +168,7 @@ public class Fragment_weather extends Fragment {
                     binding.weather7dayRV.setAdapter(rvAdapter7DAY);
                     binding.weatherDisplayRvHeader.setText("7 day forecast");
                     binding.weatherRVSwitch.setText("Switch to 24 hour");
+
                 }
                 else {
 
@@ -188,10 +193,15 @@ public class Fragment_weather extends Fragment {
               binding.weatherPressure.setText(""+myWeatherMain.getMyCurrentWeather().getMyPressure()+" hPa");
               binding.weatherLocationSearch.setText(""+myWeatherMain.getMyTimezone());
 
-
+            String weatherIconUrl = "https://openweathermap.org/img/wn/"+myWeatherMain.getMyCurrentWeather().getMyIconID()+"@2x.png";
+            Picasso.with(getContext())
+                    .load("https://openweathermap.org/img/wn/"+myWeatherMain.getMyCurrentWeather().getMyIconID()+"@2x.png")
+                    .resize(binding.weatherConditionIcon.getWidth(),binding.weatherConditionIcon.getHeight())
+                    .into(binding.weatherConditionIcon);
 
                 //RecycleViewDaily
                 Weather_RecycleViewAdapter rvAdapter7DAY=new Weather_RecycleViewAdapter(myWeatherMain.getMy7DayForecast().getMy7DayWeatherArray());
+
                 Weather_RecycleViewAdapter rvAdapterHOURLY=new Weather_RecycleViewAdapter(myWeatherMain.getMyHourlyForecast().getMyHourlyWeatherArray());
                 // .getMyHourlyForecast().getMyHourlyWeatherArray()
                 binding.weather7dayRV.setAdapter(rvAdapterHOURLY);

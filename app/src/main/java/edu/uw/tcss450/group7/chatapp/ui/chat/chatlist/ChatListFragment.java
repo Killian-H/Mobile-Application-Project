@@ -145,13 +145,12 @@ public class ChatListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        FragmentContactListBinding binding = FragmentContactListBinding.bind(getView());
+        FragmentChatListBinding binding = FragmentChatListBinding.bind(getView());
 
         //On click listener to floatingButton
-//        binding.buttonCompose.setOnClickListener(button ->
-//                Navigation.findNavController(getView()).navigate(
-//                        ContactListFragmentDirections
-//                                .actionNavigationContactToNewContactFragment()));
+        binding.buttonCompose.setOnClickListener(button ->
+                Navigation.findNavController(getView()).navigate(
+                        ChatListFragmentDirections.actionNavigationChatToNewChatListFragment()));
 
         mModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
             if (!chatList.isEmpty()) {

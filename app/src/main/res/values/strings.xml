@@ -14,12 +14,14 @@
     <string name="title_settings">Settings</string>
     <string name="button_text">Change Theme</string>
     <string name="theme_change">Theme Options</string>
-    <string name="weather_map">Weather Map</string>
+
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_new_chat_fragment">Create New Chat</string>
     <string name="title_home">Home</string>
     <string name="title_contact">Contacts</string>
     <string name="title_newContact">Add Contact</string>
+    <string name="title_newChat">Create Chat</string>
     <string name="title_chat">Chat</string>
     <string name="title_weather">Weather</string>
     <string name="test_home">Home</string>
@@ -30,6 +32,7 @@
     <string name="title_email_search">Enter Email to Search Contact</string>
     <string name="button_email_search">Search</string>
     <string name="title_no_contact">Please Enter Valid Email!</string>
+    <string name="weather_map">Weather Map</string>
 
     <string name="weather_temp">56°F</string>
     <string name="weather_feelsLike">45°F</string>
@@ -52,10 +55,15 @@
     <string name="keys_shared_prefs">My Auth App Shared Prefs</string>
     <string name="keys_prefs_jwt">Sharded Prefs JWT</string>
     <string name="action_sign_out">Sign Out</string>
+    <string name="send_message">Message</string>
 
+    <string name="button_create_chat">Create Chat</string>
+    <string name="title_select_contacts">Select Contacts:</string>
+    <string name="title_name_chat">Enter Chat Name</string>
+
+    <string name="title_activity_maps">Select Location</string>
 
     <string name="base_url">https://mobile-application-project-450.herokuapp.com/</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_maps">MapsActivity</string>
 
 </resources>

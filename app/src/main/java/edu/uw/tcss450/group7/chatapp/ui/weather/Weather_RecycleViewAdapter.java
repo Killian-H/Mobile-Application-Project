@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import edu.uw.tcss450.group7.chatapp.R;
@@ -42,6 +44,7 @@ public class Weather_RecycleViewAdapter extends RecyclerView.Adapter<Weather_Rec
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
         holder.setWeather((Weather_Current) mWeatherList[position]);
+
     }
 
 
@@ -64,13 +67,13 @@ public class Weather_RecycleViewAdapter extends RecyclerView.Adapter<Weather_Rec
 
         void setWeather(@NonNull final Weather_Current theWeather) {
             mWeather = theWeather;
-
-
                 binding.weatherCardTemp.setText(""+theWeather.getMyTemp()+"°F");
                 binding.weatherCardTime.setText(""+theWeather.getMyTime());
                 binding.weatherCardWind.setText(""+theWeather.getMyWindSpeed()+" mph");
-                //binding.weatherCardIcon.setImageIcon();
-
+            Picasso.with(mView.getContext())
+                    .load("https://openweathermap.org/img/wn/"+theWeather.getMyIconID()+"@2x.png")
+                    //.resize(binding.weatherCardIcon.getWidth(),binding.weatherCardIcon.getHeight())
+                    .into(binding.weatherCardIcon);
             }
     }
 }

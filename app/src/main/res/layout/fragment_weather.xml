@@ -64,12 +64,12 @@
 
     <ImageView
         android:id="@+id/weather_condition_icon"
-        android:layout_width="260dp"
-        android:layout_height="190dp"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
         android:contentDescription="@string/weather_contentDescription"
-        android:src="@drawable/ic_weather_white_24dp"
-        android:outlineProvider="bounds"
         android:elevation="1.5dp"
+        android:outlineProvider="bounds"
+        android:src="@drawable/ic_weather_white_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"

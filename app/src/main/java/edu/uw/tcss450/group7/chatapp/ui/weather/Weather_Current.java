@@ -25,6 +25,7 @@ public class Weather_Current {
     private String myLongDescription;
 
 
+
     Weather_Current(JSONObject theJson) throws JSONException {
         try{
             myTime= theJson.getDouble("dt");
@@ -36,15 +37,16 @@ public class Weather_Current {
             myPressure = theJson.getDouble("pressure");
             myHumidity = theJson.getDouble("humidity");
             myWindSpeed = theJson.getDouble("wind_speed");
-            myWindGust = theJson.getDouble("wind_gust");
+           //if (theJson.has("wind_gust"))myWindGust = theJson.getDouble("wind_gust");
             JSONObject weatherJson = (JSONObject) theJson.getJSONArray("weather").get(0);
             myID = weatherJson.getInt("id");
             myIconID = weatherJson.getString("icon");
             myShortDescription =  weatherJson.getString("main");
             myLongDescription = weatherJson.getString("description");
             //Sunrise last to be constructed because hourly doesn't contain sunrise/sunset
-           mySunrise=theJson.getDouble("sunrise");
-           mySunset= theJson.getDouble("sunset");
+            if ((theJson.has("sunrise")))mySunrise=theJson.getDouble("sunrise");
+          // mySunrise=theJson.getDouble("sunrise");
+          if (theJson.has("sunset"))mySunset= theJson.getDouble("sunset");
         }
         catch (JSONException e){
             Log.e("JSON PARSE", "JSON Parse Error in weatherCurrent");

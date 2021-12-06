@@ -16,8 +16,13 @@ import java.io.Serializable;
  */
 public class Chat implements Serializable {
 
+    /* The ID of the chatroom. */
     private final int mChatId;
+
+    /* The most recent message. */
     private final String mRecentMessage;
+
+    /* The name of the chat room. */
     private final String mChatName;
 
     /**
@@ -61,6 +66,11 @@ public class Chat implements Serializable {
             return this;
         }
 
+        /**
+         * Builds a new Chat.
+         *
+         * @return The new Chatroom.
+         */
         public Chat build() {
             return new Chat(this);
         }
@@ -73,13 +83,32 @@ public class Chat implements Serializable {
         this.mRecentMessage = builder.mRecentMessage;
     }
 
-
+    /**
+     * Getter to return the chat id.
+     *
+     * @return The chat id.
+     */
     public Integer getChatId() {return mChatId;}
 
+    /**
+     * Getter which returns the chat name.
+     *
+     * @return The chat name.
+     */
     public String getChatName() {return mChatName;}
 
+    /**
+     * Getter which returns the most recent message.
+     *
+     * @return The most recent message.
+     */
     public String getRecentMessage() {return mRecentMessage;}
 
+    /**
+     * Returns the name of the chat room.
+     *
+     * @return The chat name.
+     */
     @NonNull
     @Override
     public String toString() {

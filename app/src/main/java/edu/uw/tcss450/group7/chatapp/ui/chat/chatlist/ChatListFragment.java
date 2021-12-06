@@ -1,3 +1,7 @@
+/*
+ * TCSS 450
+ * Fragment for the chat lists.
+ */
 package edu.uw.tcss450.group7.chatapp.ui.chat.chatlist;
 
 import android.os.Bundle;
@@ -25,16 +29,51 @@ import edu.uw.tcss450.group7.chatapp.ui.contact.ContactListFragmentDirections;
 //import edu.uw.tcss450.group7.chatapp.ui.Chat.Fragment_ChatDirections;
 
 /**
- * A simple {@link Fragment} subclass.
-
+ * Class creating a new fragment for the chat list.
+ *
+ * @author Charles Bryan
+ * @author Group 7
+ * Commented by: Killian Hickey
  */
 public class ChatListFragment extends Fragment {
 
+    /* View model for the list of chat rooms. */
     private ChatListViewModel mModel;
+
+    /* View model for the current users info. */
     private UserInfoViewModel mUserModel;
 
+    /* Binding to the view model for this fragment. */
     private FragmentChatListBinding binding;
 
+    /**
+     * Initializes the fragment and the view models needed for
+     * this fragment.
+     *
+     * @param savedInstanceState Stores the data needed to reload the state of the
+     *                           UI controller for this fragment.
+     */
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ViewModelProvider provider = new ViewModelProvider(getActivity());
+        mUserModel = provider.get(UserInfoViewModel.class);
+        mModel = provider.get(ChatListViewModel.class);
+        mModel.connectGet(mUserModel.getmJwt());
+        setHasOptionsMenu(true);
+    }
+
+    /**
+     * Creates and returns the view hierarchy belonging to this fragment
+     * and sets the recycler view to be a vertical list.
+     *
+     * @param inflater Instantiates the xml file for this layout.
+     * @param container Container used to contain other views.
+     * @param savedInstanceState Stores the data needed to reload the state of the
+     *                           UI controller for this fragment.
+     *
+     * @return Returns the view hierarchy belonging to this fragment.
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -57,17 +96,11 @@ public class ChatListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_chat_list, container, false);
     }
 
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ViewModelProvider provider = new ViewModelProvider(getActivity());
-        mUserModel = provider.get(UserInfoViewModel.class);
-        mModel = provider.get(ChatListViewModel.class);
-        mModel.connectGet(mUserModel.getmJwt());
-        setHasOptionsMenu(true);
-    }
-
+    /**
+     * Instantiates the xml file for the drop down menu.
+     * @param menu The menu being inflated.
+     * @param inflater Instantiates the toolbar xml file.
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         //inflate menu
@@ -75,7 +108,14 @@ public class ChatListFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-
+    /**
+     * Sets the behavior of the Settings item in the toolbar. Navigates
+     * to Settings Activity when selected.
+     *
+     * @param item The Settings item in the menu.
+     *
+     * @return The behavior for the item.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //handle menu item clicks
@@ -90,6 +130,16 @@ public class ChatListFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Called immediately after onCreateView() once it is known the view has been
+     * created without problems. Gives subclasses time to initialize. Handles displaying
+     * the chat list. If there are no chats no chats will be displayed.
+     *
+     *
+     * @param view The view which has been created.
+     * @param savedInstanceState Stores the data needed to reload the state of the
+     *                           UI controller for this fragment.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

@@ -1,6 +1,10 @@
+/*
+ * TCSS 450
+ *
+ * Sign in fragment.
+ */
 package edu.uw.tcss450.group7.chatapp.ui.auth.signin;
 
-import static edu.uw.tcss450.group7.chatapp.utils.PasswordValidator.*;
 import static edu.uw.tcss450.group7.chatapp.utils.PasswordValidator.checkExcludeWhiteSpace;
 import static edu.uw.tcss450.group7.chatapp.utils.PasswordValidator.checkPwdLength;
 import static edu.uw.tcss450.group7.chatapp.utils.PasswordValidator.checkPwdSpecialChar;
@@ -32,26 +36,47 @@ import edu.uw.tcss450.group7.chatapp.utils.PasswordValidator;
 
 /**
  * A simple {@link Fragment} subclass.
+ *
+ * @author Charles Bryan
+ * @author Group 7
+ * Commented by: Killian Hickey
  */
 public class SignInFragment extends Fragment {
 
-    private FragmentSignInBinding binding;
+    /* Binding to the view model for this fragment. */
+    private FragmentSignInBinding mBinding;
+
+    /* View model for this fragment. */
     private SignInViewModel mSignInModel;
+
+    /* Pushy token view model. */
     private PushyTokenViewModel mPushyTokenViewModel;
+
+    /* VIew model for the info about the user. */
     private UserInfoViewModel mUserViewModel;
 
-
+    /* Checks to see if the email provided is valid. */
     private PasswordValidator mEmailValidator = checkPwdLength(2)
             .and(checkExcludeWhiteSpace())
             .and(checkPwdSpecialChar("@"));
 
+    /* Checks to see if the password provided is valid. */
     private PasswordValidator mPassWordValidator = checkPwdLength(1)
             .and(checkExcludeWhiteSpace());
 
+    /**
+     * Required default public constructor.
+     */
     public SignInFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Initializes the fragment and the pushy token view model.
+     *
+     * @param savedInstanceState Stores the data needed to reload the state of the
+     *                           UI controller for this fragment.
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,43 +87,68 @@ public class SignInFragment extends Fragment {
                 .get(PushyTokenViewModel.class);
     }
 
+    /**
+     * Creates and returns the view hierarchy belonging to this fragment.
+     *
+     * @param inflater Instantiates the xml file for the layout.
+     * @param container Container used to contain other views.
+     * @param savedInstanceState Stores the data needed to reload the state of the
+     *                           UI controller for this fragment.
+     * @return Returns the view hierarchy belonging to this fragment.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentSignInBinding.inflate(inflater);
+        mBinding = FragmentSignInBinding.inflate(inflater);
         // Inflate the layout for this fragment
-        return binding.getRoot();
+        return mBinding.getRoot();
     }
 
+    /**
+     * Called immediately after onCreateView() once it is known the view has been
+     * created without problems. Gives subclasses time to initialize. Handles what
+     * happens when the yser enters a valid email and password combination, then
+     * clicks the sign-in button, which navigates to the MainActivity.
+     *
+     *
+     * @param view The view which has been created.
+     * @param savedInstanceState Stores the data needed to reload the state of the
+     *                           UI controller for this fragment.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonToRegister.setOnClickListener(button ->
+        mBinding.buttonToRegister.setOnClickListener(button ->
             Navigation.findNavController(getView()).navigate(
                     edu.uw.tcss450.group7.chatapp.ui.auth.signin.SignInFragmentDirections.actionLoginFragmentToRegisterFragment()
             ));
 
-        binding.buttonSignIn.setOnClickListener(this::attemptSignIn);
+        mBinding.buttonSignIn.setOnClickListener(this::attemptSignIn);
 
         mSignInModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observeResponse);
 
         edu.uw.tcss450.group7.chatapp.ui.auth.signin.SignInFragmentArgs args = edu.uw.tcss450.group7.chatapp.ui.auth.signin.SignInFragmentArgs.fromBundle(getArguments());
-        binding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());
-//        binding.editEmail.setText("zhong4475@gmail.com");
-//        binding.editPassword.setText("test123@");
-        binding.editPassword.setText(args.getPassword().equals("default") ? "" : args.getPassword());
+        mBinding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());
+//        mBinding.editEmail.setText("zhong4475@gmail.com");
+//        mBinding.editPassword.setText("test123@");
+        mBinding.editPassword.setText(args.getPassword().equals("default") ? "" : args.getPassword());
 
         mPushyTokenViewModel.addTokenObserver(getViewLifecycleOwner(), token ->
-                binding.buttonSignIn.setEnabled(!token.isEmpty()));
+                mBinding.buttonSignIn.setEnabled(!token.isEmpty()));
 
         mPushyTokenViewModel.addResponseObserver(
                 getViewLifecycleOwner(),
                 this::observePushyPutResponse);
     }
 
+    /**
+     * Gets called once the fragment has been created. Checks to see if the
+     * JWT associated with the user is still valid. If it is, it will call
+     * navigateToSucess().
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -120,28 +170,44 @@ public class SignInFragment extends Fragment {
         }
     }
 
+    /**
+     * Calls the validateEmail() method when the user presses the sign-in button.
+     *
+     * @param button The sign-in button.
+     */
     private void attemptSignIn(final View button) {
         validateEmail();
     }
 
+    /**
+     * Checks whether the email provided is valid.
+     */
     private void validateEmail() {
         mEmailValidator.processResult(
-                mEmailValidator.apply(binding.editEmail.getText().toString().trim()),
+                mEmailValidator.apply(mBinding.editEmail.getText().toString().trim()),
                 this::validatePassword,
-                result -> binding.editEmail.setError("Please enter a valid Email address."));
+                result -> mBinding.editEmail.setError("Please enter a valid Email address."));
     }
 
+    /**
+     * Checks whether the password is valid.
+     */
     private void validatePassword() {
         mPassWordValidator.processResult(
-                mPassWordValidator.apply(binding.editPassword.getText().toString()),
+                mPassWordValidator.apply(mBinding.editPassword.getText().toString()),
                 this::verifyAuthWithServer,
-                result -> binding.editPassword.setError("Please enter a valid Password."));
+                result -> mBinding.editPassword.setError("Please enter a valid Password."));
     }
 
+    /**
+     * Asynchronous call to the server with the email and password
+     * provided by the user to verify whether the email and password
+     * are linked to a user in the database.
+     */
     private void verifyAuthWithServer() {
         mSignInModel.connect(
-                binding.editEmail.getText().toString(),
-                binding.editPassword.getText().toString());
+                mBinding.editEmail.getText().toString(),
+                mBinding.editPassword.getText().toString());
         //This is an Asynchronous call. No statements after should rely on the
         //result of connect().
 
@@ -149,11 +215,12 @@ public class SignInFragment extends Fragment {
 
     /**
      * Helper to abstract the navigation to the Activity past Authentication.
+     *
      * @param email users email
      * @param jwt the JSON Web Token supplied by the server
      */
     private void navigateToSuccess(final String email, final String jwt) {
-        if (binding.switchSignin.isChecked()) {
+        if (mBinding.switchSignin.isChecked()) {
             SharedPreferences prefs =
                     getActivity().getSharedPreferences(
                             getString(R.string.keys_shared_prefs),
@@ -182,11 +249,11 @@ public class SignInFragment extends Fragment {
         if (response.length() > 0) {
             if (response.has("code")) {
                 //this error cannot be fixed by the user changing credentials...
-                binding.editEmail.setError(
+                mBinding.editEmail.setError(
                         "Error Authenticating on Push Token. Please contact support");
             } else {
                 navigateToSuccess(
-                        binding.editEmail.getText().toString(),
+                        mBinding.editEmail.getText().toString(),
                         mUserViewModel.getmJwt()
                 );
             }
@@ -205,7 +272,7 @@ public class SignInFragment extends Fragment {
         if (response.length() > 0) {
             if (response.has("code")) {
                 try {
-                    binding.editEmail.setError(
+                    mBinding.editEmail.setError(
                             "Error Authenticating: " +
                                     response.getJSONObject("data").getString("message"));
                 } catch (JSONException e) {
@@ -215,7 +282,7 @@ public class SignInFragment extends Fragment {
                 try {
                     mUserViewModel = new ViewModelProvider(getActivity(),
                             new UserInfoViewModel.UserInfoViewModelFactory(
-                                    binding.editEmail.getText().toString(),
+                                    mBinding.editEmail.getText().toString(),
                                     response.getString("token")
                             )).get(UserInfoViewModel.class);
                     Log.d("sign", mUserViewModel.toString());
@@ -224,7 +291,7 @@ public class SignInFragment extends Fragment {
                     sendPushyToken();
 
                     navigateToSuccess(
-                            binding.editEmail.getText().toString(),
+                            mBinding.editEmail.getText().toString(),
                             response.getString("token")
                     );
                 } catch (JSONException e) {

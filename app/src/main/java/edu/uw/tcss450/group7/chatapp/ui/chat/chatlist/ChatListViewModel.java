@@ -1,3 +1,8 @@
+/*
+ * TCSS 450
+ *
+ * View model for the list of chat rooms.
+ */
 package edu.uw.tcss450.group7.chatapp.ui.chat.chatlist;
 
 import android.app.Application;
@@ -28,22 +33,40 @@ import java.util.function.IntFunction;
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.ui.contact.Contact;
 
-
+/**
+ * View model for the list of chat rooms in the ChatListFragment.
+ */
 public class ChatListViewModel extends AndroidViewModel {
 
+    /* The list containing the chats. */
     private MutableLiveData<List<Chat>> mChatList;
 
+    /**
+     * Initializes the chat list as an array list of mutable data.
+     *
+     * @param application Base class for mainaining global application state.
+     */
     public ChatListViewModel(@NonNull Application application) {
         super(application);
         mChatList = new MutableLiveData<>();
         mChatList.setValue(new ArrayList<>());
     }
 
+    /**
+     *
+     * @param owner
+     * @param observer
+     */
     public void addChatListObserver(@NonNull LifecycleOwner owner,
                                        @NonNull Observer<? super List<Chat>> observer) {
         mChatList.observe(owner, observer);
     }
 
+    /**
+     * Hnadles an error if Volley throws one.
+     *
+     * @param error The error thrown.
+     */
     private void handleError(final VolleyError error) {
         //you should add much better error handling in a production release.
         //i.e. YOUR PROJECT
@@ -51,6 +74,11 @@ public class ChatListViewModel extends AndroidViewModel {
         Log.e("CONNECTION ERROR", error.toString());
     }
 
+    /**
+     *
+     * ]=
+     * @param result
+     */
     private void handleResult(final JSONObject result) {
         ArrayList<Chat> temp= new ArrayList<>();
         IntFunction<String> getString = getApplication().getResources()::getString;

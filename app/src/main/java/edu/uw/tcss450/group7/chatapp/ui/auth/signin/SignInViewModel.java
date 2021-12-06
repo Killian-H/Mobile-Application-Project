@@ -1,3 +1,7 @@
+/*
+ * TCSS 450
+ * View model for the sign in fragment.
+ */
 package edu.uw.tcss450.group7.chatapp.ui.auth.signin;
 
 import android.app.Application;
@@ -25,25 +29,48 @@ import java.util.Objects;
 
 import edu.uw.tcss450.group7.chatapp.io.RequestQueueSingleton;
 
+/**
+ * Class creating a view model for the sign in fragment.
+ *
+ * @author Charles Bryan
+ * @author Group 7
+ * Commented by: Killian Hickey
+ */
 public class SignInViewModel extends AndroidViewModel {
 
+    /* Response from the server. */
     private MutableLiveData<JSONObject> mResponse;
 
+    /**
+     * Overloaded constructor calling its parent. Initializes
+     * the JSON response object.
+     *
+     * @param application The application the view model is connected to.
+     */
     public SignInViewModel(@NonNull Application application) {
         super(application);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
     }
 
+    /**
+     * Takes note of the response from the server when the user attempts to sign in.
+     *
+     * @param owner The current life cycle of the provider.
+     * @param observer Response from the server.
+     */
     public void addResponseObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super JSONObject> observer) {
         mResponse.observe(owner, observer);
     }
 
 
-
-
-
+    /**
+     * If there is an error when parsing the JSON object this method will
+     * handle the error and output a message in the Logcat.
+     *
+     * @param error The error returned by the Volley library.
+     */
     private void handleError(final VolleyError error) {
         if (Objects.isNull(error.networkResponse)) {
             try {
@@ -68,6 +95,15 @@ public class SignInViewModel extends AndroidViewModel {
         }
     }
 
+    /**
+     * This method connects the front end of sign-in with the back-end
+     * of the server. Connects to the authorization endpoint of our server.
+     * It sends the email and password provided by the user to check if the
+     * email and password exist.
+     *
+     * @param email The email provided by the user.
+     * @param password The password provided by the user.
+     */
     public void connect(final String email, final String password) {
         String url = "https://mobile-application-project-450.herokuapp.com/auth";
         Request request = new JsonObjectRequest(

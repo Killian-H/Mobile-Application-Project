@@ -163,14 +163,14 @@ public class Fragment_weather extends Fragment {
         binding.weatherRVSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked&&myWeatherMain!=null){
                     Weather_RecycleViewAdapter rvAdapter7DAY=new Weather_RecycleViewAdapter(myWeatherMain.getMy7DayForecast().getMy7DayWeatherArray());
                     binding.weather7dayRV.setAdapter(rvAdapter7DAY);
                     binding.weatherDisplayRvHeader.setText("7 day forecast");
                     binding.weatherRVSwitch.setText("Switch to 24 hour");
 
                 }
-                else {
+                else if(!isChecked&&myWeatherMain!=null) {
 
                     Weather_RecycleViewAdapter rvAdapterHOURLY=new Weather_RecycleViewAdapter(myWeatherMain.getMyHourlyForecast().getMyHourlyWeatherArray());
                     binding.weather7dayRV.setAdapter(rvAdapterHOURLY);

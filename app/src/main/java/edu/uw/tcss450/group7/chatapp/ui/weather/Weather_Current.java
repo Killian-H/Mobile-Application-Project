@@ -37,7 +37,7 @@ public class Weather_Current {
             myPressure = theJson.getDouble("pressure");
             myHumidity = theJson.getDouble("humidity");
             myWindSpeed = theJson.getDouble("wind_speed");
-           // myWindGust = theJson.getDouble("wind_gust");
+           //if (theJson.has("wind_gust"))myWindGust = theJson.getDouble("wind_gust");
             JSONObject weatherJson = (JSONObject) theJson.getJSONArray("weather").get(0);
             myID = weatherJson.getInt("id");
             myIconID = weatherJson.getString("icon");

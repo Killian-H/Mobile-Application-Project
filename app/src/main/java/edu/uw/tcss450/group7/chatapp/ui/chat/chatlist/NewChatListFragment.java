@@ -85,7 +85,10 @@ public class NewChatListFragment extends Fragment {
 
         binding.buttonCreateChat.setOnClickListener( button -> {
             if(binding.textInputChatName.getText() != null ) {
+                binding.linearProgress.show();
                 mNewChatModel.connectCreateChatAndAddUsers(mUserModel.getmJwt(), binding.textInputChatName.getText().toString());
+                Navigation.findNavController(getView()).navigateUp();
+
             }
         });
     }

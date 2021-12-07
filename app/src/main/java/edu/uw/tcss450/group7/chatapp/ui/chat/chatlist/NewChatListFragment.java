@@ -22,6 +22,7 @@ import edu.uw.tcss450.group7.chatapp.databinding.FragmentContactListBinding;
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentNewChatBinding;
 import edu.uw.tcss450.group7.chatapp.model.ContactsViewModel;
+import edu.uw.tcss450.group7.chatapp.model.NewChatViewModel;
 import edu.uw.tcss450.group7.chatapp.model.UserInfoViewModel;
 import edu.uw.tcss450.group7.chatapp.ui.contact.ContactGenerator;
 import edu.uw.tcss450.group7.chatapp.ui.contact.ContactListFragmentDirections;
@@ -32,7 +33,8 @@ import edu.uw.tcss450.group7.chatapp.ui.contact.ContactListFragmentDirections;
  * create an instance of this fragment.
  */
 public class NewChatListFragment extends Fragment {
-    private ContactsViewModel mModel;
+    private ContactsViewModel mContactsModel;
+    private NewChatViewModel mNewChatModel;
     private UserInfoViewModel mUserModel;
 
     public NewChatListFragment() {
@@ -44,8 +46,9 @@ public class NewChatListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         ViewModelProvider provider = new ViewModelProvider(getActivity());
         mUserModel = provider.get(UserInfoViewModel.class);
-        mModel = provider.get(ContactsViewModel.class);
-        mModel.connectGet(mUserModel.getmJwt());
+        mContactsModel = provider.get(ContactsViewModel.class);
+        mNewChatModel = provider.get(NewChatViewModel.class);
+        mContactsModel.connectGet(mUserModel.getmJwt());
         setHasOptionsMenu(true);
     }
 
@@ -71,12 +74,18 @@ public class NewChatListFragment extends Fragment {
 
         binding.linearProgress.hide();
 
-        mModel.addVerifiedListObserver(getViewLifecycleOwner(), contactList -> {
+        mContactsModel.addVerifiedListObserver(getViewLifecycleOwner(), contactList -> {
             if (!contactList.isEmpty()) {
                 Log.d("NewChatFragment","onViewCreated - contactList is not empty");
                 binding.listAddContacts.setAdapter(
                         new NewChatRecyclerViewAdapter(contactList)
                 );
+            }
+        });
+
+        binding.buttonCreateChat.setOnClickListener( button -> {
+            if(binding.textInputChatName.getText() != null ) {
+                mNewChatModel.connectCreateChatAndAddUsers(mUserModel.getmJwt(), binding.textInputChatName.getText().toString());
             }
         });
     }

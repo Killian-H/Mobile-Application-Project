@@ -24,6 +24,7 @@ import edu.uw.tcss450.group7.chatapp.databinding.FragmentNewChatBinding;
 import edu.uw.tcss450.group7.chatapp.model.ContactsViewModel;
 import edu.uw.tcss450.group7.chatapp.model.NewChatViewModel;
 import edu.uw.tcss450.group7.chatapp.model.UserInfoViewModel;
+import edu.uw.tcss450.group7.chatapp.ui.chat.chatroom.ChatViewModel;
 import edu.uw.tcss450.group7.chatapp.ui.contact.ContactGenerator;
 import edu.uw.tcss450.group7.chatapp.ui.contact.ContactListFragmentDirections;
 
@@ -35,6 +36,7 @@ import edu.uw.tcss450.group7.chatapp.ui.contact.ContactListFragmentDirections;
 public class NewChatListFragment extends Fragment {
     private ContactsViewModel mContactsModel;
     private NewChatViewModel mNewChatModel;
+    private ChatListViewModel mChatModel;
     private UserInfoViewModel mUserModel;
 
     public NewChatListFragment() {
@@ -48,6 +50,7 @@ public class NewChatListFragment extends Fragment {
         mUserModel = provider.get(UserInfoViewModel.class);
         mContactsModel = provider.get(ContactsViewModel.class);
         mNewChatModel = provider.get(NewChatViewModel.class);
+        mChatModel = provider.get(ChatListViewModel.class);
         mContactsModel.connectGet(mUserModel.getmJwt());
         setHasOptionsMenu(true);
     }
@@ -59,7 +62,7 @@ public class NewChatListFragment extends Fragment {
         if (view instanceof RecyclerView) {
 
             ((RecyclerView) view).setAdapter(
-                    new NewChatRecyclerViewAdapter(ContactGenerator.getContactList()));
+                    new NewChatRecyclerViewAdapter(ContactGenerator.getContactList(), mNewChatModel));
         }
         return inflater.inflate(R.layout.fragment_new_chat, container, false);
     }
@@ -78,7 +81,7 @@ public class NewChatListFragment extends Fragment {
             if (!contactList.isEmpty()) {
                 Log.d("NewChatFragment","onViewCreated - contactList is not empty");
                 binding.listAddContacts.setAdapter(
-                        new NewChatRecyclerViewAdapter(contactList)
+                        new NewChatRecyclerViewAdapter(contactList, mNewChatModel)
                 );
             }
         });
@@ -86,8 +89,12 @@ public class NewChatListFragment extends Fragment {
         binding.buttonCreateChat.setOnClickListener( button -> {
             if(binding.textInputChatName.getText() != null ) {
                 binding.linearProgress.show();
-                mNewChatModel.connectCreateChatAndAddUsers(mUserModel.getmJwt(), binding.textInputChatName.getText().toString());
+                if (!(mNewChatModel == null)) {
+                    mNewChatModel.connectCreateChatAndAddUsers(mUserModel.getmJwt(), binding.textInputChatName.getText().toString());
+                }
+                mChatModel.connectGet(mUserModel.getmJwt());
                 Navigation.findNavController(getView()).navigateUp();
+
 
             }
         });

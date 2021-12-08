@@ -26,16 +26,18 @@ import java.util.Map;
 import java.util.function.IntFunction;
 
 import edu.uw.tcss450.group7.chatapp.R;
-import edu.uw.tcss450.group7.chatapp.ui.contact.Contact;
 
 
 public class ChatListViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Chat>> mChatList;
+    private MutableLiveData<Boolean> mIsChatListEmpty;
 
     public ChatListViewModel(@NonNull Application application) {
         super(application);
         mChatList = new MutableLiveData<>();
+        mIsChatListEmpty = new MutableLiveData<>();
+        mIsChatListEmpty.setValue(false);
         mChatList.setValue(new ArrayList<>());
     }
 
@@ -44,11 +46,15 @@ public class ChatListViewModel extends AndroidViewModel {
         mChatList.observe(owner, observer);
     }
 
+    public void addChatListEmptyObserver(@NonNull LifecycleOwner owner,
+                                    @NonNull Observer<? super java.lang.Boolean> observer) {
+        mIsChatListEmpty.observe(owner, observer);
+    }
+
     private void handleError(final VolleyError error) {
         //you should add much better error handling in a production release.
         //i.e. YOUR PROJECT
-        mChatList = new MutableLiveData<>();
-        Log.e("CONNECTION ERROR", error.toString());
+        mIsChatListEmpty.setValue(true);
     }
 
     private void handleResult(final JSONObject result) {

@@ -1,8 +1,11 @@
 package edu.uw.tcss450.group7.chatapp.ui.weather;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -23,22 +26,38 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Locale;
 
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentWeatherBinding;
@@ -80,6 +99,8 @@ public class Fragment_weather extends Fragment {
     /* The ViewModel that will store the current location. */
     private LocationViewModel mLocationModel;
 
+    private Geocoder mGeocoderModel;
+    private PlacesClient mPlacesClient;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -87,6 +108,18 @@ public class Fragment_weather extends Fragment {
         setHasOptionsMenu(true);
         mWeatherModel = new ViewModelProvider(getActivity()).get(Fragment_weatherViewModel.class);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+        //intialize geocoder
+       // mGeocoderModel = new Geocoder(getContext(), Locale.US);
+
+        // Initialize the SDK
+        if(!Places.isInitialized()) {
+            Places.initialize(getContext(), "AIzaSyDrnr_jdk8D_Nyp741UZys_gqMFOb9w54g");
+        }
+        // Create a new PlacesClient instance
+         mPlacesClient = Places.createClient(getContext());
+
+
+
 
 
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -118,12 +151,14 @@ public class Fragment_weather extends Fragment {
                                 .get(LocationViewModel.class);
                     }
                     mLocationModel.setLocation(location);
+
                 }
             };
         };
 
+
         createLocationRequest();
-        connectInBakcground();
+        connectInBackground();
     }
 
     @Override
@@ -159,7 +194,7 @@ public class Fragment_weather extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        //7 day and 24 hour forecast recycle view listener
         binding.weatherRVSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -182,7 +217,7 @@ public class Fragment_weather extends Fragment {
 
 
 
-        //
+        //Json request/response observer for location data
         mWeatherModel.addResponseObserver(getViewLifecycleOwner(), response -> {
 
             myWeatherMain = new Weather_Main(response);
@@ -191,9 +226,9 @@ public class Fragment_weather extends Fragment {
               binding.weatherTemp.setText(""+myWeatherMain.getMyCurrentWeather().getMyTemp()+"°F");
               binding.weatherFeelsLike.setText(""+myWeatherMain.getMyCurrentWeather().getMyFeels()+"°F");
               binding.weatherPressure.setText(""+myWeatherMain.getMyCurrentWeather().getMyPressure()+" hPa");
-              binding.weatherLocationSearch.setText(""+myWeatherMain.getMyTimezone());
 
-            String weatherIconUrl = "https://openweathermap.org/img/wn/"+myWeatherMain.getMyCurrentWeather().getMyIconID()+"@2x.png";
+
+
             Picasso.with(getContext())
                     .load("https://openweathermap.org/img/wn/"+myWeatherMain.getMyCurrentWeather().getMyIconID()+"@2x.png")
                     .into(binding.weatherConditionIcon);
@@ -205,12 +240,43 @@ public class Fragment_weather extends Fragment {
                 // .getMyHourlyForecast().getMyHourlyWeatherArray()
                 binding.weather7dayRV.setAdapter(rvAdapterHOURLY);
             });
+
+
+        //????
         binding.buttonMap.setOnClickListener(button -> {
                     Navigation.findNavController(getView()).navigate(
                             Fragment_weatherDirections.actionNavigationWeatherToMap()
                     );
                 });
+
+        // Initialize the AutocompleteSupportFragment.
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+               getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+        // Specify the types of place data to return.
+
+        autocompleteFragment.setTypeFilter(TypeFilter.GEOCODE);
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.ADDRESS));
+        // Set up a PlaceSelectionListener to handle the response.
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(@NonNull Place place) {
+                // TODO: Get info about the selected place.
+                Log.i("onPlaceSelected", "Place: " + place.getName() + ", " + place.getId());
+                binding.weatherDisplayMainHeader.setText(place.getAddress());
+
+            }
+
+
+            @Override
+            public void onError(@NonNull Status status) {
+                // TODO: Handle the error.
+                Log.i("onErrorPlaces", "An error occurred: " + status);
+            }
+        });
+
     }
+
 
     /**
      *
@@ -356,9 +422,22 @@ public class Fragment_weather extends Fragment {
     /**
      * Asynchronous call. verifying the registration with the auth endpoint of the server.
      */
-    private void connectInBakcground() {
+    private void connectInBackground() {
+        //default location Set to Anartica for Debug purposes
+        Double lat =-69.0;
+        Double lon = -69.0;
+
+        try {
+
+            lat = mLocationModel.getCurrentLocation().getLatitude();
+            lon = mLocationModel.getCurrentLocation().getLongitude();
+        }
+        catch (Exception e){
+            Log.e("Location Error", " mLocationModel null, using default location");
+        }
         //Tacoma Gps hardcoded currently showing timezone instead of actual location
-        mWeatherModel.connect(-122.465,47.258);
+        mWeatherModel.connect(lon,lat);
+
         //This is an Asynchronous call. No statements after should rely on the
         //result of connect().
     }

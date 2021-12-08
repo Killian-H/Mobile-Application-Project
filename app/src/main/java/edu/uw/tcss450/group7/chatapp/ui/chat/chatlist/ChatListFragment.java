@@ -16,6 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentChatListBinding;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentContactListBinding;
@@ -52,7 +55,7 @@ public class ChatListFragment extends Fragment {
 //                    .setOrientation(LinearLayoutManager.HORIZONTAL);
 
             ((RecyclerView) view).setAdapter(
-                    new edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.ChatListRecyclerViewAdapter(edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.ChatRoomGenerator.getChatList()));
+                    new edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.ChatListRecyclerViewAdapter(edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.ChatRoomGenerator.getChatList(),false));
         }
         return inflater.inflate(R.layout.fragment_chat_list, container, false);
     }
@@ -105,9 +108,20 @@ public class ChatListFragment extends Fragment {
         mModel.addChatListObserver(getViewLifecycleOwner(), chatList -> {
             if (!chatList.isEmpty()) {
                 binding.listRoot.setAdapter(
-                        new ChatListRecyclerViewAdapter(chatList)
+                        new ChatListRecyclerViewAdapter(chatList, false)
                 );
                 binding.layoutWait.setVisibility(View.GONE);
+            }
+        });
+        mModel.addChatListEmptyObserver(getViewLifecycleOwner(), mIsChatListEmpty -> {
+            if (mIsChatListEmpty) {
+                binding.layoutWait.setVisibility(View.GONE);
+                List<Chat> temp = new ArrayList<>();
+                temp.add(new edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.Chat.Builder(-1, " You don't have any chats")
+                        .addRecentMessage("Please create new chat!")
+                        .build());
+                ChatListRecyclerViewAdapter viewAdapter = new ChatListRecyclerViewAdapter(temp, true);
+                binding.listRoot.setAdapter(viewAdapter);
             }
         });
     }

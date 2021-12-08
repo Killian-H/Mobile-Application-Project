@@ -119,7 +119,7 @@ public class NewContactListFragment extends Fragment {
         mModel.addSearchListObserver(getViewLifecycleOwner(), (contactList) -> {
             if (!contactList.isEmpty()) {
                 binding.listRoot.setAdapter(
-                        new NewContactRecyclerViewAdapter(contactList, false)
+                        new NewContactRecyclerViewAdapter(contactList, mModel, mUserModel.getmJwt())
                 );
                 binding.textNotFound.setVisibility(View.GONE);
             }else{
@@ -128,13 +128,6 @@ public class NewContactListFragment extends Fragment {
             binding.linearProgress.hide();
         });
 
-        mModel.addIncomingListObserver(getViewLifecycleOwner(), (contactList) -> {
-            if (!contactList.isEmpty()) {
-                binding.listIncoming.setAdapter(
-                        new NewContactRecyclerViewAdapter(contactList, true)
-                );
-            }
-        });
     }
 
 }

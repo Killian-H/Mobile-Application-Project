@@ -225,7 +225,6 @@ public class Fragment_weather extends Fragment {
               binding.weatherConditionText.setText(""+myWeatherMain.getMyCurrentWeather().getMyShortDescription());
               binding.weatherTemp.setText(""+myWeatherMain.getMyCurrentWeather().getMyTemp()+"°F");
               binding.weatherFeelsLike.setText(""+myWeatherMain.getMyCurrentWeather().getMyFeels()+"°F");
-              binding.weatherPressure.setText(""+myWeatherMain.getMyCurrentWeather().getMyPressure()+" hPa");
 
 
 

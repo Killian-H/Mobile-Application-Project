@@ -35,7 +35,9 @@
     <string name="weather_map">Weather Map</string>
 
     <string name="weather_temp">56°F</string>
+    <string name="weather_temp_text">Temperature</string>
     <string name="weather_feelsLike">45°F</string>
+    <string name="weather_feelsLike_text">Feels Like</string>
     <string name="weather_display_mainHeader">Location</string>
     <string name="weather_condition_text">Windy as heck</string>
     <string name="weather_condition_icon">8010</string>
@@ -43,6 +45,7 @@
     <string name="weather_7dayRV">weather_7dayRV</string>
     <string name="weather_pressure">Pressure 1050</string>
     <string name="weather_humidity">Humidity 32</string>
+    <string name="weather_humidity_text">Humidity</string>
     <string name="weather_RV_header">24 Hour Forecast</string>
     <string name="weather_7Day">weather_locationSearch</string>
     <string name="weather_location_search">Enter City, State</string>

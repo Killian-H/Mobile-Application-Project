@@ -86,30 +86,33 @@ public class ContactsViewModel extends AndroidViewModel {
 
                 for (int i = 0; i < data.length(); i++) {
                     JSONObject jsonContact = data.getJSONObject(i);
-                    edu.uw.tcss450.group7.chatapp.ui.contact.Contact contact = new edu.uw.tcss450.group7.chatapp.ui.contact.Contact.Builder(
-                            jsonContact.getString(
-                                    getString.apply(
-                                            R.string.keys_json_contacts_firstname)),
-                            jsonContact.getString(
-                                    getString.apply(
-                                            R.string.keys_json_contacts_lastname)))
-                            .addEmail(jsonContact.getString(
-                                    getString.apply(
-                                            R.string.keys_json_contacts_email)))
-                            .addUserName(jsonContact.getString(
-                                    getString.apply(
-                                            R.string.keys_json_contacts_username)))
-                            .addMemberId(jsonContact.getInt(
-                                    getString.apply(
-                                            R.string.keys_json_contacts_memberid)))
-                            .addVerified(jsonContact.getInt(
-                                    getString.apply(
-                                            R.string.keys_json_contacts_verified)))
-                            .build();
-                    if (!temp.contains(contact)) {
-                        temp.add(contact);
-                    }
-                }
+                    if(jsonContact.getInt(
+                            getString.apply(
+                                    R.string.keys_json_contacts_verified)) == 1){
+                        edu.uw.tcss450.group7.chatapp.ui.contact.Contact contact = new edu.uw.tcss450.group7.chatapp.ui.contact.Contact.Builder(
+                                jsonContact.getString(
+                                        getString.apply(
+                                                R.string.keys_json_contacts_firstname)),
+                                jsonContact.getString(
+                                        getString.apply(
+                                                R.string.keys_json_contacts_lastname)))
+                                .addEmail(jsonContact.getString(
+                                        getString.apply(
+                                                R.string.keys_json_contacts_email)))
+                                .addUserName(jsonContact.getString(
+                                        getString.apply(
+                                                R.string.keys_json_contacts_username)))
+                                .addMemberId(jsonContact.getInt(
+                                        getString.apply(
+                                                R.string.keys_json_contacts_memberid)))
+                                .addVerified(jsonContact.getInt(
+                                        getString.apply(
+                                                R.string.keys_json_contacts_verified)))
+                                .build();
+                        if (!temp.contains(contact)) {
+                            temp.add(contact);
+                        }
+                }}
             } else {
                 Log.e("ERROR!", "No data array");
             }
@@ -185,7 +188,13 @@ public class ContactsViewModel extends AndroidViewModel {
                 Request.Method.GET,
                 url,
                 null, //no body for this get request
-                this::handleResult,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        handleResult(response);
+                        getIncomingRequests(jwt);
+                    }
+                },
                 this::handleError) {
             @Override
             public Map<String, String> getHeaders() {
@@ -212,7 +221,7 @@ public class ContactsViewModel extends AndroidViewModel {
                 Request.Method.GET,
                 url,
                 null, //no body for this get request
-                this::handleResult,
+                this::handleIncomingRequestResult,
                 this::handleError) {
             @Override
             public Map<String, String> getHeaders() {
@@ -230,6 +239,56 @@ public class ContactsViewModel extends AndroidViewModel {
         //Instantiate the RequestQueue and add the request to the queue
         Volley.newRequestQueue(getApplication().getApplicationContext())
                 .add(request);
+    }
+    private void handleIncomingRequestResult(final JSONObject result) {
+        ArrayList<Contact> temp = new ArrayList<>();
+        IntFunction<String> getString =
+                getApplication().getResources()::getString;
+        try {
+            JSONObject root = result;
+            if (root.has(getString.apply(R.string.keys_json_contacts_data))) {
+                JSONArray data = root.getJSONArray(
+                        getString.apply(R.string.keys_json_contacts_data));
+
+                for (int i = 0; i < data.length(); i++) {
+                    JSONObject jsonContact = data.getJSONObject(i);
+                    edu.uw.tcss450.group7.chatapp.ui.contact.Contact contact = new edu.uw.tcss450.group7.chatapp.ui.contact.Contact.Builder(
+                            jsonContact.getString(
+                                    getString.apply(
+                                            R.string.keys_json_contacts_firstname)),
+                            jsonContact.getString(
+                                    getString.apply(
+                                            R.string.keys_json_contacts_lastname)))
+                            .addEmail(jsonContact.getString(
+                                    getString.apply(
+                                            R.string.keys_json_contacts_email)))
+                            .addUserName(jsonContact.getString(
+                                    getString.apply(
+                                            R.string.keys_json_contacts_username)))
+                            .addMemberId(jsonContact.getInt(
+                                    getString.apply(
+                                            R.string.keys_json_contacts_memberid)))
+                            .addVerified(jsonContact.getInt(
+                                    getString.apply(
+                                            R.string.keys_json_contacts_verified)))
+                            .IsIncomingRequest(1)
+                            .build();
+                    if (!temp.contains(contact)) {
+                        temp.add(contact);
+                    }
+                }
+            } else {
+                Log.e("ERROR!", "No data array");
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("ERROR!", e.getMessage());
+        }
+        temp.addAll(mContactList.getValue());
+        mContactList.setValue(temp);
+//        mIncomingList.setValue(temp);
+//        mVerifiedList.setValue(filterVerified(temp));
     }
 
     public void connectGetSearch(final String jwt, String email) {
@@ -281,6 +340,93 @@ public class ContactsViewModel extends AndroidViewModel {
                     }
                 },
                 this::handleError) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", jwt);
+                return headers;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        Volley.newRequestQueue(getApplication().getApplicationContext())
+                .add(request);
+    }
+
+    public void sendContactRequest(final String jwt, int memberId) {
+        String url = getApplication().getResources().getString(R.string.base_url) +
+                "contacts/";
+        JSONObject body = new JSONObject();
+        try {
+            body.put("memberid_b", memberId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Request request = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                body,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        connectGet(jwt);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        connectGet(jwt);
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                headers.put("Authorization", jwt);
+                return headers;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        Volley.newRequestQueue(getApplication().getApplicationContext())
+                .add(request);
+    }
+
+    public void respondIncomingRequest(final String jwt, int memberId, Boolean response) {
+        String url = getApplication().getResources().getString(R.string.base_url) +
+                "contacts/verify";
+        JSONObject body = new JSONObject();
+        try {
+            body.put("memberid", memberId);
+            body.put("option", response);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Request request = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                body,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        connectGet(jwt);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        connectGet(jwt);
+                    }
+                }) {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();

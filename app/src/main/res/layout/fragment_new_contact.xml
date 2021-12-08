@@ -8,8 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_search"
-        android:layout_width="389dp"
-        android:layout_height="440dp"
+        android:layout_width="393dp"
+        android:layout_height="823dp"
         android:layout_marginTop="4dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,8 +58,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_root"
             android:name="edu.uw.tcss450.group7.chatapp.ui.contact.ContactFragment"
-            android:layout_width="361dp"
-            android:layout_height="329dp"
+            android:layout_width="373dp"
+            android:layout_height="673dp"
             android:layout_marginTop="10dp"
             android:orientation="vertical"
             app:layoutManager="LinearLayoutManager"
@@ -83,34 +83,5 @@
             app:layout_constraintTop_toBottomOf="@+id/linearProgress" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/text_title"
-        android:layout_width="389dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="4dp"
-        android:padding="8dp"
-        android:text="@string/title_incoming_contact"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_search" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_incoming"
-        android:name="edu.uw.tcss450.group7.chatapp.ui.contact.ContactFragment"
-        android:layout_width="363dp"
-        android:layout_height="118dp"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        app:layoutManager="LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_title"
-        app:layout_constraintVertical_bias="0.073"
-        tools:context="edu.uw.tcss450.group7.chatapp.ui.contact.ContactListFragment"
-        tools:listitem="@layout/fragment_new_contact_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,17 +13,20 @@ import java.util.List;
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentNewContactBinding;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentNewContactCardBinding;
+import edu.uw.tcss450.group7.chatapp.model.ContactsViewModel;
 
 public class NewContactRecyclerViewAdapter extends RecyclerView.Adapter<NewContactRecyclerViewAdapter.NewContactViewHolder> {
 
     //Store all of the blogs to present
     private final List<Contact> mContacts;
-    private final Boolean mIsIncoming;
+    private final String mJWT;
+    private ContactsViewModel mContactsViewModel;
 
 
-    public NewContactRecyclerViewAdapter(List<Contact> items, Boolean isIncoming) {
+    public NewContactRecyclerViewAdapter(List<Contact> items, ContactsViewModel mModel, String isIncoming) {
         this.mContacts = items;
-        this.mIsIncoming = isIncoming;
+        this.mJWT = isIncoming;
+        mContactsViewModel = mModel;
     }
 
     @NonNull
@@ -36,7 +39,7 @@ public class NewContactRecyclerViewAdapter extends RecyclerView.Adapter<NewConta
 
     @Override
     public void onBindViewHolder(@NonNull NewContactViewHolder holder, int position) {
-        holder.setContact(mContacts.get(position), mIsIncoming);
+        holder.setContact(mContacts.get(position));
     }
 
     @Override
@@ -53,7 +56,6 @@ public class NewContactRecyclerViewAdapter extends RecyclerView.Adapter<NewConta
         public final View mView;
         public FragmentNewContactCardBinding binding;
         private Contact mContact;
-        private Boolean mIsIncoming;
 
         public NewContactViewHolder(View view) {
             super(view);
@@ -64,16 +66,22 @@ public class NewContactRecyclerViewAdapter extends RecyclerView.Adapter<NewConta
 
 
 
-        void setContact(final Contact contact, boolean isIncoming) {
+        void setContact(final Contact contact) {
             mContact = contact;
-            mIsIncoming = isIncoming;
 //            mView.setOnClickListener(view -> {
 //                Navigation.findNavController(mView).navigate(
 //                        ContactListFragmentDirections
 //                                .actionNavigationContactToContactFragment(contact));
 //            });
-            binding.buttonSearch.setText(mIsIncoming?"Accept":"Send Request");
-//            binding.buttonSearch.setOnClickListener();
+            binding.buttonSendRequest.setText("Send Request");
+            binding.buttonSendRequest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mContactsViewModel.sendContactRequest(mJWT, mContact.getMemberId());
+                    binding.buttonSendRequest.setText("Request Sent!");
+                    binding.buttonSendRequest.setClickable(false);
+                }
+            });
 //            if(){
 //
 //            }

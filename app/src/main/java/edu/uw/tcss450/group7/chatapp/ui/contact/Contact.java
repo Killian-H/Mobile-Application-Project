@@ -19,6 +19,7 @@ public class Contact implements Serializable {
     private final String mLastName;
     private final String mEmail;
     private final int mVerified;
+    private final int mIsIncomingRequest;
 
     /**
      * Helper class for building Credentials.
@@ -32,6 +33,7 @@ public class Contact implements Serializable {
         private String mLastName = "TestLname";
         private String mEmail = "TestEmail";
         private int mVerified = -1;
+        private int mIsIncomingRequest = 0;
 
 
         /**
@@ -43,6 +45,7 @@ public class Contact implements Serializable {
         public Builder(String firstName, String lastName) {
             this.mFirstName = firstName;
             this.mLastName = lastName;
+            this.mIsIncomingRequest = 0;
         }
 
         /**
@@ -74,6 +77,11 @@ public class Contact implements Serializable {
             return this;
         }
 
+        public Builder IsIncomingRequest(final int isRequest) {
+            mIsIncomingRequest = isRequest;
+            return this;
+        }
+
         public Contact build() {
             return new Contact(this);
         }
@@ -87,6 +95,7 @@ public class Contact implements Serializable {
         this.mLastName = builder.mLastName;
         this.mEmail = builder.mEmail;
         this.mVerified = builder.mVerified;
+        this.mIsIncomingRequest =  builder.mIsIncomingRequest;
     }
 
     public Integer getMemberId() {
@@ -112,6 +121,10 @@ public class Contact implements Serializable {
 
     public Boolean getVerified() {
         return mVerified==1;
+    }
+
+    public Boolean getIsIncomingRequest() {
+        return mIsIncomingRequest==1;
     }
 
 

@@ -105,10 +105,40 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
                     handleMoreOrLess(view);
                 });
                 binding.textName.setText(contact.getFullName());
+                binding.textEmail.setText(contact.getEmail());
+                binding.buttonAccept.setVisibility(View.GONE);
+                binding.buttonDecline.setVisibility(View.GONE);
             }else{
-                binding.textName.setText("Pending Contact!");
+                if(mContact.getIsIncomingRequest()){
+                    binding.textName.setText("Incoming Request!");
+                    binding.buttonAccept.setVisibility(View.VISIBLE);
+                    binding.buttonDecline.setVisibility(View.VISIBLE);
+                    binding.textEmail.setText(contact.getFullName());
+                    binding.buttonAccept.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mContactsViewModel.respondIncomingRequest(mJWT,mContact.getMemberId(),Boolean.TRUE);
+                        }
+                    });
+                    binding.buttonDecline.setOnClickListener(view ->
+                                    new MaterialAlertDialogBuilder(this.itemView.getContext())
+                                            .setMessage("Are you sure to decline " + mContact.getFullName() + "'s friend request?")
+                                            .setPositiveButton("No", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    handleMoreOrLess(view);
+                                                }
+                                            })
+                                            .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    mContactsViewModel.respondIncomingRequest(mJWT,mContact.getMemberId(),Boolean.FALSE);
+                                                }
+                                            })
+                                            .show()
+                    );
+                }
             }
-            binding.textEmail.setText(contact.getEmail());
             binding.buttonRemove.setOnClickListener(view ->
                     new MaterialAlertDialogBuilder(this.itemView.getContext())
                             .setMessage("Are you sure to remove " + mContact.getFullName() + " from your contacts?")

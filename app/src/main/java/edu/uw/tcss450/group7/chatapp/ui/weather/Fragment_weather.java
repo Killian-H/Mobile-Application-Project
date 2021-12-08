@@ -98,8 +98,7 @@ public class Fragment_weather extends Fragment {
 
     /* The ViewModel that will store the current location. */
     private LocationViewModel mLocationModel;
-
-    private Geocoder mGeocoderModel;
+    /*Places client */
     private PlacesClient mPlacesClient;
 
     @Override
@@ -224,6 +223,14 @@ public class Fragment_weather extends Fragment {
             binding.weatherTemp.setText("" + myWeatherMain.getMyCurrentWeather().getMyTemp() + "°F");
             binding.weatherFeelsLike.setText("Feels like " + myWeatherMain.getMyCurrentWeather().getMyFeels() + "°F");
             binding.weatherPressure.setText("Pressure " + myWeatherMain.getMyCurrentWeather().getMyPressure() + " hPa");
+            Geocoder geo = new Geocoder(getContext(),Locale.US);
+
+            try {
+                String geoString = geo.getFromLocation( myWeatherMain.getMyLatitude(),myWeatherMain.getMyLongitude(),1).get(0).getAddressLine(0);
+                binding.weatherDisplayMainHeader.setText(""+geoString.substring(geoString.indexOf(",")+1));
+            } catch (IOException e) {
+                Log.e("header geocoder","main header failed with geocoder");
+            }
 
             //Use picasso dependency to load weather icons via the api endpoint
             Picasso.with(getContext())
@@ -255,7 +262,7 @@ public class Fragment_weather extends Fragment {
                 // TODO: Get info about the selected place.
                 Log.i("onPlaceSelected", "Place: " + place.getName() + ", " + place.getId());
                 //Update ui based on selected location
-                binding.weatherDisplayMainHeader.setText(place.getAddress());
+                binding.weatherDisplayMainHeader.setText(place.getAddress().substring(place.getAddress().indexOf(",")));
                 mWeatherModel.connect(place.getLatLng().longitude,place.getLatLng().latitude);
 
 
@@ -428,16 +435,28 @@ public class Fragment_weather extends Fragment {
 
             }
             else{
-                lat = mFusedLocationClient.getLastLocation().getResult().getLatitude();
-                lon = mFusedLocationClient.getLastLocation().getResult().getLongitude();
+                mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            Log.d("background Location", location.toString());
+                           // lat = mFusedLocationClient.getLastLocation().getResult().getLatitude();
+                            //lon = mFusedLocationClient.getLastLocation().getResult().getLongitude();
+                            mWeatherModel.connect(location.getLongitude(),location.getLatitude());
+                        }
+                    }
+                });
+
             }
 
         }
         catch (Exception e){
             Log.e("Location Error", " mFusedLocation Problem, using default location");
+            //Tacoma Gps hardcoded currently showing timezone instead of actual location
+            mWeatherModel.connect(lon,lat);
         }
-        //Tacoma Gps hardcoded currently showing timezone instead of actual location
-        mWeatherModel.connect(lon,lat);
+
 
         //This is an Asynchronous call. No statements after should rely on the
         //result of connect().

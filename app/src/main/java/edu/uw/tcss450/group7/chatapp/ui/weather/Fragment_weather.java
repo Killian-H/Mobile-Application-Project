@@ -262,7 +262,7 @@ public class Fragment_weather extends Fragment {
                 // TODO: Get info about the selected place.
                 Log.i("onPlaceSelected", "Place: " + place.getName() + ", " + place.getId());
                 //Update ui based on selected location
-                binding.weatherDisplayMainHeader.setText(place.getAddress().substring(place.getAddress().indexOf(",")));
+                binding.weatherDisplayMainHeader.setText(place.getAddress().substring(place.getAddress().indexOf(",")+1));
                 mWeatherModel.connect(place.getLatLng().longitude,place.getLatLng().latitude);
 
 

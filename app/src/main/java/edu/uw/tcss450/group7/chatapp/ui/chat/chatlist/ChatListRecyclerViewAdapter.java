@@ -32,15 +32,17 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
 
     /* Store all of the chats to present */
     private final List<Chat> mChats;
+    private final Boolean mIsPlaceHolder;
 
     /**
      * View adapter for the list of chats.
      *
      * @param items List of chats.
      */
-    public ChatListRecyclerViewAdapter(List<Chat> items) {
+    public ChatListRecyclerViewAdapter(List<Chat> items, Boolean isPlaceHolder) {
 
         this.mChats = items;
+        this.mIsPlaceHolder = isPlaceHolder;
     }
 
     /**
@@ -116,25 +118,27 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
          */
         void setChat(final Chat chat) {
             mChat = chat;
-                mView.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-
-                    @Override
-                    public void onFocusChange(View v, boolean hasFocus) {
-                        mView.setBackgroundColor(0xFF00FF00);
-                    }
-                });
-                mView.setOnHoverListener(new View.OnHoverListener() {
-                    @Override
-                    public boolean onHover(View v, MotionEvent event) {
-                        mView.setBackgroundColor(0xFF00FF01);
-                        return false;
-                    }
-                });
-                mView.setOnClickListener(view -> {
-                    Navigation.findNavController(mView).navigate(
-                            ChatListFragmentDirections
-                                    .actionNavigationChatToChatFragment(chat));
-                });
+//                mView.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+//
+//                    @Override
+//                    public void onFocusChange(View v, boolean hasFocus) {
+//                        mView.setBackgroundColor(0xFF00FF00);
+//                    }
+//                });
+//                mView.setOnHoverListener(new View.OnHoverListener() {
+//                    @Override
+//                    public boolean onHover(View v, MotionEvent event) {
+//                        mView.setBackgroundColor(0xFF00FF01);
+//                        return false;
+//                    }
+//                });
+                if(!mIsPlaceHolder) {
+                    mView.setOnClickListener(view -> {
+                        Navigation.findNavController(mView).navigate(
+                                ChatListFragmentDirections
+                                        .actionNavigationChatToChatFragment(chat));
+                    });
+                }
 
             mBinding.textNames.setText(mChat.getChatName());
 

@@ -31,7 +31,6 @@ import java.util.Map;
 import java.util.function.IntFunction;
 
 import edu.uw.tcss450.group7.chatapp.R;
-import edu.uw.tcss450.group7.chatapp.ui.contact.Contact;
 
 /**
  * View model for the list of chat rooms in the ChatListFragment.
@@ -40,6 +39,7 @@ public class ChatListViewModel extends AndroidViewModel {
 
     /* The list containing the chats. */
     private MutableLiveData<List<Chat>> mChatList;
+    private MutableLiveData<Boolean> mIsChatListEmpty;
 
     /**
      * Initializes the chat list as an array list of mutable data.
@@ -49,6 +49,8 @@ public class ChatListViewModel extends AndroidViewModel {
     public ChatListViewModel(@NonNull Application application) {
         super(application);
         mChatList = new MutableLiveData<>();
+        mIsChatListEmpty = new MutableLiveData<>();
+        mIsChatListEmpty.setValue(false);
         mChatList.setValue(new ArrayList<>());
     }
 
@@ -67,11 +69,15 @@ public class ChatListViewModel extends AndroidViewModel {
      *
      * @param error The error thrown.
      */
+    public void addChatListEmptyObserver(@NonNull LifecycleOwner owner,
+                                    @NonNull Observer<? super java.lang.Boolean> observer) {
+        mIsChatListEmpty.observe(owner, observer);
+    }
+
     private void handleError(final VolleyError error) {
         //you should add much better error handling in a production release.
         //i.e. YOUR PROJECT
-        mChatList = new MutableLiveData<>();
-        Log.e("CONNECTION ERROR", error.toString());
+        mIsChatListEmpty.setValue(true);
     }
 
     /**

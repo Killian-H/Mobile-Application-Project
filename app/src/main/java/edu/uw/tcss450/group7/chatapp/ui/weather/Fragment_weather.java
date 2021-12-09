@@ -346,7 +346,7 @@ public class Fragment_weather extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        startLocationUpdates();
+    //    startLocationUpdates();
     }
 
     /**
@@ -355,7 +355,7 @@ public class Fragment_weather extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        stopLocationUpdates();
+    //    stopLocationUpdates();
     }
 
     /**

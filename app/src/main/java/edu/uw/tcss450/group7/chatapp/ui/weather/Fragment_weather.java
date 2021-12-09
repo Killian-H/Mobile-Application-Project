@@ -218,11 +218,10 @@ public class Fragment_weather extends Fragment {
             //main weather object that contains all the weather data converted from the response
             myWeatherMain = new Weather_Main(response);
             //update ui elements to reflect data
-            binding.weatherHumidity.setText("Humidity " + myWeatherMain.getMyCurrentWeather().getMyHumidity() + "%");
+            binding.weatherHumidity.setText(myWeatherMain.getMyCurrentWeather().getMyHumidity() + "%");
             binding.weatherConditionText.setText("" + myWeatherMain.getMyCurrentWeather().getMyShortDescription());
             binding.weatherTemp.setText("" + myWeatherMain.getMyCurrentWeather().getMyTemp() + "°F");
-            binding.weatherFeelsLike.setText("Feels like " + myWeatherMain.getMyCurrentWeather().getMyFeels() + "°F");
-            binding.weatherPressure.setText("Pressure " + myWeatherMain.getMyCurrentWeather().getMyPressure() + " hPa");
+            binding.weatherFeelsLike.setText(myWeatherMain.getMyCurrentWeather().getMyFeels() + "°F");
             Geocoder geo = new Geocoder(getContext(),Locale.US);
 
             try {

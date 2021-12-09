@@ -69,7 +69,7 @@ public class Weather_RecycleViewAdapter extends RecyclerView.Adapter<Weather_Rec
             mWeather = theWeather;
                 binding.weatherCardTemp.setText(""+theWeather.getMyTemp()+"°F");
                 binding.weatherCardTime.setText(""+theWeather.getMyTime());
-                binding.weatherCardWind.setText(""+theWeather.getMyWindSpeed()+" mph");
+               // binding.weatherCardWind.setText("Wind Speed "+theWeather.getMyWindSpeed()+" mph");
             Picasso.with(mView.getContext())
                     .load("https://openweathermap.org/img/wn/"+theWeather.getMyIconID()+"@2x.png")
                     //.resize(binding.weatherCardIcon.getWidth(),binding.weatherCardIcon.getHeight())

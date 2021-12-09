@@ -15,6 +15,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentWeatherMapBinding;
@@ -79,9 +81,15 @@ public class FragmentWeatherMap extends Fragment implements OnMapReadyCallback, 
      */
     @Override
     public void onMapClick(@NonNull LatLng latLng) {
+
         mMap.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
                         latLng, mMap.getCameraPosition().zoom));
+
+         mMap.addMarker(new MarkerOptions()
+                .position(latLng)
+                .title("New Marker"));
+         //mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
     }
 

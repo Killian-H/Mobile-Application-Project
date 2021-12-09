@@ -11,6 +11,9 @@
         android:label="@string/title_contact"
         tools:layout="@layout/fragment_contact_list" >
         <action
+            android:id="@+id/action_navigation_contact_to_newChatListFragment"
+            app:destination="@id/newChatListFragment" />
+        <action
             android:id="@+id/action_navigation_contact_to_newContactFragment"
             app:destination="@id/newContactFragment"
             app:enterAnim="@android:anim/fade_in"/>

@@ -158,11 +158,11 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
                             })
                             .show()
             );
-//            binding.buttonSendMessage.setOnClickListener( view ->
-//                Navigation.findNavController(mView).navigate(
-//                        ContactListFragmentDirections
-//                                .actionNavigationContactToContactFragment(contact))
-//            );
+            binding.buttonSendMessage.setOnClickListener( view ->
+                Navigation.findNavController(mView).navigate(
+                        ContactListFragmentDirections
+                                .actionNavigationContactToNewChatListFragment())
+            );
             displayPreview();
         }
     }

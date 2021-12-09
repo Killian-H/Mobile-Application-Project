@@ -62,38 +62,52 @@ public class PasswordFragment extends Fragment {
                 mModel.connectForgetPass(mBinding.usernameReset.getText().toString());
             }
         });
-            mModel.addResponsePassObserver(getViewLifecycleOwner(), mResponsePass -> {
-                if (!mBinding.usernameReset.getText().toString().isEmpty()) {
-                    if (!mResponsePass) {
-                        new MaterialAlertDialogBuilder(this.getView().getContext())
-                                .setMessage("The email does not exist.")
-                                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        mBinding.usernameReset.getText().clear();
-                                    }
-                                }).show();
-                    } else {
-                        final EditText input = new EditText(this.getView().getContext());
-                        new MaterialAlertDialogBuilder(this.getView().getContext())
-                                .setMessage("An email with a verification code has been sent to " +
-                                        mBinding.usernameReset.getText().toString() +
-                                        ". Please enter the code below.")
-                                .setView(input)
-                                .setPositiveButton("Enter", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        mCode = input.getText().toString();
-                                        // TODO if else statement checking if code is correct before navigation.
-                                        Navigation.findNavController(getView()).navigate
-                                                (edu.uw.tcss450.group7.chatapp.ui.auth.signin.
-                                                        PasswordFragmentDirections.actionPasswordFragmentToPasswordResetFragment());
-                                    }
-                                }).show();
-                    }
+        mModel.addResponsePassObserver(getViewLifecycleOwner(), mResponsePass -> {
+            if (!mBinding.usernameReset.getText().toString().isEmpty()) {
+                if (!mResponsePass) {
+                    new MaterialAlertDialogBuilder(this.getView().getContext())
+                            .setMessage("The email does not exist.")
+                            .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    mBinding.usernameReset.getText().clear();
+                                }
+                            }).show();
                 }
-            });
+                final EditText input = new EditText(this.getView().getContext());
+                new MaterialAlertDialogBuilder(this.getView().getContext())
+                        .setMessage("An email with a verification code has been sent to " +
+                                mBinding.usernameReset.getText().toString() +
+                                ". Please enter the code below.")
+                        .setView(input)
+                        .setPositiveButton("Enter", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mCode = input.getText().toString();
+                                // TODO if else statement checking if code is correct before navigation.
+//                                if (!mCode.equals('0')) {
+//                                    incorrectCode();
+//                                }
+                                    Navigation.findNavController(getView()).navigate
+                                            (edu.uw.tcss450.group7.chatapp.ui.auth.signin.
+                                                    PasswordFragmentDirections.actionPasswordFragmentToPasswordResetFragment());
+                                }
+                        }).show();
+
+            }
+        });
     }
+
+//    private void incorrectCode() {
+//        new MaterialAlertDialogBuilder(this.getView().getContext())
+//                .setMessage("The code is incorrect.")
+//                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                }).show();
+//    }
 
 //    private void attemptReset(final View button) {
 //        validateEmail();

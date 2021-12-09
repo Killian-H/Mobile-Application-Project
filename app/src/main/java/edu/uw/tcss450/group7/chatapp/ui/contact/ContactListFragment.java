@@ -85,7 +85,6 @@ public class ContactListFragment extends Fragment {
                     ContactListFragmentDirections.actionNavigationContactToSettingsActivity());
 
         }
-
         return super.onOptionsItemSelected(item);
     }
     @Override

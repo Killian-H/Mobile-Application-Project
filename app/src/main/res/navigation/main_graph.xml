@@ -12,10 +12,13 @@
         tools:layout="@layout/fragment_contact_list" >
         <action
             android:id="@+id/action_navigation_contact_to_newContactFragment"
-            app:destination="@id/newContactFragment" />
+            app:destination="@id/newContactFragment"
+            app:enterAnim="@android:anim/fade_in"/>
         <action
             android:id="@+id/action_navigation_contact_to_settingsActivity"
-            app:destination="@id/settingsActivity" />
+            app:destination="@id/settingsActivity"
+            app:exitAnim="@android:anim/fade_out"
+            app:enterAnim="@android:anim/fade_in"/>
     </fragment>
     <fragment
         android:id="@+id/navigation_chat"
@@ -24,13 +27,16 @@
         tools:layout="@layout/fragment_chat_list" >
     <action
         android:id="@+id/action_navigation_chat_to_settingsActivity"
-        app:destination="@id/settingsActivity" />
+        app:destination="@id/settingsActivity"
+        app:exitAnim="@android:anim/fade_out"
+        app:enterAnim="@android:anim/fade_in" />
         <action
             android:id="@+id/action_navigation_chat_to_chatFragment"
             app:destination="@id/chatFragment" />
         <action
             android:id="@+id/action_navigation_chat_to_newChatListFragment"
-            app:destination="@id/newChatListFragment" />
+            app:destination="@id/newChatListFragment"
+            app:enterAnim="@android:anim/fade_in"/>
         <action
             android:id="@+id/action_navigation_chat_to_chatDetailsFragment"
             app:destination="@id/chatDetailsFragment" />
@@ -42,7 +48,9 @@
         tools:layout="@layout/fragment_weather" >
         <action
             android:id="@+id/action_navigation_weather_to_settingsActivity"
-            app:destination="@id/settingsActivity" />
+            app:destination="@id/settingsActivity"
+            app:exitAnim="@android:anim/fade_out"
+            app:enterAnim="@android:anim/fade_in" />
         <action
             android:id="@+id/action_navigation_weather_to_map"
             app:destination="@id/fragmentWeatherMap" />
@@ -61,7 +69,9 @@
         android:label="@string/title_newContact">
         <action
             android:id="@+id/action_newContactFragment_to_settingsActivity"
-            app:destination="@id/settingsActivity" />
+            app:destination="@id/settingsActivity"
+            app:exitAnim="@android:anim/fade_out"
+            app:enterAnim="@android:anim/fade_in" />
     </fragment>
     <activity
         android:id="@+id/settingsActivity"
@@ -75,7 +85,9 @@
         tools:layout="@layout/fragment_chat" >
         <action
             android:id="@+id/action_chatFragment_to_settingsActivity"
-            app:destination="@id/settingsActivity" />
+            app:destination="@id/settingsActivity"
+            app:exitAnim="@android:anim/fade_out"
+            app:enterAnim="@android:anim/fade_in" />
         <argument
             android:name="chat"
             app:argType="edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.Chat" />

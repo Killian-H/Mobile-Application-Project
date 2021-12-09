@@ -13,6 +13,7 @@
         <action
             android:id="@+id/action_loginFragment_to_passwordFragment"
             app:destination="@+id/passwordFragment"
+            app:exitAnim="@android:anim/slide_out_right"
             app:enterAnim="@android:anim/slide_in_left" />
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
@@ -20,7 +21,9 @@
             app:enterAnim="@android:anim/slide_in_left" />
         <action
             android:id="@+id/action_loginFragment_to_mainActivity"
-            app:destination="@id/mainActivity" />
+            app:destination="@id/mainActivity"
+            app:exitAnim="@android:anim/fade_out"
+            app:enterAnim="@android:anim/fade_in"/>
         <argument
             android:name="email"
             app:argType="string"
@@ -60,6 +63,7 @@
         <action
             android:id="@+id/action_passwordFragment_to_passwordResetFragment"
             app:destination="@+id/passwordResetFragment"
+            app:exitAnim="@android:anim/slide_out_right"
             app:enterAnim="@android:anim/slide_in_left" />
     </fragment>
 
@@ -71,6 +75,7 @@
         <action
             android:id="@+id/action_passwordResetFragment_to_SignInFragment"
             app:destination="@+id/SignInFragment"
+            app:exitAnim="@android:anim/slide_out_right"
             app:enterAnim="@android:anim/slide_in_left" />
     </fragment>
 

@@ -54,7 +54,7 @@
             style="@style/Widget.AppCompat.ImageButton"
             android:layout_width="44dp"
             android:layout_height="52dp"
-            android:background="@android:drawable/screen_background_light_transparent"
+            android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.925"

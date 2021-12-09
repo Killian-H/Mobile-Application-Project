@@ -143,6 +143,11 @@ public class ChatListRecyclerViewAdapter extends RecyclerView.Adapter<ChatListRe
             mBinding.textNames.setText(mChat.getChatName());
 
             mBinding.tectRecentMessage.setText(chat.getRecentMessage());
+            mBinding.buttonChatDetails.setOnClickListener(view -> {
+                Navigation.findNavController(mView).navigate(
+                        ChatListFragmentDirections
+                                .actionNavigationChatToChatDetailsFragment(chat));
+            });
         }
     }
 }

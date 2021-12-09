@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
@@ -41,6 +42,8 @@ public class SignInViewModel extends AndroidViewModel {
     /* Response from the server. */
     private MutableLiveData<JSONObject> mResponse;
 
+    private MutableLiveData<Boolean> mResponsePass;
+
     /**
      * Overloaded constructor calling its parent. Initializes
      * the JSON response object.
@@ -51,6 +54,9 @@ public class SignInViewModel extends AndroidViewModel {
         super(application);
         mResponse = new MutableLiveData<>();
         mResponse.setValue(new JSONObject());
+
+        mResponsePass = new MutableLiveData<>();
+        mResponsePass.setValue(false);
     }
 
     /**
@@ -64,6 +70,10 @@ public class SignInViewModel extends AndroidViewModel {
         mResponse.observe(owner, observer);
     }
 
+    public void addResponsePassObserver(@NonNull LifecycleOwner owner,
+                                    @NonNull Observer<Boolean> observer) {
+        mResponsePass.observe(owner, observer);
+    }
 
     /**
      * If there is an error when parsing the JSON object this method will
@@ -133,4 +143,42 @@ public class SignInViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
+    public void connectForgetPass(final String email) {
+        String url = "https://mobile-application-project-450.herokuapp.com/auth";
+        Request request = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null, //no body for this get request
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        mResponsePass.setValue(true);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        mResponsePass.setValue(false);
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                String credentials = email;
+                String auth = "Basic "
+                        + Base64.encodeToString(credentials.getBytes(),
+                        Base64.NO_WRAP);
+                headers.put("Authorization", auth);
+                return headers;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
+    }
 }

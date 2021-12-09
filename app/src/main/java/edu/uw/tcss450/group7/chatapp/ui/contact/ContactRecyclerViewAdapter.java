@@ -122,7 +122,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
                     });
                     binding.buttonDecline.setOnClickListener(view ->
                                     new MaterialAlertDialogBuilder(this.itemView.getContext())
-                                            .setMessage("Are you sure to decline " + mContact.getFullName() + "'s friend request?")
+                                            .setMessage("Are you sure you want to decline " + mContact.getFullName() + "'s friend request?")
                                             .setPositiveButton("No", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {

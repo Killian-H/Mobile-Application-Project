@@ -2,6 +2,8 @@ package edu.uw.tcss450.group7.chatapp.ui.chat.chatroom;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentChatBinding;
 import edu.uw.tcss450.group7.chatapp.model.UserInfoViewModel;
-import edu.uw.tcss450.group7.chatapp.ui.contact.ContactFragmentArgs;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -93,4 +94,6 @@ public class ChatFragment extends Fragment {
         mSendModel.addResponseObserver(getViewLifecycleOwner(), response ->
                 binding.editMessage.setText(""));
     }
+
+
 }

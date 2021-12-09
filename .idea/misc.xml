@@ -4,16 +4,22 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/drawable-anydpi/ic_send.xml" value="0.318859649122807" />
+        <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.318859649122807" />
+        <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.318859649122807" />
+        <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/drawable/ic_baseline_view_list_24.xml" value="0.18157894736842106" />
         <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/drawable/ic_blog_black_24dp.xml" value="0.2796875" />
         <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/drawable/ic_chat_white_24dp.xml" value="0.2796875" />
         <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/activity_main.xml" value="0.2219298245614035" />
         <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/activity_settings.xml" value="0.2219298245614035" />
+        <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_chat_card.xml" value="0.33" />
+        <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_chat_details.xml" value="0.25" />
+        <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_chat_list.xml" value="0.16798245614035087" />
         <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_chat_message.xml" value="0.12273550724637682" />
         <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_contact.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_contact_card.xml" value="0.5" />
         <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_contact_list.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_new_contact.xml" value="0.2635416666666667" />
-        <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_new_contact_card.xml" value="0.1331521739130435" />
+        <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_new_contact_card.xml" value="0.25" />
         <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/drawable-anydpi/ic_send.xml" value="0.2708333333333333" />
         <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/drawable-mdpi/ic_chat_notification.xml" value="0.2708333333333333" />
         <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
@@ -40,12 +46,10 @@
         <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_contact_card.xml" value="0.2" />
         <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_contact_list.xml" value="0.11524163568773234" />
         <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_home.xml" value="0.2962085308056872" />
-        <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_new_chat.xml" value="0.1671875" />
         <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_new_contact.xml" value="0.1" />
         <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_new_contact_card.xml" value="0.2546875" />
-        <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_password.xml" value="0.2513586956521739" />
         <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_third.xml" value="0.2546875" />
-        <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_weather.xml" value="0.268" />
+        <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_weather.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_weather_card_rv.xml" value="0.2546875" />
         <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_weather_map.xml" value="0.24592391304347827" />
         <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/menu/bottom_nav_menu.xml" value="0.13020833333333334" />

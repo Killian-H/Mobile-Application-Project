@@ -5,6 +5,8 @@
     <string name="enter_email">Enter Email</string>
     <string name="field_instruct">Please Enter Your Email Below</string>
     <string name="reset_password">Reset Password</string>
+    <string name="password_confirm">Confirm</string>
+    <string name="new_password_text">Enter Your New Password Below</string>
     <string name="hint_last">Last Name</string>
     <string name="hint_first">First Name</string>
     <string name="hint_password">Password</string>

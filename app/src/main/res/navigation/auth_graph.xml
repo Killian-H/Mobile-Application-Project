@@ -55,6 +55,23 @@
         android:id="@+id/passwordFragment"
         android:name="edu.uw.tcss450.group7.chatapp.ui.auth.signin.PasswordFragment"
         android:label="PasswordFragment"
-        tools:layout="@layout/fragment_weather_map"/>
+        tools:layout="@layout/fragment_weather_map" >
+
+        <action
+            android:id="@+id/action_passwordFragment_to_passwordResetFragment"
+            app:destination="@+id/passwordResetFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/passwordResetFragment"
+        android:name="edu.uw.tcss450.group7.chatapp.ui.auth.signin.PasswordResetFragment"
+        android:label="fragment_password_reset"
+        tools:layout="@layout/fragment_password_reset" >
+        <action
+            android:id="@+id/action_passwordResetFragment_to_SignInFragment"
+            app:destination="@+id/SignInFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
+    </fragment>
 
 </navigation>

@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentChatBinding;
 import edu.uw.tcss450.group7.chatapp.model.UserInfoViewModel;
-import edu.uw.tcss450.group7.chatapp.ui.contact.ContactFragmentArgs;
 
 /**
  * A simple {@link Fragment} subclass.

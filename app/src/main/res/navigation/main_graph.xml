@@ -11,9 +11,6 @@
         android:label="@string/title_contact"
         tools:layout="@layout/fragment_contact_list" >
         <action
-            android:id="@+id/action_navigation_contact_to_contactFragment"
-            app:destination="@id/contactFragment" />
-        <action
             android:id="@+id/action_navigation_contact_to_newContactFragment"
             app:destination="@id/newContactFragment" />
         <action
@@ -34,6 +31,9 @@
         <action
             android:id="@+id/action_navigation_chat_to_newChatListFragment"
             app:destination="@id/newChatListFragment" />
+        <action
+            android:id="@+id/action_navigation_chat_to_chatDetailsFragment"
+            app:destination="@id/chatDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_weather"
@@ -48,12 +48,12 @@
             app:destination="@id/fragmentWeatherMap" />
     </fragment>
     <fragment
-        android:id="@+id/contactFragment"
-        android:name="edu.uw.tcss450.group7.chatapp.ui.contact.ContactFragment"
-        android:label="@string/title_contact">
+        android:id="@+id/chatDetailsFragment"
+        android:name="edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.ChatDetailsFragment"
+        android:label='{chat} Details'>
         <argument
-            android:name="contact"
-            app:argType="edu.uw.tcss450.group7.chatapp.ui.contact.Contact" />
+            android:name="chat"
+            app:argType="edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.Chat" />
     </fragment>
     <fragment
         android:id="@+id/newContactFragment"

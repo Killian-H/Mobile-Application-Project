@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -23,7 +24,7 @@ public class ChatMembersListRecyclerViewAdapter extends RecyclerView.Adapter<Cha
     //Store all of the blogs to present
     private final List<Contact> mContacts;
     private final String mJWT;
-    private ChatViewModel mContactsViewModel;
+    private ChatViewModel mChatsViewModel;
     private int mChatId;
 
 
@@ -31,7 +32,7 @@ public class ChatMembersListRecyclerViewAdapter extends RecyclerView.Adapter<Cha
         this.mContacts = items;
         this.mJWT = JWT;
         this.mChatId = chatId;
-        mContactsViewModel = mModel;
+        mChatsViewModel = mModel;
     }
 
     @NonNull
@@ -80,17 +81,17 @@ public class ChatMembersListRecyclerViewAdapter extends RecyclerView.Adapter<Cha
                 @Override
                 public void onClick(View v) {
                     new MaterialAlertDialogBuilder(v.getContext())
-                            .setMessage("Are you sure to remove " + mContact.getFullName() + " from the chatroom?")
+                            .setMessage("Are you sure want to remove " + mContact.getFullName() + " from the chatroom?")
                             .setPositiveButton("No", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    mContactsViewModel.getMemberListByChatId(mChatId);
+                                    mChatsViewModel.getMemberListByChatId(mChatId);
                                 }
                             })
                             .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    mContactsViewModel.deleteChatMembers(mChatId,mJWT,mContact.getEmail());
+                                    mChatsViewModel.deleteChatMembers(mChatId,mJWT,mContact.getEmail());
                                 }
                             })
                             .show();

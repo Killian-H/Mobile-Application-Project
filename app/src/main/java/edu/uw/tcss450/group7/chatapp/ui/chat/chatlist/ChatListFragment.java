@@ -82,17 +82,6 @@ public class ChatListFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chat_list, container, false);
         if (view instanceof RecyclerView) {
-            //Try out a grid layout to achieve rows AND columns. Adjust the widths of the
-            //cards on display
-//            ((RecyclerView) view).setLayoutManager(new GridLayoutManager(getContext(), 2));
-
-            //Try out horizontal scrolling. Adjust the widths of the card so that it is
-            //obvious that there are more cards in either direction. i.e. don't have the cards
-            //span the entire witch of the screen. Also, when considering horizontal scroll
-            //on recycler view, ensure that there is other content to fill the screen.
-//            ((LinearLayoutManager)((RecyclerView) view).getLayoutManager())
-//                    .setOrientation(LinearLayoutManager.HORIZONTAL);
-
             ((RecyclerView) view).setAdapter(
                     new edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.ChatListRecyclerViewAdapter(edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.ChatRoomGenerator.getChatList(),false));
         }
@@ -176,14 +165,10 @@ public class ChatListFragment extends Fragment {
         });
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        getFragmentManager()
-//                .beginTransaction()
-//                .detach(LobbyFragment.this)
-//                .attach(LobbyFragment.this)
-//                .commit();
-//
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        FragmentChatListBinding binding = FragmentChatListBinding.bind(getView());
+        mModel.connectGet(mUserModel.getmJwt());
+    }
 }

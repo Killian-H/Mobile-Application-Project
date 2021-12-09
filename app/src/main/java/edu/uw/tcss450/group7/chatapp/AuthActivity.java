@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -25,6 +26,7 @@ public class AuthActivity extends AppCompatActivity {
 
         Pushy.listen(this);
         initiatePushyTokenRequest();
+
     }
 
     private void initiatePushyTokenRequest() {

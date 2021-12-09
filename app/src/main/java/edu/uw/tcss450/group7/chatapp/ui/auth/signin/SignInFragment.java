@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -64,6 +65,8 @@ public class SignInFragment extends Fragment {
     private PasswordValidator mPassWordValidator = checkPwdLength(1)
             .and(checkExcludeWhiteSpace());
 
+    /* Text view of the forgot password text. */
+    private TextView forgotPass;
     /**
      * Required default public constructor.
      */
@@ -118,6 +121,11 @@ public class SignInFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mBinding.btnForgotPassword.setOnClickListener(button ->
+                Navigation.findNavController(getView()).navigate(
+                    edu.uw.tcss450.group7.chatapp.ui.auth.signin.SignInFragmentDirections.actionLoginFragmentToPasswordFragment()
+                ));
 
         mBinding.buttonToRegister.setOnClickListener(button ->
             Navigation.findNavController(getView()).navigate(

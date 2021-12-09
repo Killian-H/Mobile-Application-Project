@@ -11,6 +11,10 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_sign_in" >
         <action
+            android:id="@+id/action_loginFragment_to_passwordFragment"
+            app:destination="@+id/passwordFragment"
+            app:enterAnim="@android:anim/slide_in_left" />
+        <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment"
             app:enterAnim="@android:anim/slide_in_left" />
@@ -47,5 +51,10 @@
             android:name="jwt"
             app:argType="string" />
     </activity>
+    <fragment
+        android:id="@+id/passwordFragment"
+        android:name="edu.uw.tcss450.group7.chatapp.ui.auth.signin.PasswordFragment"
+        android:label="PasswordFragment"
+        tools:layout="@layout/fragment_weather_map"/>
 
 </navigation>

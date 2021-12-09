@@ -30,6 +30,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/TextInputEmail"
                 android:layout_width="match_parent"
+                android:textColor="@color/black"
                 android:layout_height="58dp" />
 
         </com.google.android.material.textfield.TextInputLayout>

@@ -200,14 +200,14 @@ public class Fragment_weather extends Fragment {
                     Weather_RecycleViewAdapter rvAdapter7DAY = new Weather_RecycleViewAdapter(myWeatherMain.getMy7DayForecast().getMy7DayWeatherArray());
                     binding.weather7dayRV.setAdapter(rvAdapter7DAY);
                     binding.weatherDisplayRvHeader.setText("7 day forecast");
-                    binding.weatherSwitchHeader.setText("Switch to 24 hour");
+                    binding.weatherRVSwitch.setText("Switch to 24 hour");
 
                 } else if (!isChecked && myWeatherMain != null) {
 
                     Weather_RecycleViewAdapter rvAdapterHOURLY = new Weather_RecycleViewAdapter(myWeatherMain.getMyHourlyForecast().getMyHourlyWeatherArray());
                     binding.weather7dayRV.setAdapter(rvAdapterHOURLY);
                     binding.weatherDisplayRvHeader.setText("24 hour forecast");
-                    binding.weatherSwitchHeader.setText("Switch to 7 day");
+                    binding.weatherRVSwitch.setText("Switch to 7 day");
                 }
             }
         });

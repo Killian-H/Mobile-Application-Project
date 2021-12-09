@@ -35,10 +35,6 @@ public class PasswordFragment extends Fragment {
     FragmentPasswordBinding mBinding;
 
     private String mCode = "";
-    // Validation for proper email formatting.
-    private PasswordValidator mEmailValidator = checkPwdLength(2)
-            .and(checkExcludeWhiteSpace())
-            .and(checkPwdSpecialChar("@"));
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +52,11 @@ public class PasswordFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        mBinding.buttonBack.setOnClickListener(view1 -> {
+            Navigation.findNavController(getView()).navigate
+                    (edu.uw.tcss450.group7.chatapp.ui.auth.signin.
+                            PasswordFragmentDirections.actionPasswordFragmentToSignInFragment());
+        });
         mBinding.buttonReset.setOnClickListener(view1 -> {
             if (mBinding.usernameReset.getText() != null) {
                 mModel.connectForgetPass(mBinding.usernameReset.getText().toString());
@@ -72,7 +73,7 @@ public class PasswordFragment extends Fragment {
                                         mBinding.usernameReset.getText().clear();
                                     }
                                 }).show();
-                    }
+                    } else {
                         final EditText input = new EditText(this.getView().getContext());
                         new MaterialAlertDialogBuilder(this.getView().getContext())
                                 .setMessage("An email with a verification code has been sent to " +
@@ -89,6 +90,7 @@ public class PasswordFragment extends Fragment {
                                                         PasswordFragmentDirections.actionPasswordFragmentToPasswordResetFragment());
                                     }
                                 }).show();
+                    }
                 }
             });
     }

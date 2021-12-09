@@ -7,7 +7,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="155dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="?attr/colorAccent"
         app:cardElevation="5dp"
@@ -17,15 +17,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="157dp"
             android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/weather_card_wind"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/weather_card_wind"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/weather_card_icon" />
 
             <ImageView
                 android:id="@+id/weather_card_icon"

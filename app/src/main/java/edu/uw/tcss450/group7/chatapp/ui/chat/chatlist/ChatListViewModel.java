@@ -97,6 +97,13 @@ public class ChatListViewModel extends AndroidViewModel {
 
                 for(int i = 0; i < data.length(); i++) {
                     JSONObject jsonContact = data.getJSONObject(i);
+                    String lastMessage = jsonContact.getString(
+                            getString.apply(R.string.keys_json_contacts_firstname)) + ": " + jsonContact.getString(
+                            getString.apply(
+                                    R.string.keys_json_chats_recent_message));
+                    if (lastMessage.length() > 26) {
+                        lastMessage = lastMessage.substring(0, 25) + "...";
+                    }
                     edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.Chat chat = new edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.Chat.Builder(
                             jsonContact.getInt(
                                     getString.apply(
@@ -104,7 +111,7 @@ public class ChatListViewModel extends AndroidViewModel {
                             jsonContact.getString(
                                     getString.apply(
                                             R.string.keys_json_chat_name)))
-   //                         .addRecentMessage("mock last message")
+                            .addRecentMessage(lastMessage)
                             .build();
                     if (!temp.contains(chat)) {
                         temp.add(chat);
@@ -147,4 +154,6 @@ public class ChatListViewModel extends AndroidViewModel {
         Volley.newRequestQueue(getApplication().getApplicationContext())
                 .add(request);
     }
+
+
 }

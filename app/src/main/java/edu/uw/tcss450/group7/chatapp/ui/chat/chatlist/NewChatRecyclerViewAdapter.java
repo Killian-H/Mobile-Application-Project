@@ -3,6 +3,7 @@ package edu.uw.tcss450.group7.chatapp.ui.chat.chatlist;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
@@ -13,15 +14,19 @@ import java.util.List;
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentNewContactCardBinding;
 import edu.uw.tcss450.group7.chatapp.databinding.NewChatAddContactCardBinding;
+import edu.uw.tcss450.group7.chatapp.model.NewChatViewModel;
 import edu.uw.tcss450.group7.chatapp.ui.contact.Contact;
 import edu.uw.tcss450.group7.chatapp.ui.contact.NewContactRecyclerViewAdapter;
 
 public class NewChatRecyclerViewAdapter extends RecyclerView.Adapter<NewChatRecyclerViewAdapter.NewChatViewHolder> {
     private final List<Contact> mContacts;
 
+    private final NewChatViewModel mNewChatViewModel;
 
-    public NewChatRecyclerViewAdapter(List<Contact> items) {
+
+    public NewChatRecyclerViewAdapter(List<Contact> items, NewChatViewModel newChatViewModel) {
         this.mContacts = items;
+        this.mNewChatViewModel = newChatViewModel;
     }
 
     @NonNull
@@ -64,16 +69,20 @@ public class NewChatRecyclerViewAdapter extends RecyclerView.Adapter<NewChatRecy
         void setContact(final Contact contact) {
             mContact = contact;
 
-//            binding.buttonSearch.setOnClickListener();
-//            if(){
-//
-//            }
             binding.textEmail.setText(contact.getEmail());
             binding.textName.setText(contact.getFirstName() + " " + contact.getLastName());
+            binding.checkBoxAddToChat.setOnClickListener( checkBox -> {
+                boolean checked = binding.checkBoxAddToChat.isChecked();
+                if(checked) {
+                    mNewChatViewModel.addMemberID(mContact.getMemberId());
+                } else {
+                    mNewChatViewModel.removeMemberID(mContact.getMemberId());
+                }
+            });
 
-//            mView.setOnClickListener(view -> {
-//
-//            });
+
         }
+
+
     }
 }

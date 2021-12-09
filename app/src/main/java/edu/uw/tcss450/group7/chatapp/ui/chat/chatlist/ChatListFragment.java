@@ -175,4 +175,15 @@ public class ChatListFragment extends Fragment {
             }
         });
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        getFragmentManager()
+//                .beginTransaction()
+//                .detach(LobbyFragment.this)
+//                .attach(LobbyFragment.this)
+//                .commit();
+//
+//    }
 }

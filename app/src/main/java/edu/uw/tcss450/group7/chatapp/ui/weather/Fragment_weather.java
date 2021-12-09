@@ -98,28 +98,22 @@ public class Fragment_weather extends Fragment {
 
     /* The ViewModel that will store the current location. */
     private LocationViewModel mLocationModel;
-
-    private Geocoder mGeocoderModel;
+    /*Places client */
     private PlacesClient mPlacesClient;
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        mWeatherModel = new ViewModelProvider(getActivity()).get(Fragment_weatherViewModel.class);
+        if (mWeatherModel==null)mWeatherModel = new ViewModelProvider(getActivity()).get(Fragment_weatherViewModel.class);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-        //intialize geocoder
-       // mGeocoderModel = new Geocoder(getContext(), Locale.US);
 
         // Initialize the SDK
-        if(!Places.isInitialized()) {
+        if (!Places.isInitialized()) {
             Places.initialize(getContext(), "AIzaSyDrnr_jdk8D_Nyp741UZys_gqMFOb9w54g");
         }
         // Create a new PlacesClient instance
-         mPlacesClient = Places.createClient(getContext());
-
-
-
+        mPlacesClient = Places.createClient(getContext());
 
 
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -134,6 +128,7 @@ public class Fragment_weather extends Fragment {
         } else {
             //The user has already allowed the use of Locations. Get the current location.
             requestLocation();
+
         }
 
         mLocationCallback = new LocationCallback() {
@@ -151,9 +146,12 @@ public class Fragment_weather extends Fragment {
                                 .get(LocationViewModel.class);
                     }
                     mLocationModel.setLocation(location);
+                    //mWeatherModel.connect(mLocationModel.getCurrentLocation().getLongitude(),mLocationModel.getCurrentLocation().getLatitude());
 
                 }
-            };
+            }
+
+            ;
         };
 
 
@@ -162,7 +160,7 @@ public class Fragment_weather extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,@Nullable ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentWeatherBinding.inflate(inflater);
 
@@ -198,16 +196,15 @@ public class Fragment_weather extends Fragment {
         binding.weatherRVSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked&&myWeatherMain!=null){
-                    Weather_RecycleViewAdapter rvAdapter7DAY=new Weather_RecycleViewAdapter(myWeatherMain.getMy7DayForecast().getMy7DayWeatherArray());
+                if (isChecked && myWeatherMain != null) {
+                    Weather_RecycleViewAdapter rvAdapter7DAY = new Weather_RecycleViewAdapter(myWeatherMain.getMy7DayForecast().getMy7DayWeatherArray());
                     binding.weather7dayRV.setAdapter(rvAdapter7DAY);
                     binding.weatherDisplayRvHeader.setText("7 day forecast");
                     binding.weatherRVSwitch.setText("Switch to 24 hour");
 
-                }
-                else if(!isChecked&&myWeatherMain!=null) {
+                } else if (!isChecked && myWeatherMain != null) {
 
-                    Weather_RecycleViewAdapter rvAdapterHOURLY=new Weather_RecycleViewAdapter(myWeatherMain.getMyHourlyForecast().getMyHourlyWeatherArray());
+                    Weather_RecycleViewAdapter rvAdapterHOURLY = new Weather_RecycleViewAdapter(myWeatherMain.getMyHourlyForecast().getMyHourlyWeatherArray());
                     binding.weather7dayRV.setAdapter(rvAdapterHOURLY);
                     binding.weatherDisplayRvHeader.setText("24 hour forecast");
                     binding.weatherRVSwitch.setText("Switch to 7 day");
@@ -216,53 +213,58 @@ public class Fragment_weather extends Fragment {
         });
 
 
-
         //Json request/response observer for location data
         mWeatherModel.addResponseObserver(getViewLifecycleOwner(), response -> {
-
+            //main weather object that contains all the weather data converted from the response
             myWeatherMain = new Weather_Main(response);
-              binding.weatherHumidity.setText(""+myWeatherMain.getMyCurrentWeather().getMyHumidity()+"%");
-              binding.weatherConditionText.setText(""+myWeatherMain.getMyCurrentWeather().getMyShortDescription());
-              binding.weatherTemp.setText(""+myWeatherMain.getMyCurrentWeather().getMyTemp()+"°F");
-              binding.weatherFeelsLike.setText(""+myWeatherMain.getMyCurrentWeather().getMyFeels()+"°F");
+            //update ui elements to reflect data
+            binding.weatherHumidity.setText("Humidity " + myWeatherMain.getMyCurrentWeather().getMyHumidity() + "%");
+            binding.weatherConditionText.setText("" + myWeatherMain.getMyCurrentWeather().getMyShortDescription());
+            binding.weatherTemp.setText("" + myWeatherMain.getMyCurrentWeather().getMyTemp() + "°F");
+            binding.weatherFeelsLike.setText("Feels like " + myWeatherMain.getMyCurrentWeather().getMyFeels() + "°F");
+            binding.weatherPressure.setText("Pressure " + myWeatherMain.getMyCurrentWeather().getMyPressure() + " hPa");
+            Geocoder geo = new Geocoder(getContext(),Locale.US);
 
+            try {
+                String geoString = geo.getFromLocation( myWeatherMain.getMyLatitude(),myWeatherMain.getMyLongitude(),1).get(0).getAddressLine(0);
+                binding.weatherDisplayMainHeader.setText(""+geoString.substring(geoString.indexOf(",")+1));
+            } catch (IOException e) {
+                Log.e("header geocoder","main header failed with geocoder");
+            }
 
-
+            //Use picasso dependency to load weather icons via the api endpoint
             Picasso.with(getContext())
-                    .load("https://openweathermap.org/img/wn/"+myWeatherMain.getMyCurrentWeather().getMyIconID()+"@2x.png")
+                    .load("https://openweathermap.org/img/wn/" + myWeatherMain.getMyCurrentWeather().getMyIconID() + "@2x.png")
                     .into(binding.weatherConditionIcon);
 
-                //RecycleViewDaily
-                Weather_RecycleViewAdapter rvAdapter7DAY=new Weather_RecycleViewAdapter(myWeatherMain.getMy7DayForecast().getMy7DayWeatherArray());
-
-                Weather_RecycleViewAdapter rvAdapterHOURLY=new Weather_RecycleViewAdapter(myWeatherMain.getMyHourlyForecast().getMyHourlyWeatherArray());
-                // .getMyHourlyForecast().getMyHourlyWeatherArray()
-                binding.weather7dayRV.setAdapter(rvAdapterHOURLY);
-            });
-
-
+            //update recycle card view to show hourly first
+            Weather_RecycleViewAdapter rvAdapterHOURLY = new Weather_RecycleViewAdapter(myWeatherMain.getMyHourlyForecast().getMyHourlyWeatherArray());
+            binding.weather7dayRV.setAdapter(rvAdapterHOURLY);
+        });
         //????
         binding.buttonMap.setOnClickListener(button -> {
-                    Navigation.findNavController(getView()).navigate(
-                            Fragment_weatherDirections.actionNavigationWeatherToMap()
-                    );
-                });
+            Navigation.findNavController(getView()).navigate(
+                    Fragment_weatherDirections.actionNavigationWeatherToMap()
+            );
+        });
 
-        // Initialize the AutocompleteSupportFragment.
+        // Initialize the google places AutocompleteSupportFragment
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-               getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
-
+                getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
         // Specify the types of place data to return.
-
         autocompleteFragment.setTypeFilter(TypeFilter.GEOCODE);
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.ADDRESS));
+        //Specify which fields you want to include
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS,Place.Field.LAT_LNG));
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(@NonNull Place place) {
                 // TODO: Get info about the selected place.
                 Log.i("onPlaceSelected", "Place: " + place.getName() + ", " + place.getId());
-                binding.weatherDisplayMainHeader.setText(place.getAddress());
+                //Update ui based on selected location
+                binding.weatherDisplayMainHeader.setText(place.getAddress().substring(place.getAddress().indexOf(",")+1));
+                mWeatherModel.connect(place.getLatLng().longitude,place.getLatLng().latitude);
+
 
             }
 
@@ -418,24 +420,43 @@ public class Fragment_weather extends Fragment {
 
         return super.onOptionsItemSelected(item);
     }
+
     /**
      * Asynchronous call. verifying the registration with the auth endpoint of the server.
      */
     private void connectInBackground() {
         //default location Set to Anartica for Debug purposes
-        Double lat =-69.0;
+        Double lat = -69.0;
         Double lon = -69.0;
 
         try {
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                Log.d("REQUEST LOCATION", "User did NOT allow permission to request location!");
 
-            lat = mLocationModel.getCurrentLocation().getLatitude();
-            lon = mLocationModel.getCurrentLocation().getLongitude();
+            }
+            else{
+                mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            Log.d("background Location", location.toString());
+                           // lat = mFusedLocationClient.getLastLocation().getResult().getLatitude();
+                            //lon = mFusedLocationClient.getLastLocation().getResult().getLongitude();
+                            mWeatherModel.connect(location.getLongitude(),location.getLatitude());
+                        }
+                    }
+                });
+
+            }
+
         }
         catch (Exception e){
-            Log.e("Location Error", " mLocationModel null, using default location");
+            Log.e("Location Error", " mFusedLocation Problem, using default location");
+            //Tacoma Gps hardcoded currently showing timezone instead of actual location
+            mWeatherModel.connect(lon,lat);
         }
-        //Tacoma Gps hardcoded currently showing timezone instead of actual location
-        mWeatherModel.connect(lon,lat);
+
 
         //This is an Asynchronous call. No statements after should rely on the
         //result of connect().

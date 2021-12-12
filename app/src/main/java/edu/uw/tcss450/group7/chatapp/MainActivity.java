@@ -26,9 +26,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.Iterator;
 
 import edu.uw.tcss450.group7.chatapp.databinding.ActivityMainBinding;
+import edu.uw.tcss450.group7.chatapp.model.ContactsViewModel;
+import edu.uw.tcss450.group7.chatapp.model.NewContactCountViewModel;
 import edu.uw.tcss450.group7.chatapp.model.NewMessageCountViewModel;
 import edu.uw.tcss450.group7.chatapp.services.PushReceiver;
 import edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.Chat;
+import edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.ChatListViewModel;
 import edu.uw.tcss450.group7.chatapp.ui.chat.chatroom.ChatMessage;
 import edu.uw.tcss450.group7.chatapp.ui.chat.chatroom.ChatViewModel;
 import edu.uw.tcss450.group7.chatapp.model.UserInfoViewModel;
@@ -41,6 +44,7 @@ public class MainActivity extends ColorActivity {
     private ActivityMainBinding binding;
     private MainPushMessageReceiver mPushMessageReceiver;
     private NewMessageCountViewModel mNewMessageModel;
+    private NewContactCountViewModel mNewContactModel;
 
     /**
      * A BroadcastReceiver that listens for messages sent from PushReceiver
@@ -64,12 +68,17 @@ public class MainActivity extends ColorActivity {
 
                 //If the user is not on the chat screen, update the
                 // NewMessageCountView Model
-                if (nd.getId() != R.id.navigation_chat || nd.getId() != R.id.chatFragment) {
+                if (nd.getId() != R.id.navigation_chat && nd.getId() != R.id.chatFragment) {
                     mNewMessageModel.increment();
                 }
                 //Inform the view model holding chatroom messages of the new
                 //message.
                 mModel.addMessage(intent.getIntExtra("chatid", -1), cm);
+            }else if(intent.hasExtra("ContactRequest") || intent.hasExtra("verifyStatus")) {
+                // NewMessageCountView Model
+                if (nd.getId() != R.id.navigation_contact && nd.getId() != R.id.newContactFragment) {
+                    mNewContactModel.increment();
+                }
             }
         }
     }
@@ -117,12 +126,30 @@ public class MainActivity extends ColorActivity {
             }
         });
 
+        mNewContactModel = new ViewModelProvider(this).get(NewContactCountViewModel.class);
+        mNewContactModel.addContactCountObserver(this, count -> {
+            BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.navigation_contact);
+            badge.setMaxCharacterCount(2);
+            if (count > 0) {
+                //new messages! update and show the notification badge.
+                badge.setNumber(count);
+                badge.setVisible(true);
+            } else {
+                //user did some action to clear the new messages, remove the badge
+                badge.clearNumber();
+                badge.setVisible(false);
+            }
+        });
+
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             if (destination.getId() == R.id.navigation_chat) {
                 //When the user navigates to the chats page, reset the new message count.
                 //This will need some extra logic for your project as it should have
                 //multiple chat rooms.
                 mNewMessageModel.reset();
+            }
+            if (destination.getId() == R.id.navigation_contact) {
+                mNewContactModel.reset();
             }
         });
     }
@@ -193,10 +220,8 @@ public class MainActivity extends ColorActivity {
             mPushMessageReceiver = new MainPushMessageReceiver();
         }
         IntentFilter iMessage = new IntentFilter(PushReceiver.RECEIVED_NEW_MESSAGE);
-//        IntentFilter iMessageOnBackGround = new IntentFilter(PushReceiver.RECEIVED_NEW_MESSAGE_ON_BACKGROUND);
         IntentFilter iContact = new IntentFilter(PushReceiver.RECEIVED_NEW_CONTACT);
         registerReceiver(mPushMessageReceiver, iMessage);
-//        registerReceiver(mPushMessageReceiver, iMessageOnBackGround);
         registerReceiver(mPushMessageReceiver, iContact);
 
     }

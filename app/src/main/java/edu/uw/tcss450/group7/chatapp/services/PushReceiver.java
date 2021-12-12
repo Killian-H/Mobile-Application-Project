@@ -25,6 +25,7 @@ public class PushReceiver extends BroadcastReceiver {
 
     public static final String RECEIVED_NEW_MESSAGE = "new message from pushy";
     public static final String RECEIVED_NEW_CONTACT = "New Contact request";
+    public static final String CONTACT_REQ_ACCEPTED = "Contact request is accepted";
     private static final String CHANNEL_ID = "1";
 
     @Override
@@ -150,15 +151,47 @@ public class PushReceiver extends BroadcastReceiver {
             }
 
 
+        }else if (typeOfMessage.equals("verifyStatus")){
+
+            ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
+            ActivityManager.getMyMemoryState(appProcessInfo);
+
+
+            if(appProcessInfo.importance == IMPORTANCE_FOREGROUND || appProcessInfo.importance == IMPORTANCE_VISIBLE ){
+
+
+                Intent i = new Intent(RECEIVED_NEW_CONTACT);
+                i.putExtras(intent.getExtras());
+                i.putExtra("verifyStatus",true);
+                context.sendBroadcast(i);
+
+
+            } else{
+
+                Intent i = new Intent(context, AuthActivity.class);
+                i.putExtras(intent.getExtras());
+
+                PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
+                        i, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                //research more on notifications the how to display them
+                //https://developer.android.com/guide/topics/ui/notifiers/notifications
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                        .setAutoCancel(true)
+                        .setSmallIcon(R.drawable.ic_chat_notification)
+                        .setContentTitle("Your Request is accepted by : " + intent.getStringExtra("username"))
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setContentIntent(pendingIntent);
+                Pushy.setNotificationChannel(builder, context);
+
+                NotificationManager notificationManager =
+                        (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+
+                notificationManager.notify(1, builder.build());
 
 
 
-
-
-
-
-
-
+            }
         }
 
 

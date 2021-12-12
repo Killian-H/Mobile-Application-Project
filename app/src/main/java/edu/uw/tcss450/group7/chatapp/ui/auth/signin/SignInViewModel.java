@@ -22,12 +22,18 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Stack;
+import java.util.function.IntFunction;
 
+import edu.uw.tcss450.group7.chatapp.databinding.FragmentPasswordBinding;
 import edu.uw.tcss450.group7.chatapp.io.RequestQueueSingleton;
 
 /**
@@ -44,6 +50,12 @@ public class SignInViewModel extends AndroidViewModel {
 
     private MutableLiveData<Boolean> mResponsePass;
 
+    private MutableLiveData<Boolean> mResponsePass2;
+
+    private MutableLiveData<Boolean> mResponsePass3;
+
+    private FragmentPasswordBinding mPassBinding;
+
     /**
      * Overloaded constructor calling its parent. Initializes
      * the JSON response object.
@@ -57,6 +69,12 @@ public class SignInViewModel extends AndroidViewModel {
 
         mResponsePass = new MutableLiveData<>();
         mResponsePass.setValue(false);
+
+        mResponsePass2 = new MutableLiveData<>();
+        mResponsePass2.setValue(false);
+
+        mResponsePass3 = new MutableLiveData<>();
+        mResponsePass3.setValue(false);
     }
 
     /**
@@ -73,6 +91,13 @@ public class SignInViewModel extends AndroidViewModel {
     public void addResponsePassObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<Boolean> observer) {
         mResponsePass.observe(owner, observer);
+        mResponsePass.observe(owner, (Observer<? super Boolean>) observer);
+        mResponsePass2.observe(owner, (Observer<? super Boolean>) observer);
+    }
+
+    public void addResponsePassObserver3(@NonNull LifecycleOwner owner,
+                                        @NonNull Observer<Boolean> observer) {
+        mResponsePass3.observe(owner, (Observer<? super Boolean>) observer);
     }
 
     /**
@@ -144,11 +169,18 @@ public class SignInViewModel extends AndroidViewModel {
     }
 
     public void connectForgetPass(final String email) {
-        String url = "https://mobile-application-project-450.herokuapp.com/auth";
+        JSONObject body = new JSONObject();
+        try {
+//            body.put("memberid", 35);
+            body.put("email", email);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String url = "https://mobile-application-project-450.herokuapp.com/passwordreset";
         Request request = new JsonObjectRequest(
-                Request.Method.GET,
+                Request.Method.POST,
                 url,
-                null, //no body for this get request
+           body,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -180,5 +212,121 @@ public class SignInViewModel extends AndroidViewModel {
         //Instantiate the RequestQueue and add the request to the queue
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
+    }
+
+    public void connectResetPass(final String code, final String email, final String newPwd) {
+        JSONObject body = new JSONObject();
+        try {
+//            body.put("memberid", 35);
+            body.put("resetcode", code);
+            body.put("newpw", newPwd);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String url = "https://mobile-application-project-450.herokuapp.com/passwordreset/email/" + email;
+        Request request = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                body,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        mResponsePass2.setValue(true);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        mResponsePass2.setValue(false);
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                String credentials = email;
+                String auth = "Basic "
+                        + Base64.encodeToString(credentials.getBytes(),
+                        Base64.NO_WRAP);
+                headers.put("Authorization", auth);
+                return headers;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
+    }
+
+
+    public boolean getResponsePass() {
+        return mResponsePass.getValue();
+    }
+
+    public boolean getResponsePass2() {
+        return mResponsePass2.getValue();
+    }
+
+    public boolean getResponsePass3() {
+        return mResponsePass3.getValue();
+    }
+
+    public void connectCheckCode(final String email, final String code) {
+        JSONObject body = new JSONObject();
+        try {
+//            body.put("memberid", 35);
+            body.put("email", email);
+            body.put("code", code);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String url = "https://mobile-application-project-450.herokuapp.com/passwordreset/verifyCode";
+        Request request = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                body,
+                this::handleCreateResult,
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        mResponsePass3.setValue(false);
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                // add headers <key,value>
+                String credentials = email;
+                String auth = "Basic "
+                        + Base64.encodeToString(credentials.getBytes(),
+                        Base64.NO_WRAP);
+                headers.put("Authorization", auth);
+                return headers;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
+    }
+
+    private void handleCreateResult(final JSONObject result) {
+        IntFunction<String> getString = getApplication().getResources()::getString;
+        try {
+            JSONObject root = result;
+            if (root.has("success")) {
+                mResponsePass3.setValue(root.getBoolean("success"));
+            }
+            System.out.println("View Model: " + mResponsePass3.getValue());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("ERROR!", e.getMessage());
+        }
     }
 }

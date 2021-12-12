@@ -29,7 +29,9 @@ public class PasswordResetFragment extends Fragment {
     private SignInViewModel mModel;
 
     /* Binding to the view model for this fragment. */
-    FragmentPasswordResetBinding mBinding;
+    private FragmentPasswordResetBinding mBinding;
+
+    private FragmentPasswordBinding mPassBinding;
 
     /**
      * Lambda expression used to check for specific traits in a password.
@@ -69,6 +71,8 @@ public class PasswordResetFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 validatePasswordsMatch();
+                mModel.connectResetPass(PasswordFragment.getCode(), mPassBinding.usernameReset.getText().toString(), mBinding.passOne.getText().toString());
+
             }
         });
     }

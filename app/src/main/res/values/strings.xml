@@ -2,6 +2,7 @@
     <string name="app_name">Tea Time</string>
     <string name="hint_email">Email</string>
     <string name="forgot_password">Forgot Password?</string>
+    <string name="have_a_code">Already Have A Code?</string>
     <string name="nav_back">Back</string>
     <string name="enter_email">Enter Email</string>
     <string name="field_instruct">Please Enter Your Email Below</string>

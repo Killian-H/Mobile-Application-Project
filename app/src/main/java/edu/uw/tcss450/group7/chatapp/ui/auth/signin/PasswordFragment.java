@@ -82,7 +82,18 @@ public class PasswordFragment extends Fragment {
                             PasswordFragmentDirections.actionPasswordFragmentToSignInFragment());
         });
         mBinding.btnHaveCode.setOnClickListener(view1 -> {
-            goodEmail();
+            if(mBinding.usernameReset.getText().length()!=0) {
+                goodEmail();
+            }else{
+                new MaterialAlertDialogBuilder(this.getView().getContext())
+                        .setMessage("You need to enter email first!")
+                        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mBinding.usernameReset.getText().clear();
+                            }
+                        }).show();
+            }
         });
         mBinding.buttonReset.setOnClickListener(view1 -> {
             if (mBinding.usernameReset.getText() != null) {
@@ -120,24 +131,24 @@ public class PasswordFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         mCode = input.getText().toString();
                         mModel.connectCheckCode(mBinding.usernameReset.getText().toString(), mCode);
-                        mModel.addResponsePassObserver3(getViewLifecycleOwner(), mCodeIsEmpty -> {
-                            System.out.println("mCode: " + mCodeIsEmpty);
-                            if (!mCodeIsEmpty) {
-                                incorrectCode();
-                            } else {
+                        mModel.addResponsePassObserver3(getViewLifecycleOwner(), mResponsePass3 -> {
+                            System.out.println("mCode: " + mResponsePass3);
+                            if (mResponsePass3) {
                                 Navigation.findNavController(getView()).navigate
                                         (edu.uw.tcss450.group7.chatapp.ui.auth.signin.
-                                                PasswordFragmentDirections.actionPasswordFragmentToPasswordResetFragment());
+                                                PasswordFragmentDirections.actionPasswordFragmentToPasswordResetFragment(mBinding.usernameReset.getText().toString(),mCode));
+                            } else {
+                                incorrectCode();
                             }
                         });
 
-                    }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        }).show();
+                    }})
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }})
+                .show();
     }
 
     public void incorrectCode() {

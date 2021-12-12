@@ -7,6 +7,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,9 +23,12 @@ import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
+import java.util.Iterator;
+
 import edu.uw.tcss450.group7.chatapp.databinding.ActivityMainBinding;
 import edu.uw.tcss450.group7.chatapp.model.NewMessageCountViewModel;
 import edu.uw.tcss450.group7.chatapp.services.PushReceiver;
+import edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.Chat;
 import edu.uw.tcss450.group7.chatapp.ui.chat.chatroom.ChatMessage;
 import edu.uw.tcss450.group7.chatapp.ui.chat.chatroom.ChatViewModel;
 import edu.uw.tcss450.group7.chatapp.model.UserInfoViewModel;
@@ -60,7 +64,7 @@ public class MainActivity extends ColorActivity {
 
                 //If the user is not on the chat screen, update the
                 // NewMessageCountView Model
-                if (nd.getId() != R.id.navigation_chat) {
+                if (nd.getId() != R.id.navigation_chat || nd.getId() != R.id.chatFragment) {
                     mNewMessageModel.increment();
                 }
                 //Inform the view model holding chatroom messages of the new
@@ -69,11 +73,13 @@ public class MainActivity extends ColorActivity {
             }
         }
     }
+
     private int mCurrTheme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        handlePushNotification();
         setTheme();
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
 
@@ -136,6 +142,7 @@ public class MainActivity extends ColorActivity {
             recreate();
         }
         super.onStart();
+        handlePushNotification();
         Log.d("lifecycle","onStart invoked");
     }
 
@@ -161,35 +168,15 @@ public class MainActivity extends ColorActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        if (mPushMessageReceiver == null) {
-            mPushMessageReceiver = new MainPushMessageReceiver();
-        }
-        IntentFilter iFilter = new IntentFilter(PushReceiver.RECEIVED_NEW_MESSAGE);
-        registerReceiver(mPushMessageReceiver, iFilter);
+        handlePushNotification();
 
         Log.d("lifecycle","onResume invoked");
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d("lifecycle","onStop invoked");
-    }
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (mPushMessageReceiver != null){
-            unregisterReceiver(mPushMessageReceiver);
-        }
-        Log.d("lifecycle","onPause invoked,and number is ");
-    }
-
-    @Override
     protected void onRestart() {
         super.onRestart();
+        handlePushNotification();
         Log.d("lifecycle","onRestart invoked");
     }
     @Override
@@ -200,6 +187,19 @@ public class MainActivity extends ColorActivity {
 
 
 
+    private void handlePushNotification(){
+
+        if (mPushMessageReceiver == null) {
+            mPushMessageReceiver = new MainPushMessageReceiver();
+        }
+        IntentFilter iMessage = new IntentFilter(PushReceiver.RECEIVED_NEW_MESSAGE);
+//        IntentFilter iMessageOnBackGround = new IntentFilter(PushReceiver.RECEIVED_NEW_MESSAGE_ON_BACKGROUND);
+        IntentFilter iContact = new IntentFilter(PushReceiver.RECEIVED_NEW_CONTACT);
+        registerReceiver(mPushMessageReceiver, iMessage);
+//        registerReceiver(mPushMessageReceiver, iMessageOnBackGround);
+        registerReceiver(mPushMessageReceiver, iContact);
+
+    }
 
 
 }

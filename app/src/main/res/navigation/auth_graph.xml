@@ -80,6 +80,12 @@
             app:destination="@+id/SignInFragment"
             app:exitAnim="@android:anim/slide_out_right"
             app:enterAnim="@android:anim/slide_in_left" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="code"
+            app:argType="string" />
     </fragment>
 
 </navigation>

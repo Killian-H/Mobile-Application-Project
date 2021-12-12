@@ -74,7 +74,6 @@ public class SignInViewModel extends AndroidViewModel {
         mResponsePass2.setValue(false);
 
         mResponsePass3 = new MutableLiveData<>();
-        mResponsePass3.setValue(false);
     }
 
     /**
@@ -289,12 +288,7 @@ public class SignInViewModel extends AndroidViewModel {
                 url,
                 body,
                 this::handleCreateResult,
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        mResponsePass3.setValue(false);
-                    }
-                }) {
+                error -> mResponsePass3.setValue(false)) {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
@@ -317,9 +311,9 @@ public class SignInViewModel extends AndroidViewModel {
     }
 
     private void handleCreateResult(final JSONObject result) {
-        IntFunction<String> getString = getApplication().getResources()::getString;
         try {
             JSONObject root = result;
+            System.out.println("root, success: " + root.getBoolean("success"));
             if (root.has("success")) {
                 mResponsePass3.setValue(root.getBoolean("success"));
             }

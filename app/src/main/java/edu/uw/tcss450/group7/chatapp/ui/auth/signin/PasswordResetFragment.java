@@ -67,11 +67,12 @@ public class PasswordResetFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        PasswordResetFragmentArgs args = PasswordResetFragmentArgs.fromBundle(getArguments());
         mBinding.buttonConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 validatePasswordsMatch();
-                mModel.connectResetPass(PasswordFragment.getCode(), mPassBinding.usernameReset.getText().toString(), mBinding.passOne.getText().toString());
+                mModel.connectResetPass(args.getCode(), args.getEmail(), mBinding.passOne.getText().toString());
 
             }
         });

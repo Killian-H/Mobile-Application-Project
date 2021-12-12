@@ -103,5 +103,12 @@
     <fragment
         android:id="@+id/newChatListFragment"
         android:name="edu.uw.tcss450.group7.chatapp.ui.chat.chatlist.NewChatListFragment"
-        android:label="@string/title_new_chat_fragment" />
+        android:label="@string/title_new_chat_fragment" >
+        <argument
+            android:name="contactIdToAdd"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_newChatListFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
 </navigation>

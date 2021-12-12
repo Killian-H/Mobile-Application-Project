@@ -161,7 +161,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
             binding.buttonSendMessage.setOnClickListener( view ->
                 Navigation.findNavController(mView).navigate(
                         ContactListFragmentDirections
-                                .actionNavigationContactToNewChatListFragment())
+                                .actionNavigationContactToNewChatListFragment(mContact.getMemberId()))
             );
             displayPreview();
         }

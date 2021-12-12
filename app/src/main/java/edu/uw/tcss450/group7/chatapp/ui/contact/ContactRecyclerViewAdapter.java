@@ -141,7 +141,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
             }
             binding.buttonRemove.setOnClickListener(view ->
                     new MaterialAlertDialogBuilder(this.itemView.getContext())
-                            .setMessage("Are you sure to remove " + mContact.getFullName() + " from your contacts?")
+                            .setMessage("Are you sure you want to remove " + mContact.getFullName() + " from your contacts?")
                             .setPositiveButton("No", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {

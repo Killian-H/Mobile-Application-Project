@@ -38,6 +38,9 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -101,6 +104,7 @@ public class Fragment_weather extends Fragment {
     /*Places client */
     private PlacesClient mPlacesClient;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,6 +157,7 @@ public class Fragment_weather extends Fragment {
 
             ;
         };
+
 
 
         createLocationRequest();
@@ -240,12 +245,18 @@ public class Fragment_weather extends Fragment {
             Weather_RecycleViewAdapter rvAdapterHOURLY = new Weather_RecycleViewAdapter(myWeatherMain.getMyHourlyForecast().getMyHourlyWeatherArray());
             binding.weather7dayRV.setAdapter(rvAdapterHOURLY);
         });
-        //????
+        //navigation to maps
         binding.buttonMap.setOnClickListener(button -> {
             Navigation.findNavController(getView()).navigate(
                     Fragment_weatherDirections.actionNavigationWeatherToMap()
             );
         });
+
+
+
+
+
+
 
         // Initialize the google places AutocompleteSupportFragment
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)

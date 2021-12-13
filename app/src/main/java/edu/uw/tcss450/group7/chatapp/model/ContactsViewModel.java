@@ -29,10 +29,16 @@ import java.util.function.IntFunction;
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.ui.contact.Contact;
 
+/**
+ * Main Contacts fragment view model to handle data between fragments and endpoints
+ *
+ */
 public class ContactsViewModel extends AndroidViewModel {
-
+    /**List of Contacts user have*/
     private MutableLiveData<List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> mContactList;
+    /**List of Contacts requests user got*/
     private MutableLiveData<List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> mIncomingList;
+    /**List of Contacts user searched*/
     private MutableLiveData<List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> mSearchList;
     private MutableLiveData<List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> mVerifiedList;
 
@@ -48,6 +54,14 @@ public class ContactsViewModel extends AndroidViewModel {
         mVerifiedList.setValue(new ArrayList<>());
     }
 
+
+    /**
+     * Listeners for responses from the server when the user starts the registration process.
+     *
+     * @param owner Handles life cycles changes without the need for code inside this
+     *              view model.
+     * @param observer Listens for responses from the server.
+     */
     public void addContactListObserver(@NonNull LifecycleOwner owner,
                                        @NonNull Observer<? super List<edu.uw.tcss450.group7.chatapp.ui.contact.Contact>> observer) {
         mContactList.observe(owner, observer);
@@ -69,11 +83,21 @@ public class ContactsViewModel extends AndroidViewModel {
         mVerifiedList.observe(owner, observer);
     }
 
+    /**
+     * Handles server errors received from the web service.
+     *
+     * @param error The error thrown by parsing the JSON object.
+     */
     private void handleError(final VolleyError error) {
         mSearchList.setValue(new ArrayList<>());
         Log.e("CONNECTION ERROR", error.toString());
     }
 
+    /**
+     * Handles the data server returned.
+     *
+     * @param result The data sent by server.
+     */
     private void handleResult(final JSONObject result) {
         ArrayList<Contact> temp = new ArrayList<>();
         IntFunction<String> getString =
@@ -126,6 +150,9 @@ public class ContactsViewModel extends AndroidViewModel {
         mVerifiedList.setValue(filterVerified(temp));
     }
 
+    /**
+     * Method that filters Verified contacts
+     */
     private List<Contact> filterVerified(List<Contact> contactList) {
         List<Contact> result = new ArrayList<Contact>();
         for(Contact contact : contactList) {
@@ -136,6 +163,11 @@ public class ContactsViewModel extends AndroidViewModel {
         return result;
     }
 
+    /**
+     * Handles the Search data server returned.
+     *
+     * @param result The data sent by server.
+     */
     private void handleResultSearch(final JSONObject result) {
         ArrayList<Contact> temp = new ArrayList<>();
         IntFunction<String> getString =
@@ -181,6 +213,11 @@ public class ContactsViewModel extends AndroidViewModel {
     }
 
 
+    /**
+     * Method that gets the contacts from the server
+     *
+     * @param jwt User Jwt to send to server.
+     */
     public void connectGet(final String jwt) {
         String url = getApplication().getResources().getString(R.string.base_url) +
                 "contacts";
@@ -214,6 +251,12 @@ public class ContactsViewModel extends AndroidViewModel {
                 .add(request);
     }
 
+
+    /**
+     * Method that gets the incoming contact requests from the server
+     *
+     * @param jwt User Jwt to send to server.
+     */
     public void getIncomingRequests(final String jwt) {
         String url = getApplication().getResources().getString(R.string.base_url) +
                 "contacts/requests";
@@ -240,6 +283,12 @@ public class ContactsViewModel extends AndroidViewModel {
         Volley.newRequestQueue(getApplication().getApplicationContext())
                 .add(request);
     }
+
+    /**
+     * Handles the Incoming Request data server returned.
+     *
+     * @param result The data sent by server.
+     */
     private void handleIncomingRequestResult(final JSONObject result) {
         ArrayList<Contact> temp = new ArrayList<>();
         IntFunction<String> getString =
@@ -287,16 +336,19 @@ public class ContactsViewModel extends AndroidViewModel {
         }
         temp.addAll(mContactList.getValue());
         mContactList.setValue(temp);
-//        mIncomingList.setValue(temp);
-//        mVerifiedList.setValue(filterVerified(temp));
     }
 
+    /**
+     * Method that sends search request to the server
+     *
+     * @param jwt User Jwt to send to server.
+     * @param email Email to search for.
+     */
     public void connectGetSearch(final String jwt, String email) {
         String url = getApplication().getResources().getString(R.string.base_url) +
                 "contacts/search";
         JSONObject body = new JSONObject();
         try {
-//            body.put("memberid", 35);
             body.put("email", email);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -325,7 +377,12 @@ public class ContactsViewModel extends AndroidViewModel {
                 .add(request);
     }
 
-
+    /**
+     * Method that sends remove contact to the server
+     *
+     * @param jwt User Jwt to send to server.
+     * @param memberId memberId to be removed from Contacts.
+     */
     public void removeContact(final String jwt, int memberId) {
         String url = getApplication().getResources().getString(R.string.base_url) +
                 "contacts/" + memberId;
@@ -358,6 +415,12 @@ public class ContactsViewModel extends AndroidViewModel {
                 .add(request);
     }
 
+    /**
+     * Method that sends contact request to the server
+     *
+     * @param jwt User Jwt to send to server.
+     * @param memberId memberId to send a new contact request.
+     */
     public void sendContactRequest(final String jwt, int memberId) {
         String url = getApplication().getResources().getString(R.string.base_url) +
                 "contacts/";
@@ -401,6 +464,13 @@ public class ContactsViewModel extends AndroidViewModel {
                 .add(request);
     }
 
+    /**
+     * Method that sends response to the contact request from other contact
+     *
+     * @param jwt User Jwt to send to server.
+     * @param memberId memberId to send a new contact request.
+     * @param response Response value to weather accept or decline the request.
+     */
     public void respondIncomingRequest(final String jwt, int memberId, Boolean response) {
         String url = getApplication().getResources().getString(R.string.base_url) +
                 "contacts/verify";

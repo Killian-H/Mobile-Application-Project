@@ -37,6 +37,7 @@ public class NewContactListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /**Getting viewModel objects*/
         ViewModelProvider provider = new ViewModelProvider(getActivity());
         mUserModel = provider.get(UserInfoViewModel.class);
         mModel = provider.get(ContactsViewModel.class);
@@ -47,22 +48,7 @@ public class NewContactListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_new_contact, container, false);
-        if (view instanceof RecyclerView) {
-            //Try out a grid layout to achieve rows AND columns. Adjust the widths of the
-            //cards on display
-//            ((RecyclerView) view).setLayoutManager(new GridLayoutManager(getContext(), 2));
 
-            //Try out horizontal scrolling. Adjust the widths of the card so that it is
-            //obvious that there are more cards in either direction. i.e. don't have the cards
-            //span the entire witch of the screen. Also, when considering horizontal scroll
-            //on recycler view, ensure that there is other content to fill the screen.
-//            ((LinearLayoutManager)((RecyclerView) view).getLayoutManager())
-//                    .setOrientation(LinearLayoutManager.HORIZONTAL);
-
-//            ((RecyclerView) view).setAdapter(
-//                    new ContactRecyclerViewAdapter(ContactGenerator.getContactList()));
-        }
         return inflater.inflate(R.layout.fragment_new_contact, container, false);
     }
 
@@ -78,28 +64,25 @@ public class NewContactListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         //handle menu item clicks
         int id = item.getItemId();
-
+        //If settings is clicked navigate to SettingsActivity.
         if (id == R.id.action_settings) {
             Navigation.findNavController(getView()).navigate(
                     NewContactListFragmentDirections.actionNewContactFragmentToSettingsActivity());
-
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //binding to set things in the xml
         FragmentNewContactBinding binding = FragmentNewContactBinding.bind(getView());
         binding.linearProgress.hide();
         binding.textNotFound.setVisibility(View.GONE);
 
-//        Listeners for contact Searching
-
+        //Listeners for contact Searching
         binding.TextInputEmail.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                // If the event is a key-down event on the "enter" button
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     binding.linearProgress.show();
@@ -109,6 +92,8 @@ public class NewContactListFragment extends Fragment {
                 return false;
             }
         });
+
+        //On click listener to Search Button
         binding.buttonSearch.setOnClickListener(
                 (searchList) -> {
                         binding.linearProgress.show();
@@ -116,6 +101,7 @@ public class NewContactListFragment extends Fragment {
                 }
         );
 
+        //when the SearchList in ContactsViewModel is updated, sets the adapter for the recyclerview.
         mModel.addSearchListObserver(getViewLifecycleOwner(), (contactList) -> {
             if (!contactList.isEmpty()) {
                 binding.listRoot.setAdapter(

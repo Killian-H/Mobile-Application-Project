@@ -8,25 +8,17 @@ import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import edu.uw.tcss450.group7.chatapp.databinding.FragmentChatListBinding;
-import edu.uw.tcss450.group7.chatapp.databinding.FragmentContactListBinding;
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentNewChatBinding;
 import edu.uw.tcss450.group7.chatapp.model.ContactsViewModel;
 import edu.uw.tcss450.group7.chatapp.model.NewChatViewModel;
 import edu.uw.tcss450.group7.chatapp.model.UserInfoViewModel;
-import edu.uw.tcss450.group7.chatapp.ui.chat.chatroom.ChatViewModel;
-import edu.uw.tcss450.group7.chatapp.ui.contact.ContactGenerator;
-import edu.uw.tcss450.group7.chatapp.ui.contact.ContactListFragmentDirections;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,12 +55,6 @@ public class NewChatListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_new_chat, container, false);
-        if (view instanceof RecyclerView) {
-
-            ((RecyclerView) view).setAdapter(
-                    new NewChatRecyclerViewAdapter(ContactGenerator.getContactList(), mNewChatModel));
-        }
         return inflater.inflate(R.layout.fragment_new_chat, container, false);
     }
 
@@ -76,7 +62,6 @@ public class NewChatListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d("NewChatFragment","onViewCreated");
 
         FragmentNewChatBinding binding = FragmentNewChatBinding.bind(getView());
 
@@ -84,7 +69,6 @@ public class NewChatListFragment extends Fragment {
 
         mContactsModel.addVerifiedListObserver(getViewLifecycleOwner(), contactList -> {
             if (!contactList.isEmpty()) {
-                Log.d("NewChatFragment","onViewCreated - contactList is not empty");
                 binding.listAddContacts.setAdapter(
                         new NewChatRecyclerViewAdapter(contactList, mNewChatModel)
                 );

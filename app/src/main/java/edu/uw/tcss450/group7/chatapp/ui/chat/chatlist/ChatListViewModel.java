@@ -64,11 +64,6 @@ public class ChatListViewModel extends AndroidViewModel {
         mChatList.observe(owner, observer);
     }
 
-    /**
-     * Hnadles an error if Volley throws one.
-     *
-     * @param error The error thrown.
-     */
     public void addChatListEmptyObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<? super java.lang.Boolean> observer) {
         mIsChatListEmpty.observe(owner, observer);
@@ -98,9 +93,10 @@ public class ChatListViewModel extends AndroidViewModel {
                 for(int i = 0; i < data.length(); i++) {
                     JSONObject jsonContact = data.getJSONObject(i);
                     String lastMessage = jsonContact.getString(
+                            getString.apply(R.string.keys_json_contacts_firstname)) != "null" ? jsonContact.getString(
                             getString.apply(R.string.keys_json_contacts_firstname)) + ": " + jsonContact.getString(
                             getString.apply(
-                                    R.string.keys_json_chats_recent_message));
+                                    R.string.keys_json_chats_recent_message)) : "";
                     if (lastMessage.length() > 26) {
                         lastMessage = lastMessage.substring(0, 25) + "...";
                     }

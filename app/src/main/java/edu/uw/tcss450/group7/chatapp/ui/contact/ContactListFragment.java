@@ -38,6 +38,7 @@ public class ContactListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /**Getting viewModel objects*/
         ViewModelProvider provider = new ViewModelProvider(getActivity());
         mUserModel = provider.get(UserInfoViewModel.class);
         mModel = provider.get(ContactsViewModel.class);
@@ -48,22 +49,6 @@ public class ContactListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_contact_list, container, false);
-        if (view instanceof RecyclerView) {
-            //Try out a grid layout to achieve rows AND columns. Adjust the widths of the
-            //cards on display
-//            ((RecyclerView) view).setLayoutManager(new GridLayoutManager(getContext(), 2));
-
-            //Try out horizontal scrolling. Adjust the widths of the card so that it is
-            //obvious that there are more cards in either direction. i.e. don't have the cards
-            //span the entire witch of the screen. Also, when considering horizontal scroll
-            //on recycler view, ensure that there is other content to fill the screen.
-//            ((LinearLayoutManager)((RecyclerView) view).getLayoutManager())
-//                    .setOrientation(LinearLayoutManager.HORIZONTAL);
-
-            ((RecyclerView) view).setAdapter(
-                    new edu.uw.tcss450.group7.chatapp.ui.contact.ContactRecyclerViewAdapter(edu.uw.tcss450.group7.chatapp.ui.contact.ContactGenerator.getContactList(),mUserModel.getmJwt(),mModel));
-        }
         return inflater.inflate(R.layout.fragment_contact_list, container, false);
     }
 
@@ -74,24 +59,22 @@ public class ContactListFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //handle menu item clicks
         int id = item.getItemId();
-
+        //If settings is clicked navigate to SettingsActivity.
         if (id == R.id.action_settings) {
             Navigation.findNavController(getView()).navigate(
                     ContactListFragmentDirections.actionNavigationContactToSettingsActivity());
-
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
+        //binding to set things in the xml
         FragmentContactListBinding binding = FragmentContactListBinding.bind(getView());
 
         //On click listener to floatingButton
@@ -100,6 +83,7 @@ public class ContactListFragment extends Fragment {
                         ContactListFragmentDirections
                                 .actionNavigationContactToNewContactFragment()));
 
+        //when the contactList in ContactsViewModel is updated, sets the adapter for the recyclerview.
         mModel.addContactListObserver(getViewLifecycleOwner(), contactList -> {
             if (!contactList.isEmpty()) {
                 binding.listRoot.setAdapter(

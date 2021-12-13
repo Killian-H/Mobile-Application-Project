@@ -20,9 +20,6 @@
         <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_contact_list.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_new_contact.xml" value="0.2635416666666667" />
         <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_new_contact_card.xml" value="0.25" />
-        <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_password.xml" value="1.25" />
-        <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/fragment_password_reset.xml" value="0.2057017543859649" />
-        <entry key="..\:/Users/Alp/Desktop/Mobile-Application-Project/app/src/main/res/layout/new_chat_add_contact_card.xml" value="0.30526315789473685" />
         <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/drawable-anydpi/ic_send.xml" value="0.2708333333333333" />
         <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/drawable-mdpi/ic_chat_notification.xml" value="0.2708333333333333" />
         <entry key="..\:/Users/Lauren/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
@@ -68,6 +65,7 @@
         <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_chat.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_chat_card.xml" value="0.36102564102564105" />
+        <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_chat_details.xml" value="0.28229166666666666" />
         <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_chat_list.xml" value="0.36102564102564105" />
         <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_contact.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_contact_card.xml" value="0.14444444444444443" />
@@ -76,6 +74,7 @@
         <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_new_chat.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_new_contact.xml" value="0.33" />
         <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_new_contact_card.xml" value="0.14444444444444443" />
+        <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_password_reset.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_sign_in.xml" value="1.0" />
         <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/fragment_weather.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/flami/AndroidStudioProjects/Mobile-Application-Project/app/src/main/res/layout/new_chat_add_contact_card.xml" value="0.33" />

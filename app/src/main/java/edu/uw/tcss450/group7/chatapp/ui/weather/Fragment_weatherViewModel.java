@@ -15,6 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,6 +30,7 @@ public class Fragment_weatherViewModel extends AndroidViewModel {
     // The response from the web service.
     private MutableLiveData<JSONObject> mResponse;
     private Weather_Main myMainWeatherObject;
+    private LatLng markerSaved;
 
 
     public Fragment_weatherViewModel(@NonNull Application application) {
@@ -104,7 +106,7 @@ public class Fragment_weatherViewModel extends AndroidViewModel {
                 Request.Method.POST,
                 urlConnect,
                 body,
-                this::handleResult,
+                response1 -> {handleResult(response1); markerSaved = new LatLng(latitude,longitude);},
                 this::handleError);
 
 
@@ -119,4 +121,7 @@ public class Fragment_weatherViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
+    public LatLng getMarkerSaved() {
+        return markerSaved;
+    }
 }

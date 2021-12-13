@@ -63,6 +63,14 @@ public class NewChatViewModel extends AndroidViewModel {
         Log.d("In remove MemberID", "" + mAddMemList.getValue());
     }
 
+    public void clearMemberID() {
+        mAddMemList.getValue().clear();
+    }
+
+    public List<Integer> getAddMemList() {
+        return mAddMemList.getValue();
+    }
+
     private void handleError(final VolleyError error) {
         mAddMemList = new MutableLiveData<>();
         Log.e("CONNECTION ERROR", error.toString());

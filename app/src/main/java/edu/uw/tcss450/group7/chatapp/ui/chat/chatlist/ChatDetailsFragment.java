@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentChatDetailsBinding;
+import edu.uw.tcss450.group7.chatapp.model.ContactsViewModel;
+import edu.uw.tcss450.group7.chatapp.model.NewChatViewModel;
 import edu.uw.tcss450.group7.chatapp.model.UserInfoViewModel;
 import edu.uw.tcss450.group7.chatapp.ui.chat.chatroom.ChatViewModel;
 
@@ -23,6 +25,7 @@ import edu.uw.tcss450.group7.chatapp.ui.chat.chatroom.ChatViewModel;
  */
 public class ChatDetailsFragment extends Fragment {
     private ChatViewModel mModel;
+    private ContactsViewModel mContactModel;
     private UserInfoViewModel mUserModel;
 
     public ChatDetailsFragment() {
@@ -34,6 +37,7 @@ public class ChatDetailsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         ViewModelProvider provider = new ViewModelProvider(getActivity());
         mUserModel = provider.get(UserInfoViewModel.class);
+        mContactModel = provider.get(ContactsViewModel.class);
         mModel = provider.get(ChatViewModel.class);
     }
 
@@ -58,6 +62,10 @@ public class ChatDetailsFragment extends Fragment {
         mModel.addMemberListObserver(args.getChat().getChatId(), getViewLifecycleOwner(), (memberList) -> {
                     binding.listRoot.setAdapter(new ChatMembersListRecyclerViewAdapter(memberList, mModel, args.getChat().getChatId(), mUserModel.getmJwt()));
                 });
+        mContactModel.connectGet(mUserModel.getmJwt());
+        mContactModel.addVerifiedListObserver(getViewLifecycleOwner(), (contactList) -> {
+            binding.addToChatList.setAdapter(new ChatAddMemberListRecyclerViewAdapter(contactList, mModel, args.getChat().getChatId(), mUserModel.getmJwt()));
+        });
 
     }
 

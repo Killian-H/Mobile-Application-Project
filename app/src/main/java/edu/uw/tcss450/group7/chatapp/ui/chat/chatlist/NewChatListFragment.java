@@ -47,9 +47,14 @@ public class NewChatListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ViewModelProvider provider = new ViewModelProvider(getActivity());
+        int contactToAdd = this.getArguments().getInt("contactIdToAdd");
+
         mUserModel = provider.get(UserInfoViewModel.class);
         mContactsModel = provider.get(ContactsViewModel.class);
         mNewChatModel = provider.get(NewChatViewModel.class);
+        if (contactToAdd > -1) {
+            mNewChatModel.addMemberID(contactToAdd);
+        }
         mChatModel = provider.get(ChatListViewModel.class);
         mContactsModel.connectGet(mUserModel.getmJwt());
         setHasOptionsMenu(true);
@@ -99,5 +104,12 @@ public class NewChatListFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mNewChatModel.clearMemberID();
+    }
+
 
 }

@@ -38,6 +38,9 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -101,6 +104,7 @@ public class Fragment_weather extends Fragment {
     /*Places client */
     private PlacesClient mPlacesClient;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,6 +157,7 @@ public class Fragment_weather extends Fragment {
 
             ;
         };
+
 
 
         createLocationRequest();
@@ -225,7 +230,8 @@ public class Fragment_weather extends Fragment {
             Geocoder geo = new Geocoder(getContext(),Locale.US);
 
             try {
-                String geoString = geo.getFromLocation( myWeatherMain.getMyLatitude(),myWeatherMain.getMyLongitude(),1).get(0).getAddressLine(0);
+
+                String geoString = geo.getFromLocation( myWeatherMain.getMyLatitude(),myWeatherMain.getMyLongitude(),3).get(0).getAddressLine(0);
                 binding.weatherDisplayMainHeader.setText(""+geoString.substring(geoString.indexOf(",")+1));
             } catch (IOException e) {
                 Log.e("header geocoder","main header failed with geocoder");
@@ -240,12 +246,18 @@ public class Fragment_weather extends Fragment {
             Weather_RecycleViewAdapter rvAdapterHOURLY = new Weather_RecycleViewAdapter(myWeatherMain.getMyHourlyForecast().getMyHourlyWeatherArray());
             binding.weather7dayRV.setAdapter(rvAdapterHOURLY);
         });
-        //????
+        //navigation to maps
         binding.buttonMap.setOnClickListener(button -> {
             Navigation.findNavController(getView()).navigate(
                     Fragment_weatherDirections.actionNavigationWeatherToMap()
             );
         });
+
+
+
+
+
+
 
         // Initialize the google places AutocompleteSupportFragment
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
@@ -254,6 +266,7 @@ public class Fragment_weather extends Fragment {
         autocompleteFragment.setTypeFilter(TypeFilter.GEOCODE);
         //Specify which fields you want to include
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS,Place.Field.LAT_LNG));
+
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
@@ -266,6 +279,7 @@ public class Fragment_weather extends Fragment {
 
 
             }
+
 
 
             @Override

@@ -71,6 +71,9 @@ public class NewChatRecyclerViewAdapter extends RecyclerView.Adapter<NewChatRecy
 
             binding.textEmail.setText(contact.getEmail());
             binding.textName.setText(contact.getFirstName() + " " + contact.getLastName());
+            if(mNewChatViewModel.getAddMemList().contains((Integer) mContact.getMemberId())) {
+                binding.checkBoxAddToChat.setChecked(true);
+            }
             binding.checkBoxAddToChat.setOnClickListener( checkBox -> {
                 boolean checked = binding.checkBoxAddToChat.isChecked();
                 if(checked) {

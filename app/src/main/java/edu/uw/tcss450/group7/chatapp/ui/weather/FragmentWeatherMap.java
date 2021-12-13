@@ -27,6 +27,7 @@ public class FragmentWeatherMap extends Fragment implements OnMapReadyCallback, 
 
     private GoogleMap mMap;
 
+    private Fragment_weatherViewModel mWeatherViewModel;
     /**
      * Standard onCreate method for when the fragment is first accessed.
      *
@@ -35,6 +36,7 @@ public class FragmentWeatherMap extends Fragment implements OnMapReadyCallback, 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mWeatherViewModel = new ViewModelProvider(getActivity()).get(Fragment_weatherViewModel.class);
 
     }
 
@@ -85,12 +87,13 @@ public class FragmentWeatherMap extends Fragment implements OnMapReadyCallback, 
         mMap.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
                         latLng, mMap.getCameraPosition().zoom));
-
+        mMap.clear();
          mMap.addMarker(new MarkerOptions()
                 .position(latLng)
                 .title("New Marker"));
-         //mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
+         //mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mWeatherViewModel.connect(latLng.longitude, latLng.latitude);
     }
 
     /**
@@ -116,6 +119,10 @@ public class FragmentWeatherMap extends Fragment implements OnMapReadyCallback, 
             }
         });
 
+        mMap.addMarker(new MarkerOptions()
+                .position(mWeatherViewModel.getMarkerSaved())
+                .title("New Marker"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mWeatherViewModel.getMarkerSaved(), 10.0f));
         mMap.setOnMapClickListener(this);
     }
 

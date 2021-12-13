@@ -24,15 +24,39 @@
         android:id="@+id/list_root"
         android:name="edu.uw.tcss450.group7.chatapp.ui.contact.ContactFragment"
         android:layout_width="361dp"
-        android:layout_height="352dp"
+        android:layout_height="240dp"
         android:orientation="vertical"
         app:layoutManager="LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_title"
-        app:layout_constraintVertical_bias="0.0"
+        tools:context="edu.uw.tcss450.group7.chatapp.ui.contact.ChatDetailsFragment"
+        tools:listitem="@layout/fragment_new_contact_card" />
+
+    <TextView
+        android:id="@+id/add_to_chat_title"
+        android:layout_width="352dp"
+        android:layout_height="36dp"
+        android:padding="8dp"
+        android:text="@string/title_add_to_chat"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.222"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_root" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/add_to_chat_list"
+        android:name="edu.uw.tcss450.group7.chatapp.ui.contact.ContactFragment"
+        android:layout_width="361dp"
+        android:layout_height="240dp"
+        android:orientation="vertical"
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_to_chat_title"
         tools:context="edu.uw.tcss450.group7.chatapp.ui.contact.ChatDetailsFragment"
         tools:listitem="@layout/fragment_new_contact_card" />
 

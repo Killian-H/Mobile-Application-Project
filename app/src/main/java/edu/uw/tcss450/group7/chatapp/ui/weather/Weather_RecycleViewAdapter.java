@@ -22,17 +22,26 @@ import edu.uw.tcss450.group7.chatapp.ui.contact.Contact;
 import edu.uw.tcss450.group7.chatapp.ui.contact.ContactListFragmentDirections;
 import edu.uw.tcss450.group7.chatapp.ui.contact.ContactRecyclerViewAdapter;
 
+/**
+ * Adapter for the recycle view that displays both 7day forecasts and hourly forecasts
+ * @version: 12/12/2021
+ * @author Aaron Purslow
+ * Commented by: Aaron Purslow
+ */
 public class Weather_RecycleViewAdapter extends RecyclerView.Adapter<Weather_RecycleViewAdapter.myViewHolder>{
+    //either the 7 day forecast array or hourly forecast array
     private Object[] mWeatherList;
-
-
-
 
     public Weather_RecycleViewAdapter(Object[] theWeatherList) {
         this.mWeatherList = theWeatherList;
     }
 
-
+    /**
+     * viewholder
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public Weather_RecycleViewAdapter.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -47,12 +56,17 @@ public class Weather_RecycleViewAdapter extends RecyclerView.Adapter<Weather_Rec
 
     }
 
-
+    /**
+     * @return the amount of items in the array
+     */
     @Override
     public int getItemCount() {
         return mWeatherList.length;
     }
 
+    /**
+     * Viewholder to change what is displayed on the recycle view for each weather_current object in the mWeatherList array
+     */
     public class myViewHolder extends RecyclerView.ViewHolder{
         public final View mView;
         public FragmentWeatherCardRvBinding binding;

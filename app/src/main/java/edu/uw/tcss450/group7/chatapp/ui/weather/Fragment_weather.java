@@ -68,8 +68,13 @@ import edu.uw.tcss450.group7.chatapp.ui.auth.register.RegisterViewModel;
 import edu.uw.tcss450.group7.chatapp.ui.contact.ContactListFragmentDirections;
 
 /**
- * A simple {@link Fragment} subclass.
-
+ * Main weather fragment to be displayed.
+ * @version: 12/12/2021
+ *
+ * @author Charles Bryan
+ * @author Aaron Purslow
+ * @author Killian Hickey
+ * Commented by: Aaron Purslow
  */
 public class Fragment_weather extends Fragment {
 
@@ -77,6 +82,7 @@ public class Fragment_weather extends Fragment {
     private FragmentWeatherBinding binding;
     //view model for weather
     private Fragment_weatherViewModel mWeatherModel;
+    /*Main weather object made from JSON response.See also Weather_Main*/
     private Weather_Main myWeatherMain;
 
     /* The desired interval for location updates. Inexact. Updates may
@@ -104,7 +110,12 @@ public class Fragment_weather extends Fragment {
     /*Places client */
     private PlacesClient mPlacesClient;
 
-
+    /**
+     * Initializes mFusedLocationClient, mPlacesClient, mLocationCallback, and mLocationModel
+     * calls createLocationRequest(); to grab location data
+     * connectInBackground(); to attempt to send JSON request based off of location data for initial Weather view
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +123,7 @@ public class Fragment_weather extends Fragment {
         if (mWeatherModel==null)mWeatherModel = new ViewModelProvider(getActivity()).get(Fragment_weatherViewModel.class);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
 
-        // Initialize the SDK
+        // Initialize the Places SDK
         if (!Places.isInitialized()) {
             Places.initialize(getContext(), "AIzaSyDrnr_jdk8D_Nyp741UZys_gqMFOb9w54g");
         }
@@ -164,6 +175,14 @@ public class Fragment_weather extends Fragment {
         connectInBackground();
     }
 
+    /**
+     * Initializes the FragmentWeatherBinding for easier access to UI elements
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return the binding
+     */
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -192,7 +211,12 @@ public class Fragment_weather extends Fragment {
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 
-
+    /**
+     * Sets up listeners for UI elements to be changed and changes them on new data inputs.
+     * Where most of the Weather UI is updated
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -252,12 +276,6 @@ public class Fragment_weather extends Fragment {
                     Fragment_weatherDirections.actionNavigationWeatherToMap()
             );
         });
-
-
-
-
-
-
 
         // Initialize the google places AutocompleteSupportFragment
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
@@ -435,13 +453,13 @@ public class Fragment_weather extends Fragment {
     }
 
     /**
-     * Asynchronous call. verifying the registration with the auth endpoint of the server.
+     * Asynchronous call. Sends Json request to Fragment_weatherViewModel with location data if available or uses the default value for Anartica if not available.
      */
     private void connectInBackground() {
         //default location Set to Anartica for Debug purposes
         Double lat = -69.0;
         Double lon = -69.0;
-
+        //location check
         try {
             if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 Log.d("REQUEST LOCATION", "User did NOT allow permission to request location!");
@@ -466,7 +484,7 @@ public class Fragment_weather extends Fragment {
         }
         catch (Exception e){
             Log.e("Location Error", " mFusedLocation Problem, using default location");
-            //Tacoma Gps hardcoded currently showing timezone instead of actual location
+           //Anartica being used in case of failure to show failure connecting
             mWeatherModel.connect(lon,lat);
         }
 

@@ -26,10 +26,19 @@ import java.util.Objects;
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.io.RequestQueueSingleton;
 
+/**
+ * Main weather fragment view model to handle data between fragments and endpoints
+ * @version: 12/12/2021
+ * @author Aaron Purslow
+ * Commented by: Aaron Purslow
+ */
+
 public class Fragment_weatherViewModel extends AndroidViewModel {
     // The response from the web service.
     private MutableLiveData<JSONObject> mResponse;
-    private Weather_Main myMainWeatherObject;
+    /*when json response received for any reason save Latlng to be used to update where the map is opened at.
+    See also FragmentWeatherMap.
+    * */
     private LatLng markerSaved;
 
 
@@ -85,8 +94,9 @@ public class Fragment_weatherViewModel extends AndroidViewModel {
     }
 
     /**
-     * Connects to the auth endpoint of the web server in an attempt
-     * to register the user.
+     * Connects to the weather endpoint and attempts to return weather data.
+     * Example input  {"lat": "-69","lon":"-69"}
+     * Expected output to be JSON object containing all weather data at specified lat/lon
      * @param latitude First name provided by the user.
      * @param longitude Last name provided by the user.
 
@@ -121,6 +131,10 @@ public class Fragment_weatherViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
+    /**
+     *
+     * @return saved marker coordinates
+     */
     public LatLng getMarkerSaved() {
         return markerSaved;
     }

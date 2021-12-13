@@ -21,12 +21,17 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentWeatherMapBinding;
 
+/**
+ * fragment for the Weather map
+ * @version: 12/12/2021
+ * @author Aaron Purslow
+ * @author Killian Hickey
+ * Commented by: Aaron Purslow
+ */
 public class FragmentWeatherMap extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener{
-
-    private LocationViewModel mModel;
-
+    //google map to be initialized
     private GoogleMap mMap;
-
+    //view model for Fragment_weather to update Fragment_weather data based on map interactions
     private Fragment_weatherViewModel mWeatherViewModel;
     /**
      * Standard onCreate method for when the fragment is first accessed.
@@ -98,7 +103,8 @@ public class FragmentWeatherMap extends Fragment implements OnMapReadyCallback, 
 
     /**
      * When the map is ready sets the location of the camera above
-     * the user.
+     * the user initially then updates based on user interactions
+     * with the Map
      *
      * @param googleMap The map being viewed.
      */

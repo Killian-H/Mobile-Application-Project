@@ -57,6 +57,7 @@ public class MainActivity extends ColorActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            updateDataFromViewModel();
             NavController nc =
                     Navigation.findNavController(
                             MainActivity.this, R.id.nav_host_fragment);
@@ -221,9 +222,18 @@ public class MainActivity extends ColorActivity {
         }
         IntentFilter iMessage = new IntentFilter(PushReceiver.RECEIVED_NEW_MESSAGE);
         IntentFilter iContact = new IntentFilter(PushReceiver.RECEIVED_NEW_CONTACT);
+
         registerReceiver(mPushMessageReceiver, iMessage);
         registerReceiver(mPushMessageReceiver, iContact);
 
+    }
+    public void updateDataFromViewModel(){
+        ViewModelProvider provider = new ViewModelProvider(this);
+        UserInfoViewModel mUserModel = provider.get(UserInfoViewModel.class);
+        ContactsViewModel mContactModel = provider.get(ContactsViewModel.class);
+        ChatListViewModel mChatListModel = provider.get(ChatListViewModel.class);
+        mContactModel.connectGet(mUserModel.getmJwt());
+        mChatListModel.connectGet(mUserModel.getmJwt());
     }
 
 

@@ -22,18 +22,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Stack;
-import java.util.function.IntFunction;
 
-import edu.uw.tcss450.group7.chatapp.databinding.FragmentPasswordBinding;
 import edu.uw.tcss450.group7.chatapp.io.RequestQueueSingleton;
 
 /**
@@ -48,13 +42,14 @@ public class SignInViewModel extends AndroidViewModel {
     /* Response from the server. */
     private MutableLiveData<JSONObject> mResponse;
 
+    /* Response from the passwordreset endpoint. */
     private MutableLiveData<Boolean> mResponsePass;
 
+    /* Response from the email endpoint. */
     private MutableLiveData<Boolean> mResponsePass2;
 
+    /* Response from the verifycode endpoint. */
     private MutableLiveData<Boolean> mResponsePass3;
-
-    private FragmentPasswordBinding mPassBinding;
 
     /**
      * Overloaded constructor calling its parent. Initializes
@@ -87,6 +82,13 @@ public class SignInViewModel extends AndroidViewModel {
         mResponse.observe(owner, observer);
     }
 
+    /**
+     * Takes note of the response from the server when the user attempts to
+     * verify their email exists.
+     *
+     * @param owner The current life cycle of the provider.
+     * @param observer Response from the server.
+     */
     public void addResponsePassObserver(@NonNull LifecycleOwner owner,
                                     @NonNull Observer<Boolean> observer) {
         mResponsePass.observe(owner, observer);
@@ -94,6 +96,13 @@ public class SignInViewModel extends AndroidViewModel {
         mResponsePass2.observe(owner, (Observer<? super Boolean>) observer);
     }
 
+    /**
+     * Takes note of the response from the server when the user attempts to
+     * verify the code they entered.
+     *
+     * @param owner The current life cycle of the provider.
+     * @param observer Response from the server.
+     */
     public void addResponsePassObserver3(@NonNull LifecycleOwner owner,
                                         @NonNull Observer<Boolean> observer) {
         mResponsePass3.observe(owner, (Observer<? super Boolean>) observer);
@@ -167,6 +176,12 @@ public class SignInViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
+    /**
+     * This method connects the front end of password reset with the back-end
+     * of the server. Checks to see whether the email entered by the user exists.
+     *
+     * @param email The email provided by the user.
+     */
     public void connectForgetPass(final String email) {
         JSONObject body = new JSONObject();
         try {
@@ -213,6 +228,15 @@ public class SignInViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
+    /**
+     * Once the user has validated their email they can reset their password.
+     * This method connects to the database and sets the user's password to
+     * the new password they provided.
+     *
+     * @param code The code provided by the user.
+     * @param email The email provided by the user.
+     * @param newPwd The new password provided by the user.
+     */
     public void connectResetPass(final String code, final String email, final String newPwd) {
         JSONObject body = new JSONObject();
         try {
@@ -260,19 +284,23 @@ public class SignInViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
-
+    /**
+     * Returns the response from the server when the user attempts to
+     * log into the app.
+     *
+     * @return The response from the server.
+     */
     public boolean getResponsePass() {
         return mResponsePass.getValue();
     }
 
-    public boolean getResponsePass2() {
-        return mResponsePass2.getValue();
-    }
-
-    public boolean getResponsePass3() {
-        return mResponsePass3.getValue();
-    }
-
+    /**
+     * Verifies whether the code provided by the user matches the code
+     * sent from the server.
+     *
+     * @param email The email provided by the user.
+     * @param code The code provided by the user.
+     */
     public void connectCheckCode(final String email, final String code) {
         JSONObject body = new JSONObject();
         try {
@@ -310,6 +338,13 @@ public class SignInViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
+    /**
+     * Checks to see whether the response from the server contains
+     * "success" or not. This determines whether the code from the user
+     * was correct.
+     *
+     * @param result Result of the query to the server.
+     */
     private void handleCreateResult(final JSONObject result) {
         try {
             JSONObject root = result;

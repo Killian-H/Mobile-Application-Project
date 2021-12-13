@@ -169,6 +169,9 @@ public class PasswordFragment extends Fragment {
                 .show();
     }
 
+    /**
+     * Displays when the user enters an incorrect code.
+     */
     public void incorrectCode() {
         new MaterialAlertDialogBuilder(this.getView().getContext())
                 .setMessage("The code is incorrect, please try again.")
@@ -180,10 +183,20 @@ public class PasswordFragment extends Fragment {
                 }).show();
     }
 
+    /**
+     * Gets the email the user entered.
+     *
+     * @return The user's email.
+     */
     public String getEmail() {
         return mBinding.usernameReset.getText().toString();
     }
 
+    /**
+     * Gets the code the user entered.
+     *
+     * @return The user's code.
+     */
     public static String getCode() {
         return mCode;
     }

@@ -1,32 +1,33 @@
 package edu.uw.tcss450.group7.chatapp.ui.weather;
 
-import android.media.Image;
 import android.util.Log;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Main collection of weather objects, the complete Json response put into object form
+ * @version: 12/12/2021
+ * @author Aaron Purslow
+ * Commented by: Aaron Purslow
+ */
 public class Weather_Main {
+    //timezone description
     private String myTimezone;
+    //latitude requested
     private Double myLatitude;
+    //longitude requested
     private Double myLongitude;
+    //Current weather section
     private Weather_Current myCurrentWeather;
+    //Hourly forecast section
     private Weather_Hourly myHourlyForecast;
+    //7day forecast section
     private Weather_7Day my7DayForecast;
 
+    /**
+     * Main receiver for the Json response sends Json objects to appropriate weather objects to be created and stored back here.
+     * @param theJson the main json response
+     */
     Weather_Main(JSONObject theJson){
         try {
             myLatitude = theJson.getDouble("lat");
@@ -42,26 +43,45 @@ public class Weather_Main {
         }
 
     }
+
+    /**
+     * @return timezone
+     */
     public String getMyTimezone() {
         return myTimezone;
     }
 
+    /**
+     * @return latitude
+     */
     public Double getMyLatitude() {
         return myLatitude;
     }
 
+    /**
+     * @return longitude
+     */
     public Double getMyLongitude() {
         return myLongitude;
     }
 
+    /**
+     * @return current weather object
+     */
     public Weather_Current getMyCurrentWeather() {
         return myCurrentWeather;
     }
 
+    /**
+     * @return hourly weather object
+     */
     public Weather_Hourly getMyHourlyForecast() {
         return myHourlyForecast;
     }
 
+    /**
+     * @return 7 day weather object
+     */
     public Weather_7Day getMy7DayForecast() {
         return my7DayForecast;
     }

@@ -13,12 +13,22 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.ActivityMapsBinding;
-
+/**
+ * Main Map activity
+ * @version: 12/12/2021
+ * @author Killian Hickey
+ * Commented by: Aaron Purslow
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
+    //Google map to be initialized
     private GoogleMap mMap;
+
     private ActivityMapsBinding binding;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

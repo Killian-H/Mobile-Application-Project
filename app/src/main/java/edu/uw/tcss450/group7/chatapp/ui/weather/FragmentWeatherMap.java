@@ -21,13 +21,18 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import edu.uw.tcss450.group7.chatapp.R;
 import edu.uw.tcss450.group7.chatapp.databinding.FragmentWeatherMapBinding;
 
+/**
+ * fragment for the Weather map
+ * @version: 12/12/2021
+ * @author Aaron Purslow
+ * @author Killian Hickey
+ * Commented by: Aaron Purslow
+ */
 public class FragmentWeatherMap extends Fragment implements OnMapReadyCallback, GoogleMap.OnMapClickListener{
-
-    private LocationViewModel mModel;
-
+    //google map to be initialized
     private GoogleMap mMap;
-
-    private Fragment_weatherViewModel weatherView;
+    //view model for Fragment_weather to update Fragment_weather data based on map interactions
+    private Fragment_weatherViewModel mWeatherViewModel;
     /**
      * Standard onCreate method for when the fragment is first accessed.
      *
@@ -36,7 +41,7 @@ public class FragmentWeatherMap extends Fragment implements OnMapReadyCallback, 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        weatherView = new ViewModelProvider(getActivity()).get(Fragment_weatherViewModel.class);
+        mWeatherViewModel = new ViewModelProvider(getActivity()).get(Fragment_weatherViewModel.class);
 
     }
 
@@ -93,15 +98,13 @@ public class FragmentWeatherMap extends Fragment implements OnMapReadyCallback, 
                 .title("New Marker"));
 
          //mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-
-        weatherView.connect(latLng.longitude, latLng.latitude);
-
-
+        mWeatherViewModel.connect(latLng.longitude, latLng.latitude);
     }
 
     /**
      * When the map is ready sets the location of the camera above
-     * the user.
+     * the user initially then updates based on user interactions
+     * with the Map
      *
      * @param googleMap The map being viewed.
      */
@@ -123,9 +126,9 @@ public class FragmentWeatherMap extends Fragment implements OnMapReadyCallback, 
         });
 
         mMap.addMarker(new MarkerOptions()
-                .position(weatherView.getMarkerSaved())
+                .position(mWeatherViewModel.getMarkerSaved())
                 .title("New Marker"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(weatherView.getMarkerSaved(), 10.0f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mWeatherViewModel.getMarkerSaved(), 10.0f));
         mMap.setOnMapClickListener(this);
     }
 
